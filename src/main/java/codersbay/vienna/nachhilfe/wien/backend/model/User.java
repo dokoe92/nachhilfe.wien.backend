@@ -5,5 +5,5 @@ import jakarta.persistence.*;
 @MappedSuperclass
 public class User {
 
-
+    String test;
 }
