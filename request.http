@@ -30,8 +30,12 @@ POST http://localhost:8080/comment
 Content-Type: application/json
 
 {
-  "teacher": 1,
-  "student": 1,
+  "teacher": {
+    "id": 1
+  },
+  "student": {
+    "id": 1
+  },
   "title": "Test-Comment",
   "content": "Das ist ein Testkommentar",
   "date": "2023-05-23"
