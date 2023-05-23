@@ -1,0 +1,13 @@
+### Create student
+POST http://localhost:8080/student
+Content-Type: application/json
+
+{
+  "firstName": "Dominik",
+  "lastName": "Köberl",
+  "email": "dominik@koeberl.at",
+  "password": "1234",
+  "birthdate": "1992-07-28",
+  "imageBase64": "abcdef1234"
+}
+
