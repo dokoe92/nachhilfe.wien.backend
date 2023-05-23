@@ -16,11 +16,11 @@ public class Teacher extends User {
     private String description;
 
     @Getter
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private List<Comment> comments;
 
     @Getter
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
     private List<Rating> rating;
 
     @ManyToMany

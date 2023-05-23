@@ -14,12 +14,12 @@ public class Comment {
 
     @Getter
     @ManyToOne
-    @JoinColumn(name="teacher")
+    @JoinColumn(name="teacher_id")
     private Teacher teacher;
 
     @Getter
     @ManyToOne
-    @JoinColumn(name="student")
+    @JoinColumn(name="student_id")
     private Student student;
 
     @Getter
