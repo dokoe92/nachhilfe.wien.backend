@@ -10,13 +10,11 @@ import java.beans.Transient;
 @Component
 public class StudentService {
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
     }
-
-    public void
 
     @Transactional
     public void createStudent(Student student) {

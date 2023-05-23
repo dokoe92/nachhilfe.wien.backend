@@ -1,13 +1,11 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.MappedSuperclass;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Set;
 
 @MappedSuperclass
 public  class User {
@@ -29,6 +27,9 @@ public  class User {
     @Getter
     @Setter
     private LocalDate birthdate;
+
+
+
     @Getter
     @Setter
     private String imageBase64;

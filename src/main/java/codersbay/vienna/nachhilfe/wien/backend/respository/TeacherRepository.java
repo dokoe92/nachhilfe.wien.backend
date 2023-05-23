@@ -1,30 +1,24 @@
 package codersbay.vienna.nachhilfe.wien.backend.respository;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Comment;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
+import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import jakarta.persistence.EntityManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.List;
-
 @Repository
-public class StudentRepository {
+public class TeacherRepository {
 
     private final EntityManager entityManager;
 
-    public StudentRepository(EntityManager entityManager) {
+    public TeacherRepository(EntityManager entityManager) {
         this.entityManager = entityManager;
     }
 
 
-    public void createStudent(Student student) {
-        entityManager.persist(student);
+    public void createTeacher(Teacher teacher) {
+        entityManager.persist(teacher);
     }
-
-
-
-
 }

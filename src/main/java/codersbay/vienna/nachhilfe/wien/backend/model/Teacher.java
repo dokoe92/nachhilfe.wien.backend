@@ -1,12 +1,30 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Teacher extends User {
-    String description;
+    @Getter
+    @Setter
+    private String description;
+
+    @Getter
+    @OneToMany(mappedBy = "teacher")
+    private List<Comment> comments;
+
+    @Getter
+    @OneToMany(mappedBy = "teacher")
+    private List<Rating> rating;
+
+    @ManyToMany
+    private Set<Offer> offers;
 
     public Teacher() {};
 
