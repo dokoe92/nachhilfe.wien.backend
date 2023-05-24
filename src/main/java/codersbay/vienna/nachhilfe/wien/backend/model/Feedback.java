@@ -7,32 +7,33 @@ import lombok.Setter;
 import java.time.LocalDate;
 
 @Entity
-public class Comment {
+public class Feedback {
+    @Getter
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @Getter
     @ManyToOne
-    @JoinColumn(name="teacher_id")
+    @JoinColumn(name="fk_teacher_id")
     private Teacher teacher;
 
     @Getter
     @ManyToOne
-    @JoinColumn(name="student_id")
+    @JoinColumn(name="fk_student_id")
     private Student student;
 
     @Getter
     @Setter
-    String title;
+    private String content;
 
     @Getter
     @Setter
-    String content;
+    private Integer rating;
 
     @Getter
     @Setter
-    LocalDate date;
+    private LocalDate date;
 
 
 

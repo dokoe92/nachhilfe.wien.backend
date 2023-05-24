@@ -1,35 +1,19 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import jakarta.persistence.*;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 @Entity
+@DiscriminatorValue("teacher")
+@NoArgsConstructor
 public class Teacher extends User {
     @Getter
     @Setter
     private String description;
 
-    @Getter
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-    private List<Comment> comments;
 
-    @Getter
-    @OneToMany(mappedBy = "teacher", cascade = CascadeType.ALL)
-    private List<Rating> rating;
 
-    @ManyToMany
-    private Set<Offer> offers;
-
-    public Teacher() {};
-
-    public Teacher(String firstName, String lastName, String email, String password, LocalDate birthdate, String imageBase64, String description) {
-        super(firstName, lastName, email, password, birthdate, imageBase64);
-        this.description = description;
-    }
 }

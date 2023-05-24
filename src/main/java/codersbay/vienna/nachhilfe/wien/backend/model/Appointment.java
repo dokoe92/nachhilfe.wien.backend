@@ -5,8 +5,6 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Appointment {
-
-
     @Id
     private Long id;
 

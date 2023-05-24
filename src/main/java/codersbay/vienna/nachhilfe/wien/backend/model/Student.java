@@ -1,28 +1,21 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@DiscriminatorValue("student")
+@NoArgsConstructor
 public class Student extends User {
 
     @Getter
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<Comment> comments;
-
-    @Getter
-    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
-    private List<Rating> rating;
-
-    public Student() {};
-    public Student(String firstName, String lastName, String email, String password, LocalDate birthdate, String imageBase64) {
-        super(firstName, lastName, email, password, birthdate, imageBase64);
-    }
+    @OneToMany(mappedBy = "student")
+    private Set<Feedback> feedback = new HashSet<>();
 
 }

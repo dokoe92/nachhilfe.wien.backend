@@ -5,43 +5,47 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
-@MappedSuperclass
-public  class User {
+@Entity
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="user_type", discriminatorType = DiscriminatorType.STRING)
+@Table(name = "APPLICATION_USER")
+public abstract class User {
     @Id
+    @Getter
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
     @Getter
     @Setter
+    @Column(name="first_name", length=255)
     private String firstName;
+
     @Getter
     @Setter
+    @Column(name="last_name", length=255)
     private String lastName;
+
     @Getter
     @Setter
-    private String email;
-    @Getter
-    @Setter
-    private String password;
-    @Getter
-    @Setter
+    @Column(name="birthdate")
     private LocalDate birthdate;
 
-
-
     @Getter
-    @Setter
-    private String imageBase64;
+    @OneToOne
+    private Profile profile;
+
+    @OneToMany
+    private Set<Coaching> coachings;
+
+    @OneToMany(mappedBy = "sender")
+    private Set<Message> sentMessages = new HashSet<>();
+
+    @OneToMany(mappedBy = "receiver")
+    private Set<Message> receivedMessages = new HashSet<>();
 
     public User() {};
 
-    public User(String firstName, String lastName, String email, String password, LocalDate birthdate, String imageBase64) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.birthdate = birthdate;
-        this.imageBase64 = imageBase64;
-    }
 }

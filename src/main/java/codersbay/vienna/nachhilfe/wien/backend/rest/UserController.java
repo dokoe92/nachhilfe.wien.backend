@@ -1,4 +1,4 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
-public class DistrictController {
+public class UserController {
 }
