@@ -11,11 +11,12 @@ import java.util.Set;
 
 @Entity
 @DiscriminatorValue("student")
-@NoArgsConstructor
+@Getter
 public class Student extends User {
 
-    @Getter
     @OneToMany(mappedBy = "student")
     private Set<Feedback> feedback = new HashSet<>();
 
+    @OneToMany(mappedBy = "student")
+    private Set<Coaching> coachings = new HashSet<>();
 }

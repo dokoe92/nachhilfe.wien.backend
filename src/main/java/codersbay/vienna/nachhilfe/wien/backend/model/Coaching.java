@@ -1,35 +1,52 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 
 @Entity
 @Table(name = "COACHING")
+@Getter
 public class Coaching {
-    @Getter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
     @Setter
+    @Column(name = "subject")
     private String subject;
 
-    @Getter
     @Setter
+    @Column(name="level")
     private String level;
 
-    @Getter
     @Setter
+    @Column(name = "rate")
     private Double rate;
 
-    @Getter
     @Setter
+    @Column(name="active")
     private boolean active;
+
+    @OneToMany(mappedBy = "coaching")
+    Set<Appointment> appointments = new HashSet<>();
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_teacher_id")
+    private Student student;
+
+    @ManyToOne (fetch = FetchType.LAZY)
+    @JoinColumn(name="fk_student_id")
+    private Teacher teacher;
+
+    @ElementCollection(targetClass = District.class)
+    @JoinColumn(name = "collection_districts")
+    @Enumerated(EnumType.STRING)
+    private Set<District> disctricts;
+
+
 }

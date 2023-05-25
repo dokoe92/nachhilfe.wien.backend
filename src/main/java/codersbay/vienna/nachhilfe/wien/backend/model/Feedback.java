@@ -2,43 +2,37 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Entity
+@Getter
 public class Feedback {
-    @Getter
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @Getter
     @ManyToOne
     @JoinColumn(name="fk_teacher_id")
     private Teacher teacher;
 
-    @Getter
     @ManyToOne
     @JoinColumn(name="fk_student_id")
     private Student student;
 
-    @Getter
     @Setter
+    @Column(name = "content")
     private String content;
 
-    @Getter
     @Setter
+    @Column(name="rating")
     private Integer rating;
 
-    @Getter
     @Setter
+    @Column(name = "date")
     private LocalDate date;
-
-
-
-
-
 
 
 }
