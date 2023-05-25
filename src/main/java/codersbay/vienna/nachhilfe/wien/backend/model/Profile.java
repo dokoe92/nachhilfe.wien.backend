@@ -1,9 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,11 +10,12 @@ import lombok.Setter;
 public class Profile {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Setter
     @Column(name="username")
-    private String username;
+    private String userName;
 
     @Setter
     @Column(name="password")

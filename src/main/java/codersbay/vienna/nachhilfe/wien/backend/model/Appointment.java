@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 public class Appointment {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "start_coaching")
