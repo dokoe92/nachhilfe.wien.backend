@@ -30,6 +30,7 @@ public abstract class User {
     @Column(name="birthdate")
     private LocalDate birthdate;
 
+    @Setter
     @OneToOne
     private Profile profile;
 

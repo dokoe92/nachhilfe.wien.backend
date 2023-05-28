@@ -2,11 +2,13 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name="profile")
 @Getter
+@NoArgsConstructor
 public class Profile {
 
     @Id
@@ -14,7 +16,7 @@ public class Profile {
     private Long id;
 
     @Setter
-    @Column(name="username")
+    @Column(name="user_name")
     private String userName;
 
     @Setter
@@ -40,4 +42,11 @@ public class Profile {
     @Setter
     @Column(name="average_rating")
     private Integer averageRatingScore;
+
+    public Profile(String userName, String password, String email, String description) {
+        this.userName = userName;
+        this.password = password;
+        this.email = email;
+        this.description = description;
+    }
 }
