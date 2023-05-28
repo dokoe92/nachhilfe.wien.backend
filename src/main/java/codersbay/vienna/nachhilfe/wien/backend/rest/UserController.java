@@ -1,6 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.DTO.StudentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.DTO.TeacherDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.TeacherMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
@@ -21,11 +23,12 @@ public class UserController {
 
     private final UserService userService;
     private final TeacherMapper teacherMapper;
+    private final StudentMapper studentMapper;
 
 
     @PostMapping("/createStudent")
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
-        userService.createStudent(student);
+    public ResponseEntity<Student> createStudent(@RequestBody StudentDTO studentDTO) {
+        Student student = userService.createStudentWithProfile(studentMapper.toEntity(studentDTO));
         return new ResponseEntity<>(student, HttpStatus.CREATED);
     }
 

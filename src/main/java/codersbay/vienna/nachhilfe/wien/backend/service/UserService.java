@@ -30,6 +30,14 @@ public class UserService {
         return teacher;
     }
 
+    public Student createStudentWithProfile(Student student) {
+        Profile profile = student.getProfile();
+        profileRepository.save(profile);
+        student.setProfile(profile);
+        userRepository.save(student);
+        return student;
+    }
+
 
     public void createStudent(Student student) {
         userRepository.save(student);

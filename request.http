@@ -1,29 +1,3 @@
-### Create Profile
-POST http://localhost:8080/user/createProfile
-Content-Type: application/json
-
-{
-  "userName": "dokoe92",
-  "password": "1234",
-  "email": "dokoe92@gmail.com",
-  "description": "looking for some math coaching"
-}
-
-
-### Create Student
-POST http://localhost:8080/user/createStudent
-Content-Type: application/json
-
-{
-  "firstName": "Dominik",
-  "lastName": "Köberl"
-}
-
-### Connect Profile with User
-PUT http://localhost:8080/user/connect/3/1
-Content-Type: application/json
-
-
 ### Create teacher
 POST http://localhost:8080/user/createTeacher
 Content-Type: application/json
@@ -38,6 +12,22 @@ Content-Type: application/json
     "email": "hans@wurst.at",
     "active": true,
     "description": "hasdlft"
+  }
+}
+
+### Create Student
+POST http://localhost:8080/user/createStudent
+Content-Type: application/json
+
+{
+  "firstName": "Schüler'",
+  "lastName": "Hansi",
+  "birthdate": "1992-04-25",
+  "profile": {
+    "userName": "hansl",
+    "password": "12345",
+    "email": "hans@hansi.at",
+    "active": true
   }
 }
 
