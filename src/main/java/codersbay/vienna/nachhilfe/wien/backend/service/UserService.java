@@ -1,5 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.DTO.TeacherDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.TeacherMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
@@ -18,37 +20,25 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
+    private final TeacherMapper teacherMapper;
 
-    public void createProfile(Profile profile) {
+    public Teacher createTeacherWithProfile(Teacher teacher) {
+        Profile profile = teacher.getProfile();
         profileRepository.save(profile);
+        teacher.setProfile(profile);
+        userRepository.save(teacher);
+        return teacher;
     }
+
 
     public void createStudent(Student student) {
         userRepository.save(student);
     }
 
-    public void createTeacher(Teacher teacher) {
-        userRepository.save(teacher);
-    }
 
     public Optional<User> findById(Long studentId) {
         return userRepository.findById(studentId);
     }
-
-    public void connectProfileWithUser(Long userId, Long profileId) {
-        User student = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Student Id not found"));
-        Profile profile = profileRepository.findById(profileId).orElseThrow(() -> new IllegalArgumentException("Profile Id not found"));
-
-        student.setProfile(profile);
-
-        userRepository.save(student);
-    }
-
-
-
-
-
-
 
 
 
