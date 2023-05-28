@@ -13,7 +13,7 @@ public class TeacherService {
 
     private final TeacherRepository teacherRepository;
 
-    public List<Teacher> findAllteachers() {
+    public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
     }
 }

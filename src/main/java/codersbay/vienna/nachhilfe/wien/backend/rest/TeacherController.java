@@ -19,7 +19,7 @@ public class TeacherController {
 
     @GetMapping
     public ResponseEntity<List<Teacher>> findAllTeachers() {
-        List<Teacher> teacherList = teacherService.findAllteachers();
+        List<Teacher> teacherList = teacherService.findAllTeachers();
         return new ResponseEntity<>(teacherList, HttpStatus.OK);
     }
 }

@@ -1,5 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.DTO.TeacherDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.TeacherMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
@@ -18,12 +20,9 @@ import java.util.Optional;
 public class UserController {
 
     private final UserService userService;
+    private final TeacherMapper teacherMapper;
 
-    @PostMapping("/createProfile")
-    public ResponseEntity<Profile> createProfile(@RequestBody Profile profile) {
-        userService.createProfile(profile);
-        return new ResponseEntity<>(profile, HttpStatus.CREATED);
-    }
+
     @PostMapping("/createStudent")
     public ResponseEntity<Student> createStudent(@RequestBody Student student) {
         userService.createStudent(student);
@@ -31,16 +30,9 @@ public class UserController {
     }
 
     @PostMapping("/createTeacher")
-    public ResponseEntity<Teacher> createStudent(@RequestBody Teacher teacher) {
-        userService.createTeacher(teacher);
+    public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDTO teacherDTO) {
+        Teacher teacher = userService.createTeacherWithProfile(teacherMapper.toEntity(teacherDTO));
         return new ResponseEntity<>(teacher, HttpStatus.CREATED);
-    }
-
-    @PutMapping("/connect/{userId}/{profileId}")
-    public ResponseEntity<Optional<User>> connectProfileWithUser(@PathVariable Long userId, @PathVariable Long profileId) {
-        userService.connectProfileWithUser(userId, profileId);
-        Optional<User> student = userService.findById(userId);
-        return new ResponseEntity<>(student, HttpStatus.OK);
     }
 
 
