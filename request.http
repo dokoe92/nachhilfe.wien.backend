@@ -38,19 +38,6 @@ Content-Type: application/json
   "description": "hasdlft"
 }
 
-### Create Comment
-POST http://localhost:8080/comment
-Content-Type: application/json
-
-{
-  "teacher": {
-    "id": 1
-  },
-  "student": {
-    "id": 1
-  },
-  "title": "Test-Comment",
-  "content": "Das ist ein Testkommentar",
-  "date": "2023-05-23"
-}
+### Find all Teachers
+GET http://localhost:8080/teacher
 
