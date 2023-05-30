@@ -5,5 +5,9 @@ import lombok.Getter;
 
 @Getter
 @DiscriminatorValue(value = "admin")
-public class Admin {
+public class Admin extends User{
+
+    public Admin() {
+        super(UserType.ADMIN);
+    }
 }

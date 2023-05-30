@@ -16,15 +16,15 @@ public class Profile {
     private Long id;
 
     @Setter
-    @Column(name="user_name")
+    @Column(name="user_name", nullable = false)
     private String userName;
 
     @Setter
-    @Column(name="password")
+    @Column(name="password", nullable = false)
     private String password;
 
     @Setter
-    @Column(name="email")
+    @Column(name="email", nullable = false)
     private String email;
 
     @Setter
@@ -36,7 +36,7 @@ public class Profile {
     private String description;
 
     @Setter
-    @Column(name="active")
+    @Column(name="active", nullable = false)
     private boolean active;
 
     @Setter

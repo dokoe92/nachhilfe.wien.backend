@@ -25,9 +25,12 @@ public class Feedback {
     private Student student;
 
     @Setter
-    @Column(name = "content")
-    @Lob
+    @Column(name = "content", length=5000)
     private String content;
+
+    @Setter
+    @Column(name= "title")
+    private String title;
 
     @Setter
     @Column(name="rating")

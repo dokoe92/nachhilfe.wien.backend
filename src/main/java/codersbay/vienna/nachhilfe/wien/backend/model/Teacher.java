@@ -13,6 +13,10 @@ import java.util.Set;
 @Getter
 public class Teacher extends User {
 
+    public Teacher() {
+        super(UserType.TEACHER);
+    }
+
     @OneToMany(mappedBy = "teacher")
     private Set<Feedback> feedback = new HashSet<>();
 

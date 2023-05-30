@@ -21,7 +21,7 @@ public class Coaching {
     @Setter
     @Column(name = "subject")
     @Enumerated(EnumType.STRING)
-    private String subject;
+    private Subject subject;
 
     @Setter
     @Column(name="level")
@@ -43,7 +43,8 @@ public class Coaching {
     private User user;
 
     @ElementCollection(targetClass = District.class)
-    @JoinColumn(name = "collection_districts")
+    @CollectionTable(name = "district",
+            joinColumns = @JoinColumn(name = "coaching_id"))
     @Enumerated(EnumType.STRING)
     private Set<District> disctricts;
 
