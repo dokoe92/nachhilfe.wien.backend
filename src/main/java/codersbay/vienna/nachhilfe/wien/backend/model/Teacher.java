@@ -16,7 +16,4 @@ public class Teacher extends User {
     @Column(name="description")
     private String description;
 
-    @OneToMany(mappedBy = "teacher")
-    private Set<Coaching> coachings;
-
 }

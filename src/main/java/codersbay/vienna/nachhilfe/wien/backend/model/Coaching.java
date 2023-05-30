@@ -36,12 +36,8 @@ public class Coaching {
     Set<Appointment> appointments = new HashSet<>();
 
     @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name = "fk_teacher_id")
-    private Student student;
-
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name="fk_student_id")
-    private Teacher teacher;
+    @JoinColumn(name="fk_user_id")
+    private User user;
 
     @ElementCollection(targetClass = District.class)
     @JoinColumn(name = "collection_districts")

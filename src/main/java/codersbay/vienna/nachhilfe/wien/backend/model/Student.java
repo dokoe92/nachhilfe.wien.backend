@@ -19,8 +19,6 @@ public class Student extends User {
     @OneToMany(mappedBy = "student")
     private Set<Feedback> feedback = new HashSet<>();
 
-    @OneToMany(mappedBy = "student")
-    private Set<Coaching> coachings = new HashSet<>();
 
     public Student(String firstName, String lastName) {
         super(firstName, lastName);

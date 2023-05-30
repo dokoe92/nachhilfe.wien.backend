@@ -40,6 +40,9 @@ public abstract class User {
     @OneToMany(mappedBy = "receiver")
     private Set<Message> receivedMessages = new HashSet<>();
 
+    @OneToMany(mappedBy = "user")
+    private Set<Coaching> coachings = new HashSet<>();
+
     public User() {};
 
     public User(String firstName, String lastName) {
