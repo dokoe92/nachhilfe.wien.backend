@@ -43,10 +43,5 @@ public class Profile {
     @Column(name="average_rating")
     private Integer averageRatingScore;
 
-    public Profile(String userName, String password, String email, String description) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.description = description;
-    }
+
 }

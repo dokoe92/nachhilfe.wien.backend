@@ -5,15 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("teacher")
+@DiscriminatorValue(value = "teacher")
 @Getter
 public class Teacher extends User {
 
-    @Setter
-    @Column(name="description")
-    private String description;
+    @OneToMany(mappedBy = "teacher")
+    private Set<Feedback> feedback = new HashSet<>();
 
 }

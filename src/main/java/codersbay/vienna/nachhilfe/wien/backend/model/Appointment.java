@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Table(name="appointment")
 public class Appointment {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,7 +24,7 @@ public class Appointment {
     @JoinColumn(name="fk_coaching_id")
     private Coaching coaching;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name="fk_message_id")
     private Message message;
 

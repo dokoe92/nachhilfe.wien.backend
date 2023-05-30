@@ -2,12 +2,14 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "message_content")
 @Getter
+@NoArgsConstructor
 public class MessageContent {
 
     @Id
@@ -21,7 +23,7 @@ public class MessageContent {
     private LocalDate date;
 
     @OneToOne
-    @JoinColumn(name = "parent_message_content")
+    @JoinColumn(name = "fk_parent_message_content")
     private MessageContent parentMessageContent;
 
     @ManyToOne(fetch = FetchType.LAZY)

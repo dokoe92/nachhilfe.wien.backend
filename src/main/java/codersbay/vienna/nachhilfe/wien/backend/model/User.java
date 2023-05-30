@@ -2,6 +2,7 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
@@ -11,6 +12,7 @@ import java.util.Set;
 @Entity
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="user_type", discriminatorType = DiscriminatorType.STRING)
+@NoArgsConstructor
 @Table(name = "application_user")
 @Getter
 public abstract class User {
@@ -42,8 +44,6 @@ public abstract class User {
 
     @OneToMany(mappedBy = "user")
     private Set<Coaching> coachings = new HashSet<>();
-
-    public User() {};
 
     public User(String firstName, String lastName) {
         this.firstName = firstName;
