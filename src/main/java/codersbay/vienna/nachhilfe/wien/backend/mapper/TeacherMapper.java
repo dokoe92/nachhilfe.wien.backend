@@ -19,7 +19,7 @@ public class TeacherMapper {
         Teacher teacher = new Teacher();
         teacher.setFirstName(teacherDTO.getFirstName());
         teacher.setLastName(teacherDTO.getLastName());
-        teacher.setBirthdate(teacherDTO.getBirthDate());
+        teacher.setBirthdate(teacherDTO.getBirthdate());
         teacher.setDescription(teacherDTO.getDescription());
         teacher.setProfile(profileMapper.toEntity(teacherDTO.getProfile()));
 

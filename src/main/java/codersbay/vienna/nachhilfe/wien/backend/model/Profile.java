@@ -43,5 +43,8 @@ public class Profile {
     @Column(name="average_rating")
     private Integer averageRatingScore;
 
+    @OneToOne(mappedBy = "profile")
+    private User user;
+
 
 }

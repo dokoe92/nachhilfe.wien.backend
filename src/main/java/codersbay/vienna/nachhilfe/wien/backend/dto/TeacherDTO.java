@@ -13,7 +13,7 @@ import java.util.Set;
 public class TeacherDTO {
     String firstName;
     String lastName;
-    LocalDate birthDate;
+    LocalDate birthdate;
     ProfileDTO profile;
     String description;
     Set<Coaching> coachings = new HashSet<>();
