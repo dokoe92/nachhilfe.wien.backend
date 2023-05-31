@@ -1,6 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper;
 
-import codersbay.vienna.nachhilfe.wien.backend.DTO.StudentDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.StudentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

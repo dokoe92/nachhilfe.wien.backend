@@ -1,6 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper;
 
-import codersbay.vienna.nachhilfe.wien.backend.DTO.ProfileDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.ProfileDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import org.springframework.stereotype.Component;
 
