@@ -31,6 +31,16 @@ Content-Type: application/json
   }
 }
 
+### Get AuthToken via Email and Password of User
+POST http://localhost:8080/auth
+Content-Type: application/json
+
+{
+  "email": "hans@hansi.at",
+  "password": "12345"
+
+}
+
 ### Find all Teachers
 GET http://localhost:8080/teacher
 

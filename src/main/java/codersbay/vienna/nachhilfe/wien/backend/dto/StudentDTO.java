@@ -11,6 +11,6 @@ public class StudentDTO {
 
     String firstName;
     String lastName;
-    LocalDate birthDate;
+    LocalDate birthdate;
     ProfileDTO profile;
 }

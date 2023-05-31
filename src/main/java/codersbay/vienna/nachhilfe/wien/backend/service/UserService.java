@@ -36,15 +36,11 @@ public class UserService {
         return student;
     }
 
-
-    public void createStudent(Student student) {
-        userRepository.save(student);
-    }
-
-
     public Optional<User> findById(Long studentId) {
         return userRepository.findById(studentId);
     }
+
+
 
 
 

@@ -12,4 +12,6 @@ public class ProfileDTO {
     String description;
     Boolean active;
     Integer averageRatingScore;
+
 }
+
