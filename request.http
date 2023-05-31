@@ -36,8 +36,8 @@ POST http://localhost:8080/auth
 Content-Type: application/json
 
 {
-  "email": "hans@hansi.at",
-  "password": "12345"
+  "email": "hans@wurst.at",
+  "password": "1234"
 
 }
 

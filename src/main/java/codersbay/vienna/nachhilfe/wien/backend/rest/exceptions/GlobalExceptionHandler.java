@@ -11,7 +11,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = ProfileNotFoundException.class)
     public ResponseEntity<RestError> handleProfileNotFoundException(ProfileNotFoundException ex) {
-        RestError restError = new RestError(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
-        return new ResponseEntity<>(restError, HttpStatus.BAD_REQUEST);
+        RestError restError = new RestError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
+        return new ResponseEntity<>(restError, HttpStatus.NOT_FOUND);
     }
 }
