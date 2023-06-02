@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -44,6 +45,7 @@ public class Profile {
     private Integer averageRatingScore;
 
     @OneToOne(mappedBy = "profile")
+    @JsonBackReference
     private User user;
 
 

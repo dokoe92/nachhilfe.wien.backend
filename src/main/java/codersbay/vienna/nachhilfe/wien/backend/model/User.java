@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -47,6 +48,7 @@ public abstract class User {
     @Setter
     @OneToOne
     @JoinColumn(name="fk_profile_id", nullable = false)
+    @JsonManagedReference
     private Profile profile;
 
     @OneToMany(mappedBy = "sender")

@@ -48,5 +48,4 @@ public class Coaching {
     @Enumerated(EnumType.STRING)
     private Set<District> disctricts;
 
-
 }
