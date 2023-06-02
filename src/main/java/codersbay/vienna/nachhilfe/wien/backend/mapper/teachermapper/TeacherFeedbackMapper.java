@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class TeacherFeedbackMapper {
 
-    private final ProfileMapper profileMapper;
-
     public TeacherFeedbackDTO toDTO(Teacher teacher) {
         TeacherFeedbackDTO dto = new TeacherFeedbackDTO();
         dto.setActive(teacher.getProfile().isActive());

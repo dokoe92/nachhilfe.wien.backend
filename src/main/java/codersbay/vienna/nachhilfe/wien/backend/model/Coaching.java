@@ -1,11 +1,17 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerator;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -13,6 +19,7 @@ import java.util.Set;
 @Table(name = "coaching")
 @Getter
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Coaching {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,12 +47,15 @@ public class Coaching {
 
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name="fk_user_id")
+    @Setter
     private User user;
+
 
     @ElementCollection(targetClass = District.class)
     @CollectionTable(name = "district",
             joinColumns = @JoinColumn(name = "coaching_id"))
     @Enumerated(EnumType.STRING)
     private Set<District> disctricts;
+
 
 }

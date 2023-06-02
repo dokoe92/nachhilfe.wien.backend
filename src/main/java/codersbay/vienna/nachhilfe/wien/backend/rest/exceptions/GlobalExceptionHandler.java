@@ -21,4 +21,10 @@ public class GlobalExceptionHandler {
         RestError restError = new RestError(ex.getMessage(), HttpStatus.NOT_FOUND.value());
         return new ResponseEntity<>(restError, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(value = DuplicateCoachingException.class)
+    public ResponseEntity<RestError> handleDuplicateCoachingException (DuplicateCoachingException ex) {
+        RestError restError = new RestError(ex.getMessage(), HttpStatus.CONFLICT.value());
+        return new ResponseEntity<>(restError, HttpStatus.CONFLICT);
+    }
 }

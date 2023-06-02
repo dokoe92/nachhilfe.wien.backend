@@ -4,10 +4,9 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.StudentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.service.CoachingService;
 import codersbay.vienna.nachhilfe.wien.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +23,7 @@ public class UserController {
     private final UserService userService;
     private final TeacherMapper teacherMapper;
     private final StudentMapper studentMapper;
+    private final CoachingService coachingService;
 
 
     @PostMapping("/createStudent")
@@ -46,6 +46,12 @@ public class UserController {
         } else {
             throw new UserNotFoundException("User not found");
         }
+    }
+
+    @PostMapping("/coaching/{userId}")
+    public ResponseEntity<Coaching> createCoaching(@RequestBody CoachingRequest coachingRequest, @PathVariable Long userId) {
+        Coaching coaching = coachingService.createCoaching(coachingRequest, userId);
+        return new ResponseEntity<>(coaching, HttpStatus.CREATED);
     }
 
 
