@@ -42,7 +42,7 @@ public class Profile {
 
     @Setter
     @Column(name="average_rating")
-    private Integer averageRatingScore;
+    private Double averageRatingScore;
 
     @OneToOne(mappedBy = "profile")
     @JsonBackReference
