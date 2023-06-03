@@ -14,7 +14,7 @@ import java.util.Set;
 @Setter
 public class TeacherFeedbackDTO {
 
-    Boolean active;
+    Long teacherId;
     String firstName;
     String lastName;
     String userName;

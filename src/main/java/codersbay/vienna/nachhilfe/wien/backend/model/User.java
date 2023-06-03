@@ -51,13 +51,17 @@ public abstract class User {
     @JsonManagedReference
     private Profile profile;
 
-    @OneToMany(mappedBy = "sender")
-    private Set<Message> sentMessages = new HashSet<>();
 
-    @OneToMany(mappedBy = "receiver")
-    private Set<Message> receivedMessages = new HashSet<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_conversations",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "conversation_id"))
+    private Set<Conversation> conversations = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<Coaching> coachings = new HashSet<>();
+
+
 
 }

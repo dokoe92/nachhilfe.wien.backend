@@ -12,7 +12,6 @@ public class TeacherFeedbackMapper {
 
     public TeacherFeedbackDTO toDTO(Teacher teacher) {
         TeacherFeedbackDTO dto = new TeacherFeedbackDTO();
-        dto.setActive(teacher.getProfile().isActive());
         dto.setFirstName(teacher.getFirstName());
         dto.setLastName(teacher.getLastName());
         dto.setUserName(teacher.getProfile().getUserName());

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,20 +19,21 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    private LocalDateTime timestamp;
+
     @Setter
     @Column(name = "title")
     private String title;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "sender_id")
+    @Setter
+    @Column(name="content")
+    private String content;
+
+    @ManyToOne
     private User sender;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiver_id")
-    private User receiver;
-
-    @OneToMany(mappedBy = "message")
-    private Set<MessageContent> messageContentSet = new HashSet<>();
-
+    @ManyToOne
+    @JoinColumn(name="conversation_id")
+    private Conversation conversations;
 
 }
