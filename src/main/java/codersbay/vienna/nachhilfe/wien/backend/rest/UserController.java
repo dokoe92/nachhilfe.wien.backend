@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.CoachingsDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.StudentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
@@ -47,12 +48,5 @@ public class UserController {
             throw new UserNotFoundException("User not found");
         }
     }
-
-    @PostMapping("/coaching/{userId}")
-    public ResponseEntity<Coaching> createCoaching(@RequestBody CoachingRequest coachingRequest, @PathVariable Long userId) {
-        Coaching coaching = coachingService.createCoaching(coachingRequest, userId);
-        return new ResponseEntity<>(coaching, HttpStatus.CREATED);
-    }
-
 
 }

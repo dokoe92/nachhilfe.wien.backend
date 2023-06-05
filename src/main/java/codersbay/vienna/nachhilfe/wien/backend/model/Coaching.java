@@ -51,11 +51,4 @@ public class Coaching {
     private User user;
 
 
-    @ElementCollection(targetClass = District.class)
-    @CollectionTable(name = "district",
-            joinColumns = @JoinColumn(name = "coaching_id"))
-    @Enumerated(EnumType.STRING)
-    private Set<District> disctricts;
-
-
 }

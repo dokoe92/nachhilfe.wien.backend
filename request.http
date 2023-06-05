@@ -72,3 +72,21 @@ Content-Type: application/json
   "content": "erste nachricht",
   "senderId": 1
 }
+
+### Create coaachings which are offered by a teacher
+POST http://localhost:8080/coaching/1
+Content-Type: application/json
+
+{
+  "coachings": [
+    {
+      "subject": "MATHEMATIK",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+
+  ]
+}
