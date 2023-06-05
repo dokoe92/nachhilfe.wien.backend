@@ -61,3 +61,14 @@ Content-Type: application/json
 ### Create conversation between two users
 POST http://localhost:8080/conversation/1/2
 Content-Type: application/json
+
+
+### Send a message in a conversation
+POST http://localhost:8080/message/sendMessage/1
+Content-Type: application/json
+
+{
+  "title": "Neue Nachricht",
+  "content": "erste nachricht",
+  "senderId": 1
+}

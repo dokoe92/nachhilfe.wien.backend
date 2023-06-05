@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -57,7 +58,7 @@ public abstract class User {
             name = "user_conversations",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "conversation_id"))
-    @JsonManagedReference
+    @JsonIgnore
     private Set<Conversation> conversations = new HashSet<>();
 
     @OneToMany(mappedBy = "user")

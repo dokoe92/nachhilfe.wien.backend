@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
@@ -17,6 +18,7 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @CreatedDate
     private LocalDateTime timestamp;
 
     @Setter
@@ -27,9 +29,11 @@ public class Message {
     @Column(name="content")
     private String content;
 
+    @Setter
     @ManyToOne
     private User sender;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name="conversation_id")
     private Conversation conversations;
