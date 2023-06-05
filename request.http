@@ -55,5 +55,9 @@ Content-Type: application/json
   "subject": "MATHEMATIK",
   "level": "Oberstufe",
   "rate": 20.50
-
 }
+
+
+### Create conversation between two users
+POST http://localhost:8080/conversation/1/3
+Content-Type: application/json

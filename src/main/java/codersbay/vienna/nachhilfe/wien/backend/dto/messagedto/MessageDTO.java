@@ -1,7 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.messagedto;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserDTO;
-import lombok.AllArgsConstructor;
+import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserTypeDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,7 +9,9 @@ import lombok.Setter;
 public class MessageDTO {
 
     private long messageId;
+    private Long conversationId;
     private String title;
     private String content;
-    private UserDTO sender;
+    private UserTypeDTO sender;
+
 }

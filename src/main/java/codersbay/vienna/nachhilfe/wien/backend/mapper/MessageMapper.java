@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class MessageMapper {
 
-    private final UserMapper userMapper;
+    private final UserTypeMapper userTypeMapper;
 
     public MessageDTO toDTO(Message message) {
         if (message == null) {
@@ -21,7 +21,8 @@ public class MessageMapper {
         messageDTO.setMessageId(message.getId());
         messageDTO.setTitle(message.getTitle());
         messageDTO.setContent(messageDTO.getContent());
-        messageDTO.setSender(userMapper.toDTO(message.getSender()));
+        messageDTO.setSender(userTypeMapper.toDTO(message.getSender()));
+        messageDTO.setConversationId(message.getConversations().getId());
 
         return messageDTO;
     }

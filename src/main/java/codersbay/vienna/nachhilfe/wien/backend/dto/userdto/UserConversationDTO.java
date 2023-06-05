@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
@@ -14,6 +15,6 @@ import java.util.Set;
 @Setter
 public class UserConversationDTO {
 
-    Long userId;
-    Set<ConversationDTO> conversations;
+    UserTypeDTO userTypeDTO;
+    Set<ConversationDTO> conversations = new HashSet<>();
 }

@@ -3,7 +3,9 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Table(name="conversation")
@@ -16,9 +18,11 @@ public class Conversation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
+    @Setter
     @ManyToMany(mappedBy = "conversations")
-    private Set<User> users;
+    private Set<User> users = new HashSet<>();
 
+    @Setter
     @OneToMany
-    Set<Message> messages;
+    Set<Message> messages = new HashSet<>();
 }

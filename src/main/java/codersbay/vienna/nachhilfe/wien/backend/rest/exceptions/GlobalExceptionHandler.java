@@ -27,4 +27,16 @@ public class GlobalExceptionHandler {
         RestError restError = new RestError(ex.getMessage(), HttpStatus.CONFLICT.value());
         return new ResponseEntity<>(restError, HttpStatus.CONFLICT);
     }
+
+    @ExceptionHandler(value = DuplicateIdException.class)
+    public ResponseEntity<RestError> handleDuplicateIdException(DuplicateIdException ex) {
+        RestError restError = new RestError(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(restError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = MissingIdException.class)
+    public ResponseEntity<RestError> handleMissingIdException(MissingIdException ex) {
+        RestError restError = new RestError(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(restError, HttpStatus.BAD_REQUEST);
+    }
 }
