@@ -1,5 +1,6 @@
-package codersbay.vienna.nachhilfe.wien.backend.dto;
+package codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.ProfileDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
 import lombok.Getter;
 import lombok.Setter;

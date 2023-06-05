@@ -44,3 +44,31 @@ Content-Type: application/json
 ### Find all Teachers
 GET http://localhost:8080/teacher
 
+### Find User by Id
+GET http://localhost:8080/user/1
+
+### Add coaching to user
+POST http://localhost:8080/user/coaching/1
+Content-Type: application/json
+
+{
+  "subject": "MATHEMATIK",
+  "level": "Oberstufe",
+  "rate": 20.50
+}
+
+
+### Create conversation between two users
+POST http://localhost:8080/conversation/1/2
+Content-Type: application/json
+
+
+### Send a message in a conversation
+POST http://localhost:8080/message/sendMessage/1
+Content-Type: application/json
+
+{
+  "title": "Neue Nachricht",
+  "content": "erste nachricht",
+  "senderId": 1
+}
