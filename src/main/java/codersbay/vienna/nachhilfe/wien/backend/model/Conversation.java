@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class Conversation {
 
     @Setter
     @ManyToMany(mappedBy = "conversations")
+    @JsonBackReference
     private Set<User> users = new HashSet<>();
 
     @Setter

@@ -33,7 +33,14 @@ public class ConversationService {
         }
         Conversation conversation = new Conversation();
         conversation.setUsers(users);
+
+        for (User user : users) {
+            user.getConversations().add(conversation);
+        }
+
         conversationRepository.save(conversation);
+        userRepository.saveAll(users);
+
         return conversation;
     }
 

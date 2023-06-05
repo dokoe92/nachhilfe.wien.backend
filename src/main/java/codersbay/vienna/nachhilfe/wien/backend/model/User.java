@@ -57,6 +57,7 @@ public abstract class User {
             name = "user_conversations",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "conversation_id"))
+    @JsonManagedReference
     private Set<Conversation> conversations = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
