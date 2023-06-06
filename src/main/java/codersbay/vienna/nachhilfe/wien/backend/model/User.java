@@ -52,6 +52,10 @@ public abstract class User {
     @JsonManagedReference
     private Profile profile;
 
+    @Setter
+    @OneToMany(mappedBy = "user")
+    private Set<Coaching> coachings = new HashSet<>();
+
 
     @ManyToMany
     @JoinTable(
@@ -60,11 +64,6 @@ public abstract class User {
             inverseJoinColumns = @JoinColumn(name = "conversation_id"))
     @JsonIgnore
     private Set<Conversation> conversations = new HashSet<>();
-
-    @Setter
-    @OneToMany(mappedBy = "user")
-    private Set<Coaching> coachings = new HashSet<>();
-
 
 
 }

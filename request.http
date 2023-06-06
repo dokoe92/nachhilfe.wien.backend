@@ -74,7 +74,7 @@ Content-Type: application/json
 }
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/1
+POST http://localhost:8080/coaching/2
 Content-Type: application/json
 
 {

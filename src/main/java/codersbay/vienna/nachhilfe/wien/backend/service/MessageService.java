@@ -33,9 +33,12 @@ public class MessageService {
         messages.add(message);
         conversation.get().setMessages(messages);
 
-        messageRepository.save(message);
+        Message savedMessage = messageRepository.save(message);
+        savedMessage = messageRepository.findById(savedMessage.getId()).orElseThrow(() -> new ResourceNotFoundException("Message not found!"));
         conversationRepository.save(conversation.get());
 
+
+        messageDTO.setTimeStamp(savedMessage.getTimestamp());
         messageDTO.setMessageId(message.getId());
 
         return messageDTO;

@@ -7,13 +7,17 @@ import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.message.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityListeners;
+import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
+@Table(name="message")
 public class MessageMapper {
 
     private final UserTypeMapper userTypeMapper;
