@@ -1,5 +1,5 @@
 # nachhilfe.wien.backend
-##Rest-Endpoints
+## Rest-Endpoints
 
 # /auth
 ```
@@ -22,8 +22,21 @@ Response:
   "lastName": String
 }
 
-# 
+# /user/createStudent
+```
+Content-Type: application/json
 
+{
+  "firstName": "Schüler'",
+  "lastName": "Hansi",
+  "birthdate": "1992-04-25",
+  "profile": {
+    "userName": "hansl",
+    "password": "12345",
+    "email": "hans@hansi.at",
+    "active": true
+  }
+}
 
 
 
