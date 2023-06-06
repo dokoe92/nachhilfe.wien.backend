@@ -1,9 +1,9 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Profile;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Student;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;

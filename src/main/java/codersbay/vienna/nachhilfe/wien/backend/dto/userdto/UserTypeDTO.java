@@ -1,6 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.userdto;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.UserType;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.UserType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
