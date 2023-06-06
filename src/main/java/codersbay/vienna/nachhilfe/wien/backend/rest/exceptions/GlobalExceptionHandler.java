@@ -1,7 +1,5 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest.exceptions;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

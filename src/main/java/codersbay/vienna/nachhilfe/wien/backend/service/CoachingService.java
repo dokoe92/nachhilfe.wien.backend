@@ -1,23 +1,18 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.CoachingDTO;
-import codersbay.vienna.nachhilfe.wien.backend.dto.CoachingsDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.CoachingMapper;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.CoachingsMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
-import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
+import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingsDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingsMapper;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicateCoachingException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,6 +26,15 @@ public class CoachingService {
     private final CoachingMapper coachingMapper;
     private final TeacherRepository teacherRepository;
 
+
+    /**
+     * Creates a list of coachings for a specific teacher.
+     *
+     * @param coachingsDTO the CoachingsDTO object containing the coachings to be created
+     * @param id           the ID of the teacher
+     * @return the CoachingsDTO object with the created coachings including their ids from the database
+     * @throws ResourceNotFoundException if the teacher is not found
+     */
     public CoachingsDTO createCoachings(CoachingsDTO coachingsDTO, Long id) {
         CoachingsDTO responseDTO = new CoachingsDTO();
         Set<CoachingDTO> responseCoachings = responseDTO.getCoachings();
