@@ -20,6 +20,8 @@ public class Teacher extends User {
     @OneToMany(mappedBy = "teacher")
     private Set<Feedback> feedback = new HashSet<>();
 
+    @Getter
+    @Setter
     @ElementCollection(targetClass = District.class)
     @CollectionTable(name = "district",
             joinColumns = @JoinColumn(name = "coaching_id"))
