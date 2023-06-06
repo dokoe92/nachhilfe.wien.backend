@@ -26,6 +26,9 @@ public class Teacher extends User {
     @Enumerated(EnumType.STRING)
     private Set<District> disctricts;
 
+
+
+
     public void addCoachings(Coaching coaching) {
         this.getCoachings().add(coaching);
         coaching.setUser(this);
