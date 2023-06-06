@@ -209,7 +209,24 @@ GET
 Information of specific user
 ```
 
+### /teacher/updateDistricts/{teacherId}
+```
+PUT
+Content-Type: application/json
 
+Request:
+{
+  "districts": ["DISTRICT_1010", "DISTRICT_1030"]   DISTRICT_1010 bis DISTRICT_1230 als Enum
+}
+
+Response:
+{
+  "teacherId": Long,
+  "districts": [
+    "DISTRICT_1030",
+    "DISTRICT_1010"
+  ]
+}
 
 
 
