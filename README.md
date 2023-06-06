@@ -193,6 +193,21 @@ Response:
     }
   ]
 }
+```
+
+### /teacher
+**ÜBERARBEITEN!**
+```
+GET
+Array of all Teachers
+```
+
+### /user/{userId}
+**ÜBERARBEITEN!**
+```
+GET
+Information of specific user
+```
 
 
 
