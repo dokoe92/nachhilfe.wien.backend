@@ -1,9 +1,9 @@
-package codersbay.vienna.nachhilfe.wien.backend.DTO;
+package codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.ProfileDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDate;
 import java.util.HashSet;
@@ -14,7 +14,7 @@ import java.util.Set;
 public class TeacherDTO {
     String firstName;
     String lastName;
-    LocalDate birthDate;
+    LocalDate birthdate;
     ProfileDTO profile;
     String description;
     Set<Coaching> coachings = new HashSet<>();

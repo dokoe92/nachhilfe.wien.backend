@@ -1,17 +1,15 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.DTO.TeacherDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.TeacherMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -20,7 +18,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
-    private final TeacherMapper teacherMapper;
+
 
     public Teacher createTeacherWithProfile(Teacher teacher) {
         Profile profile = teacher.getProfile();
@@ -38,17 +36,18 @@ public class UserService {
         return student;
     }
 
-
-    public void createStudent(Student student) {
-        userRepository.save(student);
+    public Optional<User> findById(Long userId) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isPresent()) {
+            return user;
+        } else {
+            throw new UserNotFoundException("User not found");
+        }
     }
 
-
-    public Optional<User> findById(Long studentId) {
-        return userRepository.findById(studentId);
+    public boolean existsById(Long userId) {
+        return userRepository.existsById(userId);
     }
-
-
 
 
 }

@@ -1,6 +1,7 @@
-package codersbay.vienna.nachhilfe.wien.backend.mapper;
+package codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper;
 
-import codersbay.vienna.nachhilfe.wien.backend.DTO.TeacherDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.ProfileMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class TeacherMapper {
         Teacher teacher = new Teacher();
         teacher.setFirstName(teacherDTO.getFirstName());
         teacher.setLastName(teacherDTO.getLastName());
-        teacher.setBirthdate(teacherDTO.getBirthDate());
+        teacher.setBirthdate(teacherDTO.getBirthdate());
         teacher.setDescription(teacherDTO.getDescription());
         teacher.setProfile(profileMapper.toEntity(teacherDTO.getProfile()));
 

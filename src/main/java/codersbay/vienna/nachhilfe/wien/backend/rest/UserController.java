@@ -1,13 +1,13 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
-import codersbay.vienna.nachhilfe.wien.backend.DTO.StudentDTO;
-import codersbay.vienna.nachhilfe.wien.backend.DTO.TeacherDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.CoachingsDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.StudentDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.TeacherMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.service.CoachingService;
 import codersbay.vienna.nachhilfe.wien.backend.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +24,7 @@ public class UserController {
     private final UserService userService;
     private final TeacherMapper teacherMapper;
     private final StudentMapper studentMapper;
+    private final CoachingService coachingService;
 
 
     @PostMapping("/createStudent")
@@ -38,5 +39,14 @@ public class UserController {
         return new ResponseEntity<>(teacher, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findUserById(@PathVariable Long id) {
+        Optional<User> user = userService.findById(id);
+        if (user.isPresent()) {
+            return new ResponseEntity<>(user.get(), HttpStatus.OK);
+        } else {
+            throw new UserNotFoundException("User not found");
+        }
+    }
 
 }

@@ -31,6 +31,69 @@ Content-Type: application/json
   }
 }
 
+### Get AuthToken via Email and Password of User
+POST http://localhost:8080/auth
+Content-Type: application/json
+
+{
+  "email": "hans@wurst.at",
+  "password": "1234"
+
+}
+
 ### Find all Teachers
 GET http://localhost:8080/teacher
 
+### Find User by Id
+GET http://localhost:8080/user/1
+
+### Add coaching to user
+POST http://localhost:8080/user/coaching/1
+Content-Type: application/json
+
+{
+  "subject": "MATHEMATIK",
+  "level": "Oberstufe",
+  "rate": 20.50
+}
+
+
+### Create conversation between two users
+POST http://localhost:8080/conversation/1/2
+Content-Type: application/json
+
+
+### Send a message in a conversation
+POST http://localhost:8080/message/sendMessage/1
+Content-Type: application/json
+
+{
+  "title": "Neue Nachricht",
+  "content": "erste nachricht",
+  "senderId": 1
+}
+
+### Create coaachings which are offered by a teacher
+POST http://localhost:8080/coaching/2
+Content-Type: application/json
+
+{
+  "coachings": [
+    {
+      "subject": "MATHEMATIK",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+### Update Teacher districts
+PUT http://localhost:8080/teacher/updateDistricts/1
+Content-Type: application/json
+
+{
+  "districts": ["DISTRICT_1010", "DISTRICT_1030"]
+}

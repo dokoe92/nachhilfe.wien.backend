@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,15 +17,15 @@ public class Profile {
     private Long id;
 
     @Setter
-    @Column(name="user_name")
+    @Column(name="user_name", nullable = false)
     private String userName;
 
     @Setter
-    @Column(name="password")
+    @Column(name="password", nullable = false)
     private String password;
 
     @Setter
-    @Column(name="email")
+    @Column(name="email", nullable = false)
     private String email;
 
     @Setter
@@ -36,17 +37,16 @@ public class Profile {
     private String description;
 
     @Setter
-    @Column(name="active")
+    @Column(name="active", nullable = false)
     private boolean active;
 
     @Setter
     @Column(name="average_rating")
-    private Integer averageRatingScore;
+    private Double averageRatingScore;
 
-    public Profile(String userName, String password, String email, String description) {
-        this.userName = userName;
-        this.password = password;
-        this.email = email;
-        this.description = description;
-    }
+    @OneToOne(mappedBy = "profile")
+    @JsonBackReference
+    private User user;
+
+
 }

@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.DTO;
+package codersbay.vienna.nachhilfe.wien.backend.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,6 +11,6 @@ public class StudentDTO {
 
     String firstName;
     String lastName;
-    LocalDate birthDate;
+    LocalDate birthdate;
     ProfileDTO profile;
 }

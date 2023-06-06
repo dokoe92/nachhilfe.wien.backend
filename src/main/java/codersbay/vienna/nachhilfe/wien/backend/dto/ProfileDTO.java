@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.DTO;
+package codersbay.vienna.nachhilfe.wien.backend.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -11,5 +11,7 @@ public class ProfileDTO {
     String email;
     String description;
     Boolean active;
-    Integer averageRatingScore;
+    Double averageRatingScore;
+
 }
+

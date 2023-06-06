@@ -9,6 +9,8 @@ import java.time.LocalDate;
 
 @Entity
 @Getter
+@NoArgsConstructor
+@Table(name="feedback")
 public class Feedback {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
@@ -23,8 +25,12 @@ public class Feedback {
     private Student student;
 
     @Setter
-    @Column(name = "content")
+    @Column(name = "content", length=5000)
     private String content;
+
+    @Setter
+    @Column(name= "title")
+    private String title;
 
     @Setter
     @Column(name="rating")

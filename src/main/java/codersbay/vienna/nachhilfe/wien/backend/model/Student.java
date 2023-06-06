@@ -11,16 +11,16 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue("student")
+@DiscriminatorValue(value = "student")
 @Getter
-@NoArgsConstructor
 public class Student extends User {
+
+    public Student() {
+        super(UserType.STUDENT);
+    }
 
     @OneToMany(mappedBy = "student")
     private Set<Feedback> feedback = new HashSet<>();
 
 
-    public Student(String firstName, String lastName) {
-        super(firstName, lastName);
-    }
 }
