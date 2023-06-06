@@ -87,6 +87,13 @@ Content-Type: application/json
 
     }
 
-
   ]
+}
+
+### Update Teacher districts
+PUT http://localhost:8080/teacher/updateDistricts/1
+Content-Type: application/json
+
+{
+  "districts": ["DISTRICT_1010", "DISTRICT_1030"]
 }
