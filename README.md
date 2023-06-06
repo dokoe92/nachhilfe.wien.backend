@@ -1,8 +1,9 @@
 # nachhilfe.wien.backend
 ## Rest-Endpoints
 
-# /auth
+### /auth
 ```
+POST
 Content-Type: application/json
 
 Request:
@@ -21,22 +22,182 @@ Response:
   "firstName": String,
   "lastName": String
 }
-
-# /user/createStudent
 ```
+
+### /user/createStudent
+**ÜBERARBEITEN!**
+```
+
+
+POST
 Content-Type: application/json
 
+Request:
 {
-  "firstName": "Schüler'",
-  "lastName": "Hansi",
-  "birthdate": "1992-04-25",
+  "firstName": String,
+  "lastName": String,
+  "birthdate": YYYY-MM-DD,
   "profile": {
-    "userName": "hansl",
-    "password": "12345",
-    "email": "hans@hansi.at",
-    "active": true
+    "userName": String,
+    "password": String,
+    "email": String,
+    "active": Boolean
   }
 }
+
+Response:
+{
+  "id": Long,
+  "userType": String,
+  "firstName": String,
+  "lastName": String,
+  "birthdate": YYYY-MM-DD,
+  "description": String,
+  "profile": {
+    "id": Long,
+    "userName": String,
+    "password": String,
+    "email": String,
+    "imageBase64": String,
+    "description": String,
+    "active": true,
+    "averageRatingScore": Double
+  },
+  "coachings": [],
+  "feedback": []
+}
+```
+
+### /user/createTeacher
+**Überarbeiten!**
+```
+POST
+Content-Type: appilcation/json
+
+Request:
+{
+  "firstName": String,
+  "lastName": String,
+  "birthdate": YYYY-MM-DD,
+  "profile": {
+    "userName": String,
+    "password": String,
+    "email": String,
+    "active": Boolean,
+    "description": String
+  }
+}
+
+Response:
+{
+  "id": Long,
+  "userType": String,
+  "firstName": String,
+  "lastName": String,
+  "birthdate": YYYY-MM-DD,
+  "description": String,
+  "profile": {
+    "id": Long,
+    "userName": String,
+    "password": String,
+    "email": String,
+    "imageBase64": null,
+    "description": String,
+    "active": Boolean,
+    "averageRatingScore": Double
+  },
+  "coachings": [],
+  "feedback": [],
+  "disctricts": String(DISTRICTS)
+}
+```
+
+### /conversation/{userId1}/{userId2}
+```
+POST
+Content-Type: application/json
+
+Response
+{
+  "conversationId": Long,
+  "users": [
+    {
+      "id": Long,
+      "userType": String(USERTYPE),
+      "firstName": String,
+      "lastName": String
+    },
+    {
+      "id": Long,
+      "userType": String(USERTYPE),
+      "firstName": String,
+      "lastName": String
+    }
+  ],
+  "messages": []
+}
+```
+
+### /message/sendmMessage/{conversationId}
+```
+POST
+Content-Type: application/json
+
+Request:
+{
+  "title": String,
+  "content": String,
+  "senderId": Long
+}
+
+Response:
+{
+  "messageId": Long,
+  "timeStamp": "2023-06-06T10:44:39.8131627",
+  "conversationId": Long,
+  "title": String,
+  "content": String,
+  "senderId": Long
+}
+```
+
+### /coaching/{userId}
+```
+POST
+Content-Type: application/json
+
+Request:
+{
+  "coachings": [
+    {
+      "subject": STRING(SUBJECT),
+      "level": STRING,
+      "rate": DOUBLE,
+      "active": BOOLEAN
+    }
+  ]
+}
+
+Response:
+
+{
+  "userId": Long,
+  "coachings": [
+    {
+      "id": Long,
+      "subject":  STRING(SUBJECT),
+      "level": STRING,
+      "rate": Double,
+      "active": Boolean,
+      "userId": Long
+    }
+  ]
+}
+
+
+
+
+
 
 
 
