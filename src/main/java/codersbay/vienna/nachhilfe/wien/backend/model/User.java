@@ -61,6 +61,7 @@ public abstract class User {
     @JsonIgnore
     private Set<Conversation> conversations = new HashSet<>();
 
+    @Setter
     @OneToMany(mappedBy = "user")
     private Set<Coaching> coachings = new HashSet<>();
 

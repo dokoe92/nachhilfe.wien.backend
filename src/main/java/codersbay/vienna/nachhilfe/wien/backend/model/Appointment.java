@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -33,6 +34,10 @@ public class Appointment {
     @ManyToOne
     @JoinColumn(name="fk_coaching_id", nullable = false)
     private Coaching coaching;
+
+    @ManyToOne
+    @JoinColumn(name="fk_student_id", nullable = false)
+    private Student student;
 
     @OneToOne
     @JoinColumn(name="fk_message_id")

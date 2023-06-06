@@ -20,4 +20,15 @@ public class Teacher extends User {
     @OneToMany(mappedBy = "teacher")
     private Set<Feedback> feedback = new HashSet<>();
 
+    @ElementCollection(targetClass = District.class)
+    @CollectionTable(name = "district",
+            joinColumns = @JoinColumn(name = "coaching_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<District> disctricts;
+
+    public void addCoachings(Coaching coaching) {
+        this.getCoachings().add(coaching);
+        coaching.setUser(this);
+    }
+
 }
