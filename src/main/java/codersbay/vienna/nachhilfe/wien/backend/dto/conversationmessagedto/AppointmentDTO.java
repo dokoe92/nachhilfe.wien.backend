@@ -15,17 +15,13 @@ public class AppointmentDTO {
     private Long appointmentId;
     private Long conversationId;
     private Long coachingId;
+    private Long senderId;
     private Long studentId;
     private LocalDateTime start;
     private LocalDateTime end;
     private Status status;
     private String title;
     private String content;
-    private Long senderId;
     private LocalDateTime timeStamp;
-
-
-
-
 
 }

@@ -65,7 +65,7 @@ Content-Type: application/json
 }
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/2
+POST http://localhost:8080/coaching/1
 Content-Type: application/json
 
 {
@@ -94,3 +94,14 @@ GET http://localhost:8080/conversation/1
 
 ### Get conversations of user via userId
 GET http://localhost:8080/conversation/user/1
+
+
+### Send appointment via conversationId and coachingId
+POST http://localhost:8080/message/sendAppointment/1/1
+Content-Type: application/json
+
+{
+  "studentId": 2,
+  "title": "Coachingtermin",
+  "content": "bitte termin machen"
+}

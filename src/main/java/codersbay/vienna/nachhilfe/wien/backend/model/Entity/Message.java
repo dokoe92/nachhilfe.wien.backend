@@ -41,6 +41,6 @@ public class Message {
     @Setter
     @ManyToOne
     @JoinColumn(name="conversation_id")
-    private Conversation conversations;
+    private Conversation conversation;
 
 }

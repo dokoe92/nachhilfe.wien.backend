@@ -27,14 +27,15 @@ public class Appointment extends Message{
     @Enumerated(value=EnumType.STRING)
     private Status status;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name="fk_coaching_id")
     private Coaching coaching;
 
+    @Setter
     @ManyToOne
     @JoinColumn(name="fk_student_id")
     private Student student;
-
 
 
 }

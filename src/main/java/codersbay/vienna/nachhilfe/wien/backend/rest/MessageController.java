@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.MessageDTO;
 import codersbay.vienna.nachhilfe.wien.backend.service.MessageService;
 import lombok.RequiredArgsConstructor;
@@ -26,4 +27,11 @@ public class MessageController {
         MessageDTO message = messageService.sendMessage(messageDTO, conversationId);
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
+
+    @PostMapping("sendAppointment/{conversationId}/{coachingId}")
+    public ResponseEntity<AppointmentDTO> sendAppointment(@RequestBody AppointmentDTO appointmentDTO, @PathVariable Long conversationId, @PathVariable Long coachingId) {
+        AppointmentDTO appointment =  messageService.sendAppointment(appointmentDTO, conversationId, coachingId);
+        return new ResponseEntity<>(appointment, HttpStatus.CREATED);
+    }
+
 }
