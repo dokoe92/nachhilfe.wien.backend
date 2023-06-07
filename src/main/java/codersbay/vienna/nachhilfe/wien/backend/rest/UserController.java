@@ -1,9 +1,12 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.AdminDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper.AdminMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Admin;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
@@ -25,6 +28,7 @@ public class UserController {
     private final UserService userService;
     private final TeacherMapper teacherMapper;
     private final StudentMapper studentMapper;
+    private final AdminMapper adminMapper;
     private final CoachingService coachingService;
 
 
@@ -50,6 +54,14 @@ public class UserController {
     public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDTO teacherDTO) {
         Teacher teacher = userService.createTeacherWithProfile(teacherMapper.toEntity(teacherDTO));
         return new ResponseEntity<>(teacher, HttpStatus.CREATED);
+    }
+
+
+
+    @PostMapping("/createAdmin")
+    public ResponseEntity<Admin> createAdmin(@RequestBody AdminDTO adminDTO){
+        Admin admin = userService.createAdminWithProfile(adminMapper.toEntity(adminDTO));
+        return new ResponseEntity<>(admin, HttpStatus.CREATED);
     }
 
 

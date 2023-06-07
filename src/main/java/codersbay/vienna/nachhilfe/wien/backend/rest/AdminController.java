@@ -20,7 +20,7 @@ public class AdminController {
     @GetMapping
     public ResponseEntity<List<Admin>> findAllAdmins(){
         List<Admin> adminList = adminService.findAllAdmins();
-        return new ResponseEntity<>(adminList, HttpStatus.OK)
+        return new ResponseEntity<>(adminList, HttpStatus.OK);
     }
 
 

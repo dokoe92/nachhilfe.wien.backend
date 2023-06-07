@@ -31,6 +31,25 @@ Content-Type: application/json
   }
 }
 
+### Create Admin
+POST http://localhost:8080/user/createAdmin
+Content-Type: application/json
+
+{
+  "firstName": "René",
+  "lastName": "Günürün",
+  "birthdate": "1995-04-25",
+  "profile": {
+    "userName": "User25",
+    "password": "333432434",
+    "email": "admin@chef.at",
+    "active": true
+  }
+}
+
+
+
+
 ### Get AuthToken via Email and Password of User
 POST http://localhost:8080/auth
 Content-Type: application/json
