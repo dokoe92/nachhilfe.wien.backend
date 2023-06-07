@@ -1,7 +1,9 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserConversationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserTypeMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Conversation;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
@@ -22,6 +24,7 @@ public class ConversationService {
     private final ConversationRepository conversationRepository;
     private final UserRepository userRepository;
     private final ConversationMapper conversationMapper;
+    private final UserConversationMapper userConversationMapper;
 
     /**
      * Creates a conversation between two users.
@@ -54,4 +57,8 @@ public class ConversationService {
         return conversationMapper.toDTO(conversation);
     }
 
+    public UserConversationDTO findConversationsOfUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+        return userConversationMapper.toDTO(user);
+    }
 }

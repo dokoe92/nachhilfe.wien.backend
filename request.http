@@ -92,3 +92,5 @@ Content-Type: application/json
 ### Find conversation by id
 GET http://localhost:8080/conversation/1
 
+### Get conversations of user via userId
+GET http://localhost:8080/conversation/user/1
