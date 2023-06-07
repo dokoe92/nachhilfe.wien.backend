@@ -18,9 +18,7 @@ import java.util.Optional;
 @Table(name="message")
 public class MessageMapper {
 
-    private final UserTypeMapper userTypeMapper;
     private final UserRepository userRepository;
-    private final ConversationRepository conversationRepository;
 
     public MessageDTO toDTO(Message message) {
         if (message == null) {

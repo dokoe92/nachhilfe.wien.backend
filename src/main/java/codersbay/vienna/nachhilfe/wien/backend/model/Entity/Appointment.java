@@ -15,11 +15,11 @@ import java.time.LocalDateTime;
 public class Appointment extends Message{
 
     @Setter
-    @Column(name = "start_coaching", nullable = false)
+    @Column(name = "start_coaching")
     private LocalDateTime start;
 
     @Setter
-    @Column(name="end_coaching", nullable = false)
+    @Column(name="end_coaching")
     private LocalDateTime end;
 
     @Setter
@@ -28,11 +28,11 @@ public class Appointment extends Message{
     private Status status;
 
     @ManyToOne
-    @JoinColumn(name="fk_coaching_id", nullable = false)
+    @JoinColumn(name="fk_coaching_id")
     private Coaching coaching;
 
     @ManyToOne
-    @JoinColumn(name="fk_student_id", nullable = false)
+    @JoinColumn(name="fk_student_id")
     private Student student;
 
 
