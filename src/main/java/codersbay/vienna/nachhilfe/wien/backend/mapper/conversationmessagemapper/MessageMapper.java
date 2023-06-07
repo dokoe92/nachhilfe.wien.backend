@@ -26,7 +26,7 @@ public class MessageMapper {
         }
 
         MessageDTO messageDTO = new MessageDTO();
-
+        messageDTO.setTimeStamp(message.getTimestamp());
         messageDTO.setMessageId(message.getId());
         messageDTO.setTitle(message.getTitle());
         messageDTO.setContent(message.getContent());

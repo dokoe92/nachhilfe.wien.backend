@@ -39,6 +39,7 @@ public class MessageService {
         messageDTO.setConversationId(conversationId);
         Set<Message> messages = conversation.get().getMessages();
         Message message = messageMapper.toEntity(messageDTO);
+        message.setConversations(conversation.get());
         messages.add(message);
         conversation.get().setMessages(messages);
 
@@ -54,6 +55,7 @@ public class MessageService {
     }
 
     /*
+
     public Appointment sendAppointmentWithMessage(Appointment appointment, Long conversationId) {
         Conversation conversation = conversationRepository.findById(conversationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
