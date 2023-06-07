@@ -14,7 +14,6 @@ public class TeacherFeedbackMapper {
         dto.setFirstName(teacher.getFirstName());
         dto.setLastName(teacher.getLastName());
         dto.setUserName(teacher.getProfile().getUserName());
-        dto.setDescription(teacher.getDescription());
         dto.setAvgRating(teacher.getProfile().getAverageRatingScore());
         dto.setFeedbacks(teacher.getFeedback());
         return dto;

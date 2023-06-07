@@ -1,10 +1,13 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserTypeMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Conversation;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,8 +21,7 @@ public class ConversationService {
 
     private final ConversationRepository conversationRepository;
     private final UserRepository userRepository;
-    private final UserTypeMapper userTypeMapper;
-
+    private final ConversationMapper conversationMapper;
 
     /**
      * Creates a conversation between two users.
@@ -44,6 +46,12 @@ public class ConversationService {
         userRepository.saveAll(users);
 
         return conversation;
+    }
+
+    public ConversationDTO findConversationById(Long id) {
+        Conversation conversation = conversationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
+        return conversationMapper.toDTO(conversation);
     }
 
 }

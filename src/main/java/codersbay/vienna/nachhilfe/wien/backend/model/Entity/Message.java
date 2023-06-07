@@ -14,6 +14,9 @@ import java.time.LocalDateTime;
 @Table(name="message")
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name="message_type", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue(value = "message")
 public class Message {
 
     @Id

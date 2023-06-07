@@ -21,7 +21,6 @@ public class TeacherMapper {
         teacher.setFirstName(teacherDTO.getFirstName());
         teacher.setLastName(teacherDTO.getLastName());
         teacher.setBirthdate(teacherDTO.getBirthdate());
-        teacher.setDescription(teacherDTO.getDescription());
         teacher.setProfile(profileMapper.toEntity(teacherDTO.getProfile()));
 
         return teacher;

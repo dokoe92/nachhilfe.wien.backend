@@ -7,10 +7,7 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicateIdExcept
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.MissingIdException;
 import codersbay.vienna.nachhilfe.wien.backend.service.ConversationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -34,7 +31,7 @@ public class ConversationController {
      * @throws DuplicateIdException   if user1 and user2 have the same ID
      */
     @PostMapping("/{user1}/{user2}")
-    private ConversationDTO createConversation(@PathVariable Optional<Long> user1, @PathVariable Optional<Long> user2) {
+    public ConversationDTO createConversation(@PathVariable Optional<Long> user1, @PathVariable Optional<Long> user2) {
         Set<Long> userIds = new HashSet<>();
         if (!user1.isPresent() || !user2.isPresent()) {
             throw new MissingIdException("Two Ids are required");
@@ -50,4 +47,10 @@ public class ConversationController {
 
         return conversationMapper.toDTO(conversation);
     }
+
+    @GetMapping("/{conversationId}")
+    public ConversationDTO findConversationById(@PathVariable Long conversationId) {
+        return conversationService.findConversationById(conversationId);
+    }
+
 }

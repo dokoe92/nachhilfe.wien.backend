@@ -21,12 +21,12 @@ public class CoachingMapper {
 
         CoachingDTO coachingDTO = new CoachingDTO();
 
-        coachingDTO.setId(coaching.getId());
+        coachingDTO.setCoachingId(coaching.getId());
         coachingDTO.setSubject(coaching.getSubject());
         coachingDTO.setLevel(coaching.getLevel());
         coachingDTO.setRate(coaching.getRate());
         coachingDTO.setActive(coaching.isActive());
-        coachingDTO.setUserId(coaching.getUser().getId());
+        coachingDTO.setTeacherId(coaching.getUser().getId());
 
         return coachingDTO;
     }
@@ -43,7 +43,7 @@ public class CoachingMapper {
         coaching.setRate(coachingDTO.getRate());
         coaching.setActive(coachingDTO.getActive());
 
-        User user = userRepository.findById(coachingDTO.getUserId())
+        User user = userRepository.findById(coachingDTO.getTeacherId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
         coaching.setUser(user);

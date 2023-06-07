@@ -42,10 +42,6 @@ public abstract class User {
     @Column(name="birthdate", nullable = false)
     private LocalDate birthdate;
 
-    @Setter
-    @Column(name="description")
-    private String description;
-
 
     /**
      * Sets the Profile associated with the user.

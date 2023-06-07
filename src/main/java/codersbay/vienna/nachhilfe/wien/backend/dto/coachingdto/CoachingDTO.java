@@ -8,11 +8,11 @@ import lombok.Setter;
 @Setter
 public class CoachingDTO {
 
-    private Long id;
+    private Long coachingId;
     private Subject subject;
     private String level;
     private Double rate;
     private Boolean active;
-    private Long userId;
+    private Long teacherId;
 
 }

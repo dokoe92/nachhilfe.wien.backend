@@ -45,7 +45,7 @@ public class CoachingService {
         responseDTO.setUserId(id);
 
         for (CoachingDTO coachingDTO : coachingsDTO.getCoachings()) {
-            coachingDTO.setUserId(id);
+            coachingDTO.setTeacherId(id);
         }
 
         Set<Coaching> coachings = coachingsDTO.getCoachings().stream()

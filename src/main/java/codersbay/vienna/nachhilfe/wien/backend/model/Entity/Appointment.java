@@ -6,23 +6,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name="appointment")
+@DiscriminatorValue(value = "appointment")
 @NoArgsConstructor
-public class Appointment {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+public class Appointment extends Message{
 
     @Setter
     @Column(name = "start_coaching", nullable = false)
-    private LocalDate start;
+    private LocalDateTime start;
 
     @Setter
     @Column(name="end_coaching", nullable = false)
-    private LocalDate end;
+    private LocalDateTime end;
 
     @Setter
     @Column(name="status")
@@ -37,8 +35,6 @@ public class Appointment {
     @JoinColumn(name="fk_student_id", nullable = false)
     private Student student;
 
-    @OneToOne
-    @JoinColumn(name="fk_message_id")
-    private Message message;
+
 
 }
