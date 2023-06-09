@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.config;
+package codersbay.vienna.nachhilfe.wien.backend.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,10 +31,12 @@ public class SecurityConfig {
         return NoOpPasswordEncoder.getInstance();
     }
 
+    /*
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
         daoAuthenticationProvider.setUserDetailsService();
     }
+    */
 }

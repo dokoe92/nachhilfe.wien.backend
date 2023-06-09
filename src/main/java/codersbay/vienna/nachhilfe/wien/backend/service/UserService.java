@@ -1,9 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
@@ -24,6 +21,7 @@ public class UserService {
         Profile profile = teacher.getProfile();
         profileRepository.save(profile);
         teacher.setProfile(profile);
+        teacher.setRole(Role.ROLE_TEACHER);
         userRepository.save(teacher);
         return teacher;
     }
@@ -32,6 +30,7 @@ public class UserService {
         Profile profile = student.getProfile();
         profileRepository.save(profile);
         student.setProfile(profile);
+        student.setRole(Role.ROLE_STUDENT);
         userRepository.save(student);
         return student;
     }

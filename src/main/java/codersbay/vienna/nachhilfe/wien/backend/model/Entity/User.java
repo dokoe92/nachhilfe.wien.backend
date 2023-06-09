@@ -6,9 +6,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "application_user")
 @Getter
-public abstract class User {
+public abstract class User implements UserDetails {
 
     public User(UserType userType) {
         this.userType = userType;
@@ -83,4 +88,44 @@ public abstract class User {
     private Set<Conversation> conversations = new HashSet<>();
 
 
+    // SPRING SECURITY
+
+    @Setter
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return this.profile.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.profile.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }
