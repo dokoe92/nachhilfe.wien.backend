@@ -28,30 +28,6 @@ public class UserController {
     private final CoachingService coachingService;
 
 
-    /**
-     * Creates a new student with a profile.
-     *
-     * @param studentDTO  the StudentDTO object containing the student and profile details
-     * @return ResponseEntity with the created Student object and HTTP status CREATED
-     */
-    @PostMapping("/createStudent")
-    public ResponseEntity<Student> createStudent(@RequestBody StudentDTO studentDTO) {
-        Student student = userService.createStudentWithProfile(studentMapper.toEntity(studentDTO));
-        return new ResponseEntity<>(student, HttpStatus.CREATED);
-    }
-
-    /**
-     * Creates a new teacher with a profile.
-     *
-     * @param teacherDTO  the TeacherDTO object containing the teacher and profile details
-     * @return ResponseEntity with the created Teacher object and HTTP status CREATED
-     */
-    @PostMapping("/createTeacher")
-    public ResponseEntity<Teacher> createTeacher(@RequestBody TeacherDTO teacherDTO) {
-        Teacher teacher = userService.createTeacherWithProfile(teacherMapper.toEntity(teacherDTO));
-        return new ResponseEntity<>(teacher, HttpStatus.CREATED);
-    }
-
 
     @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id) {

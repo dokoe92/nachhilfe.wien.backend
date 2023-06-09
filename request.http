@@ -1,5 +1,5 @@
 ### Create teacher
-POST http://localhost:8080/user/createTeacher
+POST http://localhost:8080/auth/createTeacher
 Content-Type: application/json
 
 {
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### Create Student
-POST http://localhost:8080/user/createStudent
+POST http://localhost:8080/auth/createStudent
 Content-Type: application/json
 
 {
@@ -30,6 +30,9 @@ Content-Type: application/json
     "active": true
   }
 }
+
+### Test Auth
+GET http://localhost:8080/auth
 
 ### Get AuthToken via Email and Password of User
 POST http://localhost:8080/auth

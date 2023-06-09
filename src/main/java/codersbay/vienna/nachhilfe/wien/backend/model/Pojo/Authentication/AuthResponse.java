@@ -8,9 +8,8 @@ import lombok.Setter;
 @Getter
 public class AuthResponse {
 
-    Long id;
+    Long userId;
     String accessToken;
-    Boolean newMessage;
     UserType type;
     String email;
     String firstName;

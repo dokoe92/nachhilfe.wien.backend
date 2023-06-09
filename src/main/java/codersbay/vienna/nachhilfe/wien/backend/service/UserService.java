@@ -17,24 +17,6 @@ public class UserService {
     private final ProfileRepository profileRepository;
 
 
-    public Teacher createTeacherWithProfile(Teacher teacher) {
-        Profile profile = teacher.getProfile();
-        profileRepository.save(profile);
-        teacher.setProfile(profile);
-        teacher.setRole(Role.ROLE_TEACHER);
-        userRepository.save(teacher);
-        return teacher;
-    }
-
-    public Student createStudentWithProfile(Student student) {
-        Profile profile = student.getProfile();
-        profileRepository.save(profile);
-        student.setProfile(profile);
-        student.setRole(Role.ROLE_STUDENT);
-        userRepository.save(student);
-        return student;
-    }
-
     public Optional<User> findById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
