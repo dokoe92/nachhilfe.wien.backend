@@ -12,12 +12,23 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Table(name="message")
-@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="message_type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue(value = "message")
 public class Message {
+
+    public Message () {
+        this.messageType = MessageType.MESSAGE;
+    }
+
+    public Message(MessageType messageType) {
+        this.messageType = messageType;
+    }
+
+    @Enumerated(EnumType.STRING)
+    @Transient
+    private MessageType messageType;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,5 +53,7 @@ public class Message {
     @ManyToOne
     @JoinColumn(name="conversation_id")
     private Conversation conversation;
+
+
 
 }

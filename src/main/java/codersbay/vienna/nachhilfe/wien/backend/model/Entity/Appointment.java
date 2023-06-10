@@ -11,8 +11,11 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @DiscriminatorValue(value = "appointment")
-@NoArgsConstructor
 public class Appointment extends Message{
+
+    public Appointment() {
+        super(MessageType.APPOINTMENT);
+    }
 
     @Setter
     @Column(name = "start_coaching")
@@ -36,6 +39,7 @@ public class Appointment extends Message{
     @ManyToOne
     @JoinColumn(name="fk_student_id")
     private Student student;
+
 
 
 }

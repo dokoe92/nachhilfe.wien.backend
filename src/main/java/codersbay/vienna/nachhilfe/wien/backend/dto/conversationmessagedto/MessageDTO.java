@@ -1,5 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto;
 
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.MessageType;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +18,6 @@ public class MessageDTO {
     private String title;
     private String content;
     private Long senderId;
-
-
+    @Enumerated(EnumType.STRING)
+    private MessageType messageType;
 }

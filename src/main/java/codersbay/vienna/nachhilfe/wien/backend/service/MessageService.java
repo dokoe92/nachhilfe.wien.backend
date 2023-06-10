@@ -57,6 +57,7 @@ public class MessageService {
 
         messageDTO.setTimeStamp(savedMessage.getTimestamp());
         messageDTO.setMessageId(message.getId());
+        messageDTO.setMessageType(message.getMessageType());
 
         return messageDTO;
     }
@@ -92,6 +93,9 @@ public class MessageService {
             user.setCoachings(coachings);
             userRepository.save(user);
         }
+
+        // Set all DTO fields
+
 
         return appointmentDTO;
 

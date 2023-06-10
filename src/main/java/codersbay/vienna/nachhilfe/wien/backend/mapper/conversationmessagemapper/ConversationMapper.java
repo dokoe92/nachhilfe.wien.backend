@@ -5,6 +5,7 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.Messag
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserTypeDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserTypeMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Conversation;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.MessageType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +19,13 @@ public class ConversationMapper {
     private final MessageMapper messageMapper;
     private final UserTypeMapper userTypeMapper;
 
+
     public ConversationDTO toDTO(Conversation conversation) {
         Set<MessageDTO> messageDTOS = conversation.getMessages().stream()
                 .map(messageMapper::toDTO)
                 .collect(Collectors.toSet());
+
+
         Set<UserTypeDTO> userTypeDTOS = conversation.getUsers().stream()
                 .map(userTypeMapper::toDTO)
                 .collect(Collectors.toSet());
