@@ -48,6 +48,15 @@ public class StudentService {
     }
 
 
+    public boolean deleteStudent(Long studentId) {
+        Optional<Student> studentOptional = studentRepository.findById(studentId);
+        if (studentOptional.isPresent()){
+            studentRepository.delete(studentOptional.get());
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 

@@ -88,6 +88,10 @@ Content-Type: application/json
   "active": false
 }
 
+### Delete Admin
+DELETE http://localhost:8080/admin/deleteAdmin/1
+
+
 ### Get a teacher
 GET http://localhost:8080/teacher/1
 Content-Type: application/json

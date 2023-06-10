@@ -24,7 +24,7 @@ public class AdminController {
     private final AdminService adminService;
 
     @GetMapping
-    public ResponseEntity<List<Admin>> findAllAdmins(){
+    public ResponseEntity<List<Admin>> findAllAdmins() {
         List<Admin> adminList = adminService.findAllAdmins();
         return new ResponseEntity<>(adminList, HttpStatus.OK);
     }
@@ -35,13 +35,27 @@ public class AdminController {
             @RequestBody AdminUpdateRequest request
     ) {
         Admin updatedAdmin =
-                adminService.updateAdmin (adminId,
+                adminService.updateAdmin(adminId,
                         request.getFirstName(),
                         request.getLastName(),
                         request.getDescription());
         return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
     }
+
+    @DeleteMapping("/deleteAdmin/{adminId}")
+    public ResponseEntity<String> deleteAdmin(@PathVariable Long adminId){
+        boolean deleted = adminService.deleteAdmin(adminId);
+        if (deleted){
+            return ResponseEntity.ok("Admin with ID " + adminId + " deleted succesfully.");
+        } else {
+            throw new UserNotFoundException("Admin with ID " + adminId + " was not found.");
+        }
+
+    }
+
 }
+
+
 
 
 

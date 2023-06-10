@@ -25,7 +25,7 @@ public class AdminService {
 
     public Optional<Admin> findById(Long adminId) {
         Optional<Admin> admin = adminRepository.findById(adminId);
-        if(admin.isPresent()){
+        if (admin.isPresent()) {
             return admin;
         } else {
             throw new UserNotFoundException("Admin not found");
@@ -33,7 +33,7 @@ public class AdminService {
     }
 
     public Admin updateAdmin(Long adminId, String firstName, String lastName, String description) {
-        Optional<Admin> admin  = adminRepository.findById(adminId);
+        Optional<Admin> admin = adminRepository.findById(adminId);
         if (admin.isPresent()) {
             Admin existingAdmin = admin.get();
 
@@ -54,6 +54,16 @@ public class AdminService {
             return existingAdmin;
         } else {
             throw new UserNotFoundException("Admin not found");
+        }
+    }
+
+    public boolean deleteAdmin(Long adminId) {
+        Optional<Admin> adminOptional = adminRepository.findById(adminId);
+        if (adminOptional.isPresent()) {
+            adminRepository.delete(adminOptional.get());
+            return true;
+        } else {
+            return false;
         }
     }
 }

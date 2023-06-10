@@ -3,6 +3,7 @@ package codersbay.vienna.nachhilfe.wien.backend.rest;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.model.Pojo.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.TeacherUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -49,5 +50,16 @@ public class TeacherController {
                         request.getDescription());
         return new ResponseEntity<>(updatedTeacher, HttpStatus.OK);
 
+    }
+
+
+    @DeleteMapping("/deleteTeacher/{teacherId}")
+    public ResponseEntity<String> deleteTeacher(@PathVariable Long teacherId) {
+        boolean deleted = teacherService.deleteAdmin(teacherId);
+        if (deleted) {
+            return ResponseEntity.ok("Teacher with ID " + teacherId + " deleted succesfully.");
+        } else {
+            throw new UserNotFoundException("Teacher with ID " + teacherId + " was not found.");
+        }
     }
 }

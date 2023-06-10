@@ -9,7 +9,10 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -78,6 +81,13 @@ public class TeacherService {
     }
 
 
-
-
+    public boolean deleteAdmin(Long teacherId) {
+        Optional<Teacher> teacherOptional = teacherRepository.findById(teacherId);
+        if (teacherOptional.isPresent()){
+            teacherRepository.delete(teacherOptional.get());
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
