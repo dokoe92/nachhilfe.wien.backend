@@ -46,10 +46,10 @@ Content-Type: application/json
 
 ### Get Student
 GET http://localhost:8080/student
-Content-Type: application/json
+
 
 ### Update Student
-PUT http://localhost:8080/student/updateStudent/1
+PUT http://localhost:8080/student/updateStudent/2
 Content-Type: application/json
 
 {
@@ -76,6 +76,16 @@ Content-Type: application/json
     "email": "admin@chef.at",
     "active": true
   }
+}
+
+### Update Admin
+PUT http://localhost:8080/admin/updateAdmin/3
+Content-Type: application/json
+
+{
+  "firstName": "Alias",
+  "lastName": "Mannerschnitten",
+  "active": false
 }
 
 ### Get a teacher
