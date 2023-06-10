@@ -17,36 +17,36 @@ public class Profile {
     private Long id;
 
     @Setter
-    @Column(name="user_name", nullable = false)
+    @Column(name = "user_name", nullable = false)
     private String userName;
 
     @Setter
-    @Column(name="password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Setter
-    @Column(name="email", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Setter
-    @Column(name="picture")
+    @Column(name = "picture")
     private String imageBase64;
 
     @Setter
-    @Column(name="description")
+    @Column(name = "description")
     private String description;
 
     @Setter
-    @Column(name="active", nullable = false)
+    @Column(name = "active", nullable = false)
     private boolean active;
 
     @Setter
-    @Column(name="average_rating")
+    @Column(name = "average_rating")
     private Double averageRatingScore;
 
     /**
      * Represents the User associated with this profile.
-     *
+     * <p>
      * The @JsonBackReference annotation is used to manage the serialization and deserialization of this relationship from the non-owning side.
      */
     @OneToOne(mappedBy = "profile")

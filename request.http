@@ -15,6 +15,19 @@ Content-Type: application/json
   }
 }
 
+### Update Teacher
+PUT http://localhost:8080/teacher/updateTeacher/3
+Content-Type: application/json
+
+{
+  "firstName": "Günther",
+  "lastName": "Wurstelmann",
+  "description": "letsss goooo",
+  "active": false,
+  "coachings": []
+}
+
+
 ### Create Student
 POST http://localhost:8080/user/createStudent
 Content-Type: application/json
@@ -30,6 +43,24 @@ Content-Type: application/json
     "active": true
   }
 }
+
+### Get Student
+GET http://localhost:8080/student
+Content-Type: application/json
+
+### Update Student
+PUT http://localhost:8080/student/updateStudent/1
+Content-Type: application/json
+
+{
+  "firstName": "Olaf",
+  "lastName": "Günther",
+  "description": "xyz",
+  "active": true
+}
+
+
+
 
 ### Create Admin
 POST http://localhost:8080/user/createAdmin
@@ -47,6 +78,9 @@ Content-Type: application/json
   }
 }
 
+### Get a teacher
+GET http://localhost:8080/teacher/1
+Content-Type: application/json
 
 
 

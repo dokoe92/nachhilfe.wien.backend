@@ -57,7 +57,7 @@ public class UserController {
     }
 
 
-
+    // create a new admin with profil
     @PostMapping("/createAdmin")
     public ResponseEntity<Admin> createAdmin(@RequestBody AdminDTO adminDTO){
         Admin admin = userService.createAdminWithProfile(adminMapper.toEntity(adminDTO));
@@ -65,6 +65,7 @@ public class UserController {
     }
 
 
+    //retrieve a user by ID
     @GetMapping("/{id}")
     public ResponseEntity<User> findUserById(@PathVariable Long id) {
         Optional<User> user = userService.findById(id);

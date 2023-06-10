@@ -1,20 +1,26 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
 import codersbay.vienna.nachhilfe.wien.backend.model.Pojo.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
+    private Set<Coaching> coachings;
 
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
@@ -43,6 +49,34 @@ public class TeacherService {
 
         return teacherDistricts;
     }
+
+    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description) {
+        //find existing teacher by ID
+        Optional<Teacher> teacher = teacherRepository.findById(teacherId);
+        if (teacher.isPresent()) {
+            Teacher existingTeacher = teacher.get();
+
+            User user = existingTeacher.getProfile().getUser();
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setCoachings(coachings);
+
+            Profile profile = existingTeacher.getProfile();
+
+            //Update the properties of the existing teacher with the updated values
+            profile.setActive(profile.isActive());
+            profile.setDescription(description);
+            profile.setPassword(profile.getPassword());
+            profile.setEmail(profile.getEmail());
+
+            teacherRepository.save(existingTeacher);
+
+            return existingTeacher;
+        } else {
+            throw new UserNotFoundException("Teacher not found");
+        }
+    }
+
 
 
 

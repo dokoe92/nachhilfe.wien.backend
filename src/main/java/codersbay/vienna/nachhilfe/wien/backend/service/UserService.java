@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.PropertyPermission;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -33,6 +35,7 @@ public class UserService {
         return student;
     }
 
+    //finding a user by ID
     public Optional<User> findById(Long userId) {
         Optional<User> user = userRepository.findById(userId);
         if (user.isPresent()) {
@@ -42,11 +45,13 @@ public class UserService {
         }
     }
 
+    //checking if a user is existing by ID
     public boolean existsById(Long userId) {
+
         return userRepository.existsById(userId);
     }
 
-
+    //create an Admin with Profile
     public Admin createAdminWithProfile(Admin admin) {
         Profile profile = admin.getProfile();
         profileRepository.save(profile);
@@ -55,4 +60,12 @@ public class UserService {
         return admin;
 
     }
+
+
+
+
+
+    // updateTeacher, updateStudent, updateAdmin
+    //deleteUserById, deleteUser
+
 }
