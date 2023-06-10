@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 

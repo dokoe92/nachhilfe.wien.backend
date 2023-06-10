@@ -47,6 +47,7 @@ public class Message {
 
     @Setter
     @ManyToOne
+    @JoinColumn(name="sender_id")
     private User sender;
 
     @Setter
