@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.model.Entity;
+package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -36,15 +36,15 @@ public abstract class User implements UserDetails {
     private UserType userType;
 
     @Setter
-    @Column(name="first_name", nullable = false)
+    @Column(name="first_name")
     private String firstName;
 
     @Setter
-    @Column(name="last_name", nullable = false)
+    @Column(name="last_name")
     private String lastName;
 
     @Setter
-    @Column(name="birthdate", nullable = false)
+    @Column(name="birthdate")
     private LocalDate birthdate;
 
     @Setter

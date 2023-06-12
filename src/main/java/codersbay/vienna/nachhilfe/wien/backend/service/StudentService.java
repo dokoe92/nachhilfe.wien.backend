@@ -1,6 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Student;
+import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.model.Pojo.Authentication;
+package codersbay.vienna.nachhilfe.wien.backend.dto.auth;
 
 import lombok.Getter;
 

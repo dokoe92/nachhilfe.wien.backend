@@ -3,13 +3,13 @@ POST http://localhost:8080/auth/createTeacher
 Content-Type: application/json
 
 {
-  "firstName": "Hans'",
+  "firstName": "1'",
   "lastName": "Wurst",
   "birthdate": "1992-07-29",
   "profile": {
     "userName": "wursti",
     "password": "1234",
-    "email": "hans@wurst.at",
+    "email": "hans@wurst.at2",
     "active": true,
     "description": "hasdlft"
   }
@@ -85,8 +85,9 @@ Content-Type: application/json
 }
 
 ### Update Teacher districts
-PUT http://localhost:8080/teacher/updateDistricts/1
+PUT http://localhost:8080/teacher/updateDistricts/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYW5zQHd1cnN0LmF0MSIsImlhdCI6MTY4NjU5NDM0MCwiZXhwIjoxNjg2NTk1NzgwfQ.gt8up2Cf7g13_u4PjIMYGpchlhYvpG7rfJT_J6vSrmI
 
 {
   "districts": ["DISTRICT_1010", "DISTRICT_1030"]

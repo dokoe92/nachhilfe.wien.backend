@@ -2,8 +2,8 @@ package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.MessageDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.MessageMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Conversation;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Message;
+import codersbay.vienna.nachhilfe.wien.backend.model.Conversation;
+import codersbay.vienna.nachhilfe.wien.backend.model.Message;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.MessageRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;

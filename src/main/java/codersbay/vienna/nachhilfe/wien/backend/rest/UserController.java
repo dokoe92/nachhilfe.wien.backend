@@ -1,12 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentDTO;
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.service.CoachingService;
 import codersbay.vienna.nachhilfe.wien.backend.service.UserService;

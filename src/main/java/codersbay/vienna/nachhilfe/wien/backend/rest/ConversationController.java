@@ -2,7 +2,7 @@ package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Conversation;
+import codersbay.vienna.nachhilfe.wien.backend.model.Conversation;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicateIdException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.MissingIdException;
 import codersbay.vienna.nachhilfe.wien.backend.service.ConversationService;

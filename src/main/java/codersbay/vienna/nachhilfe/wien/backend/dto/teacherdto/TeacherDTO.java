@@ -1,7 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.ProfileDTO;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.District;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,7 +16,6 @@ public class TeacherDTO {
     String firstName;
     String lastName;
     LocalDate birthdate;
-    ProfileDTO profile;
     String description;
-    Set<Coaching> coachings = new HashSet<>();
+    ProfileDTO profile;
 }

@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.model.Entity;
+package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;

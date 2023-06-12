@@ -1,12 +1,11 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.*;
-import codersbay.vienna.nachhilfe.wien.backend.model.Pojo.Authentication.AuthRequest;
-import codersbay.vienna.nachhilfe.wien.backend.model.Pojo.Authentication.AuthResponse;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
+import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
+import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
-import codersbay.vienna.nachhilfe.wien.backend.rest.AuthController;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ProfileNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -25,33 +24,6 @@ public class AuthService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    /**
-     * Finds a user profile by email and password.
-     * This method must be reworked because the authentication shall be handled via spring security
-     *
-     * @param email    the email of the profile
-     * @param password the password of the profile
-     * @return an AuthResponse object containing the user's authentication details
-     * @throws ProfileNotFoundException if no profile is found with the given email and password
-     */
-
-
-    public AuthResponse findByEmailAndPassword(String email, String password) {
-        Profile profile = profileRepository.findByEmailAndPassword(email, password)
-                .orElseThrow(() -> new ProfileNotFoundException("No profile found with this email and password"));
-        User user = profile.getUser();
-        AuthResponse authResponse = new AuthResponse();
-
-        authResponse.setUserId(profile.getId());
-        authResponse.setAccessToken("1234");
-        authResponse.setEmail(profile.getEmail());
-        authResponse.setFirstName(user.getFirstName());
-        authResponse.setLastName(user.getLastName());
-        authResponse.setType(user.getUserType());
-
-        return authResponse;
-    }
-
     public AuthResponse createTeacherWithProfile(Teacher teacher) {
         Profile profile = teacher.getProfile();
         profile.setPassword(passwordEncoder.encode(teacher.getPassword()));
@@ -68,7 +40,7 @@ public class AuthService {
         auth.setLastName(teacher.getLastName());
 
         String jwtToken = jwtService.generateToken(teacher);
-        auth.setAccessToken(jwtToken);
+        auth.setToken(jwtToken);
 
         return auth;
     }
@@ -89,7 +61,7 @@ public class AuthService {
         auth.setLastName(student.getLastName());
 
         String jwtToken = jwtService.generateToken(student);
-        auth.setAccessToken(jwtToken);
+        auth.setToken(jwtToken);
 
 
         return auth;
@@ -114,7 +86,7 @@ public class AuthService {
         auth.setLastName(user.getLastName());
 
         String jwtToken = jwtService.generateToken(user);
-        auth.setAccessToken(jwtToken);
+        auth.setToken(jwtToken);
 
         return auth;
     }

@@ -1,7 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.ProfileDTO;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Profile;
+import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -13,7 +13,7 @@ public class ProfileMapper {
         }
 
         Profile profile = new Profile();
-        profile.setUserName(profileDTO.getUserName());
+        profile.setUserName(profileDTO.getUsername());
         profile.setPassword(profileDTO.getPassword());
         profile.setEmail(profileDTO.getEmail());
         profile.setDescription(profileDTO.getDescription());
@@ -29,7 +29,7 @@ public class ProfileMapper {
         }
 
         ProfileDTO profileDTO = new ProfileDTO();
-        profileDTO.setUserName(profile.getUserName());
+        profileDTO.setUsername(profile.getUserName());
         profileDTO.setEmail(profile.getEmail());
         profileDTO.setDescription(profile.getDescription());
         profileDTO.setActive(profile.isActive());

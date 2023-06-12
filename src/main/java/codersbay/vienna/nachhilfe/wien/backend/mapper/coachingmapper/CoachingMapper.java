@@ -1,8 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Coaching;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;

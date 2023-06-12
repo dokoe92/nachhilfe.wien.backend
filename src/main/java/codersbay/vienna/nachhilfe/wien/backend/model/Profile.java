@@ -1,16 +1,10 @@
-package codersbay.vienna.nachhilfe.wien.backend.model.Entity;
+package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-
-import java.util.Collection;
-import java.util.List;
 
 @Entity
 @Table(name="profile")
@@ -23,15 +17,11 @@ public class Profile {
     private Long id;
 
     @Setter
-    @Column(name="user_name", nullable = false)
-    private String userName;
-
-    @Setter
     @Column(name="password", nullable = false)
     private String password;
 
     @Setter
-    @Column(name="email", nullable = false)
+    @Column(name="email", nullable = false, unique = true)
     private String email;
 
     @Setter
@@ -58,9 +48,5 @@ public class Profile {
     @OneToOne(mappedBy = "profile")
     @JsonBackReference
     private User user;
-
-
-
-
 
 }

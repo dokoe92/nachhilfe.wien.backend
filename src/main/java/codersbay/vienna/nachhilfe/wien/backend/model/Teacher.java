@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.model.Entity;
+package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,7 +25,7 @@ public class Teacher extends User {
     @CollectionTable(name = "district",
             joinColumns = @JoinColumn(name = "coaching_id"))
     @Enumerated(EnumType.STRING)
-    private Set<District> disctricts;
+    private Set<District> disctricts = new HashSet<>();
 
 
     /**
