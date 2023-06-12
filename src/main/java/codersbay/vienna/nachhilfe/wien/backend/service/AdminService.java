@@ -32,10 +32,10 @@ public class AdminService {
         }
     }
 
-    public Admin updateAdmin(Long adminId, String firstName, String lastName, String description) {
-        Optional<Admin> admin = adminRepository.findById(adminId);
-        if (admin.isPresent()) {
-            Admin existingAdmin = admin.get();
+    public Admin updateAdmin(Long adminId, String firstName, String lastName, String description, String email, String password, boolean active ) {
+        Optional<Admin> adminOptional = adminRepository.findById(adminId);
+        if (adminOptional.isPresent()) {
+            Admin existingAdmin = adminOptional.get();
 
             User user = existingAdmin.getProfile().getUser();
             user.setFirstName(firstName);
@@ -44,10 +44,10 @@ public class AdminService {
             Profile profile = existingAdmin.getProfile();
 
             //Update the properties of the existing teacher with the updated values
-            profile.setActive(profile.isActive());
+            profile.setActive(active);
             profile.setDescription(description);
-            profile.setPassword(profile.getPassword());
-            profile.setEmail(profile.getEmail());
+            profile.setPassword(password);
+            profile.setEmail(email);
 
             adminRepository.save(existingAdmin);
 
@@ -66,4 +66,6 @@ public class AdminService {
             return false;
         }
     }
+
+
 }

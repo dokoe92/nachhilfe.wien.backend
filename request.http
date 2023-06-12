@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### Update Teacher
-PUT http://localhost:8080/teacher/updateTeacher/3
+PUT http://localhost:8080/teacher/updateTeacher/2
 Content-Type: application/json
 
 {
@@ -24,7 +24,8 @@ Content-Type: application/json
   "lastName": "Wurstelmann",
   "description": "letsss goooo",
   "active": false,
-  "coachings": []
+  "password": "teacher@teacher",
+  "email": "12345@meinemail.at"
 }
 
 
@@ -40,7 +41,7 @@ Content-Type: application/json
     "userName": "hansl",
     "password": "12345",
     "email": "hans@hansi.at",
-    "active": true
+    "active": false
   }
 }
 
@@ -56,9 +57,14 @@ Content-Type: application/json
   "firstName": "Olaf",
   "lastName": "Günther",
   "description": "xyz",
-  "active": true
+  "active": true,
+  "password": "sstudent12344",
+  "email": "student@student.at"
 }
 
+### Delete Student
+DELETE http://localhost:8080/student/deleteStudent/2
+Content-Type: application/json
 
 
 
@@ -79,13 +85,15 @@ Content-Type: application/json
 }
 
 ### Update Admin
-PUT http://localhost:8080/admin/updateAdmin/3
+PUT http://localhost:8080/admin/updateAdmin/1
 Content-Type: application/json
 
 {
   "firstName": "Alias",
   "lastName": "Mannerschnitten",
-  "active": false
+  "active": false,
+  "password": "1234455",
+  "email": "adminderzweite@chef.at"
 }
 
 ### Delete Admin
@@ -95,6 +103,10 @@ DELETE http://localhost:8080/admin/deleteAdmin/1
 ### Get a teacher
 GET http://localhost:8080/teacher/1
 Content-Type: application/json
+
+### Get admin
+GET http://localhost:8080/admin
+
 
 
 

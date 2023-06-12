@@ -22,10 +22,10 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
-    public Student updateStudent(Long studentId, String firstName, String lastName, String description) {
-        Optional<Student> student = studentRepository.findById(studentId);
-        if (student.isPresent()) {
-            Student existingStudent = student.get();
+    public Student updateStudent(Long studentId, String firstName, String lastName, String description, String password, String email, boolean active) {
+        Optional<Student> studentOptional = studentRepository.findById(studentId);
+        if (studentOptional.isPresent()) {
+            Student existingStudent = studentOptional.get();
 
             User user = existingStudent.getProfile().getUser();
             user.setFirstName(firstName);
@@ -34,10 +34,10 @@ public class StudentService {
             Profile profile = existingStudent.getProfile();
 
             //Update the properties of the existing teacher with the updated values
-            profile.setActive(profile.isActive());
+            profile.setActive(active);
             profile.setDescription(description);
-            profile.setPassword(profile.getPassword());
-            profile.setEmail(profile.getEmail());
+            profile.setPassword(password);
+            profile.setEmail(email);
 
             studentRepository.save(existingStudent);
 

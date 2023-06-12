@@ -12,4 +12,8 @@ public class AdminUpdateRequest {
     private String lastName;
     private String description;
     private boolean active;
+    private String password;
+    private String email;
+
 }
+

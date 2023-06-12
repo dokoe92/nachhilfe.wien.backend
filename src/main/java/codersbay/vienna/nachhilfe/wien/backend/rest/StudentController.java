@@ -35,7 +35,10 @@ public class StudentController {
                 studentService.updateStudent(studentId,
                         request.getFirstName(),
                         request.getLastName(),
-                        request.getDescription());
+                        request.getDescription(),
+                        request.getPassword(),
+                        request.getEmail(),
+                        request.isActive());
         return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
     }
 

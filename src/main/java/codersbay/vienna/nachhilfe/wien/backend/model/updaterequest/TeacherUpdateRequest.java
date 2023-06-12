@@ -16,5 +16,7 @@ public class TeacherUpdateRequest {
     private String lastName;
     private String description;
     private boolean active;
+    private String password;
+    private String email;
     private Set<Coaching> coachings;
 }

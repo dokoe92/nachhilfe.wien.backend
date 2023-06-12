@@ -53,7 +53,7 @@ public class TeacherService {
         return teacherDistricts;
     }
 
-    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description) {
+    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, String email, boolean active) {
         //find existing teacher by ID
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         if (teacher.isPresent()) {
@@ -67,10 +67,10 @@ public class TeacherService {
             Profile profile = existingTeacher.getProfile();
 
             //Update the properties of the existing teacher with the updated values
-            profile.setActive(profile.isActive());
+            profile.setActive(active);
             profile.setDescription(description);
-            profile.setPassword(profile.getPassword());
-            profile.setEmail(profile.getEmail());
+            profile.setPassword(password);
+            profile.setEmail(email);
 
             teacherRepository.save(existingTeacher);
 
