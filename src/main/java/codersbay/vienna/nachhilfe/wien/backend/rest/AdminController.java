@@ -47,9 +47,9 @@ public class AdminController {
     }
 
     @DeleteMapping("/deleteAdmin/{adminId}")
-    public ResponseEntity<String> deleteAdmin(@PathVariable Long adminId){
+    public ResponseEntity<String> deleteAdmin(@PathVariable Long adminId) {
         boolean deleted = adminService.deleteAdmin(adminId);
-        if (deleted){
+        if (deleted) {
             return ResponseEntity.ok("Admin with ID " + adminId + " deleted succesfully.");
         } else {
             throw new UserNotFoundException("Admin with ID " + adminId + " was not found.");
@@ -57,6 +57,27 @@ public class AdminController {
 
     }
 
+    @DeleteMapping("/deleteTeacher/{teacherId}")
+    public ResponseEntity<String> deleteTeacher(@PathVariable Long teacherId) {
+        boolean deleted = adminService.deleteTeacher(teacherId);
+        if (deleted) {
+            return ResponseEntity
+                    .ok("Teacher with ID " + teacherId + " deleted successfully.");
+        } else {
+            throw new UserNotFoundException("Teacher not found with ID " + teacherId);
+        }
+    }
+
+    @DeleteMapping("/deleteStudent/{studentId}")
+    public ResponseEntity<String> deleteStudent(@PathVariable Long studentId) {
+        boolean deleted = adminService.deleteStudent(studentId);
+        if (deleted) {
+            return ResponseEntity
+                    .ok("Student with ID " + studentId + " deleted successfully.");
+        } else {
+            throw new UserNotFoundException("Student not found with ID " + studentId);
+        }
+    }
 }
 
 

@@ -1,10 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Admin;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.Entity.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AdminRepository;
+import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.LogManager;
@@ -18,6 +16,7 @@ import java.util.Optional;
 public class AdminService {
 
     private final AdminRepository adminRepository;
+    private final UserRepository userRepository;
 
     public List<Admin> findAllAdmins() {
         return adminRepository.findAll();
@@ -65,6 +64,30 @@ public class AdminService {
         } else {
             return false;
         }
+    }
+
+    public boolean deleteStudent(Long studentId){
+        Optional<User> studentOptional = userRepository.findById(studentId);
+        if (studentOptional.isPresent()){
+            User student = studentOptional.get();
+            if(student instanceof Student){
+                userRepository.delete(student);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteTeacher(Long teacherId){
+        Optional<User> teacherOptional = userRepository.findById(teacherId);
+        if (teacherOptional.isPresent()){
+            User teacher = teacherOptional.get();
+            if(teacher instanceof Teacher){
+                userRepository.delete(teacher);
+                return true;
+            }
+        }
+        return false;
     }
 
 
