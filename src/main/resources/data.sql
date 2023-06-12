@@ -25,33 +25,7 @@ VALUES ('teacher', 'John', 'Doe', '2000-01-01', 1),
 
 -- Insert Districts to teachers
 INSERT INTO districts(teacher_id, districts) VALUES
-(1, 'DISTRICT_1010'),
-(1, 'DISTRICT_1020'),
-(1, 'DISTRICT_1030'),
-(2, 'DISTRICT_1040'),
-(2, 'DISTRICT_1050'),
-(2, 'DISTRICT_1060'),
-(3, 'DISTRICT_1070'),
-(3, 'DISTRICT_1080'),
-(3, 'DISTRICT_1090'),
-(4, 'DISTRICT_1100'),
-(4, 'DISTRICT_1110'),
-(4, 'DISTRICT_1120'),
-(5, 'DISTRICT_1130'),
-(5, 'DISTRICT_1140'),
-(5, 'DISTRICT_1150'),
-(6, 'DISTRICT_1160'),
-(6, 'DISTRICT_1170'),
-(6, 'DISTRICT_1180'),
-(7, 'DISTRICT_1190'),
-(7, 'DISTRICT_1200'),
-(7, 'DISTRICT_1210'),
-(8, 'DISTRICT_1220'),
-(8, 'DISTRICT_1230'),
-(9, 'DISTRICT_1010'),
-(9, 'DISTRICT_1020'),
-(10, 'DISTRICT_1030'),
-(10, 'DISTRICT_1040');
+(1, 'DISTRICT_1010');
 
 
 -- Insert 10 Student Profiles
@@ -80,6 +54,36 @@ VALUES ('student', 'Alex', 'Turner', '2005-01-01', 11),
        ('student', 'Jack', 'White', '1997-09-01', 19),
        ('student', 'Kurt', 'Cobain', '1996-10-01', 20);
 
+
+-- Insert Districts to teachers
+INSERT INTO districts(teacher_id, districts) VALUES
+ (1, 'DISTRICT_1010'),
+ (1, 'DISTRICT_1020'),
+ (1, 'DISTRICT_1030'),
+ (2, 'DISTRICT_1040'),
+ (2, 'DISTRICT_1050'),
+ (2, 'DISTRICT_1060'),
+ (3, 'DISTRICT_1070'),
+ (3, 'DISTRICT_1080'),
+ (3, 'DISTRICT_1090'),
+ (4, 'DISTRICT_1100'),
+ (4, 'DISTRICT_1110'),
+ (4, 'DISTRICT_1120'),
+ (5, 'DISTRICT_1130'),
+ (5, 'DISTRICT_1140'),
+ (5, 'DISTRICT_1150'),
+ (6, 'DISTRICT_1160'),
+ (6, 'DISTRICT_1170'),
+ (6, 'DISTRICT_1180'),
+ (7, 'DISTRICT_1190'),
+ (7, 'DISTRICT_1200'),
+ (7, 'DISTRICT_1210'),
+ (8, 'DISTRICT_1220'),
+ (8, 'DISTRICT_1230'),
+ (9, 'DISTRICT_1010'),
+ (9, 'DISTRICT_1020'),
+ (10, 'DISTRICT_1030'),
+ (10, 'DISTRICT_1040');
 
 -- CONVERSATIONS --
 

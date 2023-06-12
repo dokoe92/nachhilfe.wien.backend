@@ -34,8 +34,8 @@ public class TeacherService {
         if (teacher.isEmpty()) {
             throw new ResourceNotFoundException("Teacher with id " + teacherDistricts.getTeacherId() + " not found");
         }
-        teacher.get().getDisctricts().clear();
-        teacher.get().getDisctricts().addAll(teacherDistricts.getDistricts());
+        teacher.get().getDistricts().clear();
+        teacher.get().getDistricts().addAll(teacherDistricts.getDistricts());
 
         teacherRepository.save(teacher.get());
 

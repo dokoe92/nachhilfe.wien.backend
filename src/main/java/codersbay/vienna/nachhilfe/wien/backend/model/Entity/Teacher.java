@@ -25,7 +25,7 @@ public class Teacher extends User {
     @CollectionTable(name = "districts",
             joinColumns = @JoinColumn(name = "teacher_id"))
     @Enumerated(EnumType.STRING)
-    private Set<Districts> disctricts;
+    private Set<Districts> districts;
 
 
     /**
