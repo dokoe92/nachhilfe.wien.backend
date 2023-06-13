@@ -1,7 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentDTO;
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentCreationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
@@ -28,7 +28,7 @@ public class AuthController {
     */
 
     @PostMapping("/createStudent")
-    public ResponseEntity<AuthResponse> createStudent(@RequestBody StudentDTO studentDTO) {
+    public ResponseEntity<AuthResponse> createStudent(@RequestBody StudentCreationDTO studentDTO) {
         AuthResponse auth = authService.createStudentWithProfile(studentMapper.toEntity(studentDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }
@@ -40,7 +40,7 @@ public class AuthController {
      * @return ResponseEntity with the created Teacher object and HTTP status CREATED
      */
     @PostMapping("/createTeacher")
-    public ResponseEntity<AuthResponse> createTeacher(@RequestBody TeacherDTO teacherDTO) {
+    public ResponseEntity<AuthResponse> createTeacher(@RequestBody TeacherCreationDTO teacherDTO) {
         AuthResponse auth = authService.createTeacherWithProfile(teacherMapper.toEntity(teacherDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }

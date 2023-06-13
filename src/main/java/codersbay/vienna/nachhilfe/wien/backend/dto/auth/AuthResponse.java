@@ -19,11 +19,14 @@ public class AuthResponse {
     Long userId;
     String token;
     UserType userType;
-    String email;
     String firstName;
     String lastName;
     LocalDate birthdate;
+    String email;
     String description;
+    String image;
+    Boolean active;
+    Double averageRatingScore;
     Set<Feedback> feedbacks = new HashSet<>();
     Set<CoachingDTO> coachings = new HashSet<>();
     Set<ConversationDTO> conversations = new HashSet<>();

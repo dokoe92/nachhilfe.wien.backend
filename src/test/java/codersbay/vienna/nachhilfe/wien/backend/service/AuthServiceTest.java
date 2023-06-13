@@ -1,7 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
@@ -48,7 +48,7 @@ class AuthServiceTest {
         teacher.setRole(Role.ROLE_TEACHER);
         profileRepository.save(profile);
         teacherRepository.save(teacher);
-        TeacherDTO teacherDTO = teacherMapper.toDTO(teacher);
+        TeacherCreationDTO teacherDTO = teacherMapper.toDTO(teacher);
 
         Long teacherId = teacher.getId();
 

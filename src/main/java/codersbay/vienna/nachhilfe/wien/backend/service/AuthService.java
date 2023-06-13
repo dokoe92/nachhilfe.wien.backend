@@ -45,6 +45,9 @@ public class AuthService {
         auth.setLastName(user.getLastName());
         auth.setBirthdate(user.getBirthdate());
         auth.setDescription(user.getDescription());
+        auth.setImage(user.getProfile().getImageBase64());
+        auth.setActive(user.getProfile().isActive());
+        auth.setAverageRatingScore(user.getProfile().getAverageRatingScore());
         auth.setCoachings(coachingsMapper.toDTO(user).getCoachings());
 
         Set<ConversationDTO> conversationDtos = user.getConversations().stream()

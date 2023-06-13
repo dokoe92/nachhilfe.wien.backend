@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.dto.studentdto;
+package codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.ProfileDTO;
 import lombok.Getter;
@@ -8,10 +8,10 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class StudentDTO {
-
+public class TeacherCreationDTO {
     String firstName;
     String lastName;
     LocalDate birthdate;
+    String description;
     ProfileDTO profile;
 }
