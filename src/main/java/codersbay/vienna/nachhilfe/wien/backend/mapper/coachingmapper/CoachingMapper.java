@@ -21,7 +21,7 @@ public class CoachingMapper {
 
         CoachingDTO coachingDTO = new CoachingDTO();
 
-        coachingDTO.setId(coaching.getId());
+        coachingDTO.setCoachingId(coaching.getId());
         coachingDTO.setSubject(coaching.getSubject());
         coachingDTO.setLevel(coaching.getLevel());
         coachingDTO.setRate(coaching.getRate());

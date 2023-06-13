@@ -45,6 +45,4 @@ public class Coaching {
     @JoinColumn(name="fk_user_id")
     @Setter
     private User user;
-
-
 }

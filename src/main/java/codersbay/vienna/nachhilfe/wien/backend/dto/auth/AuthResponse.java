@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -17,16 +18,14 @@ public class AuthResponse {
 
     Long userId;
     String token;
-    UserType type;
+    UserType userType;
     String email;
     String firstName;
     String lastName;
     LocalDate birthdate;
     String description;
-    Set<Feedback> feedbacks;
-    Set<CoachingDTO> coachings;
-    Set<ConversationDTO> conversations;
-    Set<District> districts;
-
-
+    Set<Feedback> feedbacks = new HashSet<>();
+    Set<CoachingDTO> coachings = new HashSet<>();
+    Set<ConversationDTO> conversations = new HashSet<>();
+    Set<District> districts = new HashSet<>();
 }

@@ -1,18 +1,26 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingsMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
+import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
+import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ProfileNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -23,6 +31,29 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final CoachingsMapper coachingsMapper;
+    private final ConversationMapper conversationMapper;
+    private final TeacherRepository teacherRepository;
+    private final StudentRepository studentRepository;
+
+    public AuthResponse createAuthResponse(User user) {
+        AuthResponse auth = new AuthResponse();
+        auth.setUserId(user.getId());
+        auth.setUserType(user.getUserType());
+        auth.setEmail(user.getProfile().getEmail());
+        auth.setFirstName(user.getFirstName());
+        auth.setLastName(user.getLastName());
+        auth.setBirthdate(user.getBirthdate());
+        auth.setDescription(user.getDescription());
+        auth.setCoachings(coachingsMapper.toDTO(user).getCoachings());
+
+        Set<ConversationDTO> conversationDtos = user.getConversations().stream()
+                .map(conversationMapper::toDTO)
+                .collect(Collectors.toSet());
+        auth.setConversations(conversationDtos);
+
+        return auth;
+    }
 
     public AuthResponse createTeacherWithProfile(Teacher teacher) {
         Profile profile = teacher.getProfile();
@@ -30,14 +61,10 @@ public class AuthService {
         profileRepository.save(profile);
         teacher.setProfile(profile);
         teacher.setRole(Role.ROLE_TEACHER);
-        userRepository.save(teacher);
+        teacherRepository.save(teacher);
 
-        AuthResponse auth = new AuthResponse();
-        auth.setUserId(teacher.getId());
-        auth.setType(teacher.getUserType());
-        auth.setEmail(profile.getEmail());
-        auth.setFirstName(teacher.getFirstName());
-        auth.setLastName(teacher.getLastName());
+        AuthResponse auth = createAuthResponse(teacher);
+        auth.setDistricts(teacher.getDisctricts());
 
         String jwtToken = jwtService.generateToken(teacher);
         auth.setToken(jwtToken);
@@ -51,18 +78,12 @@ public class AuthService {
         profileRepository.save(profile);
         student.setProfile(profile);
         student.setRole(Role.ROLE_STUDENT);
-        userRepository.save(student);
+        studentRepository.save(student);
 
-        AuthResponse auth = new AuthResponse();
-        auth.setUserId(student.getId());
-        auth.setType(student.getUserType());
-        auth.setEmail(profile.getEmail());
-        auth.setFirstName(student.getFirstName());
-        auth.setLastName(student.getLastName());
+        AuthResponse auth = createAuthResponse(student);
 
         String jwtToken = jwtService.generateToken(student);
         auth.setToken(jwtToken);
-
 
         return auth;
     }
@@ -78,12 +99,7 @@ public class AuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"))
                 .getUser();
 
-        AuthResponse auth = new AuthResponse();
-        auth.setUserId(user.getId());
-        auth.setType(user.getUserType());
-        auth.setEmail(user.getProfile().getEmail());
-        auth.setFirstName(user.getFirstName());
-        auth.setLastName(user.getLastName());
+        AuthResponse auth = createAuthResponse(user);
 
         String jwtToken = jwtService.generateToken(user);
         auth.setToken(jwtToken);

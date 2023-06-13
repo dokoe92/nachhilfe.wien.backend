@@ -10,8 +10,6 @@ import java.util.Set;
 @Getter
 @Setter
 public class TeacherDistricts {
-
     Long teacherId;
     Set<District> districts = new HashSet<>();
-
 }
