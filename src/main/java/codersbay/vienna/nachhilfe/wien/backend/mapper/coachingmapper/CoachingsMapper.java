@@ -20,7 +20,6 @@ public class CoachingsMapper {
         }
 
         CoachingsDTO coachingsDTO = new CoachingsDTO();
-        coachingsDTO.setUserId(user.getId());
         coachingsDTO.setCoachings(user.getCoachings().stream()
                 .map(coachingMapper::toDTO)
                 .collect(Collectors.toSet()));

@@ -9,7 +9,7 @@ Content-Type: application/json
   "profile": {
     "userName": "wursti",
     "password": "1234",
-    "email": "hans@wurst.at2",
+    "email": "hans@wuwrst.at2",
     "active": true,
     "description": "hasdlft"
   }
@@ -68,7 +68,7 @@ Content-Type: application/json
 }
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/2
+POST http://localhost:8080/coaching/1
 Content-Type: application/json
 
 {
@@ -80,7 +80,6 @@ Content-Type: application/json
       "active": true
 
     }
-
   ]
 }
 

@@ -34,7 +34,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/createTeacher").permitAll()
                         .requestMatchers("/auth/createStudent").permitAll()
                         .requestMatchers("/teacher/updateDistricts/**").hasRole("TEACHER")
-                        .requestMatchers("/coaching/**").hasRole("TEACHER")
+                        .requestMatchers("/coaching/**").permitAll()
                         .requestMatchers("/conversation/**").hasAnyRole("STUDENT, TEACHER, ADMIN")
                         .requestMatchers("/message/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
                         .requestMatchers("/feedback").hasAnyRole("STUDENT", "ADMIN")

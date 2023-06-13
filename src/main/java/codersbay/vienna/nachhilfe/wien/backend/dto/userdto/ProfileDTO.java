@@ -11,5 +11,6 @@ public class ProfileDTO {
     String email;
     String description;
     Boolean active;
+    Double averageRatingScore;
 }
 

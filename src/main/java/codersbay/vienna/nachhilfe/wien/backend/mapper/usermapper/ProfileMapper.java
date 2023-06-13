@@ -13,7 +13,6 @@ public class ProfileMapper {
         }
 
         Profile profile = new Profile();
-        profile.setUserName(profileDTO.getUsername());
         profile.setPassword(profileDTO.getPassword());
         profile.setEmail(profileDTO.getEmail());
         profile.setDescription(profileDTO.getDescription());
@@ -29,7 +28,6 @@ public class ProfileMapper {
         }
 
         ProfileDTO profileDTO = new ProfileDTO();
-        profileDTO.setUsername(profile.getUserName());
         profileDTO.setEmail(profile.getEmail());
         profileDTO.setDescription(profile.getDescription());
         profileDTO.setActive(profile.isActive());

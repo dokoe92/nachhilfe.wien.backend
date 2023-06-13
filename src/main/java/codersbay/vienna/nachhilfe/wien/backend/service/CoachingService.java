@@ -9,10 +9,12 @@ import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,39 +32,36 @@ public class CoachingService {
     /**
      * Creates a list of coachings for a specific teacher.
      *
-     * @param coachingsDTO the CoachingsDTO object containing the coachings to be created
+     * @param coachingsDTO object containing the coachings to be created
      * @param id           the ID of the teacher
-     * @return the CoachingsDTO object with the created coachings including their ids from the database
+     * @return the set of coachings with the created coachings
      * @throws ResourceNotFoundException if the teacher is not found
+     * @throws DuplicatedException if the subject is already saved for this user
      */
     public CoachingsDTO createCoachings(CoachingsDTO coachingsDTO, Long id) {
-        CoachingsDTO responseDTO = new CoachingsDTO();
-        Set<CoachingDTO> responseCoachings = responseDTO.getCoachings();
-
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
-
-        responseDTO.setUserId(id);
-
-        for (CoachingDTO coachingDTO : coachingsDTO.getCoachings()) {
-            coachingDTO.setUserId(id);
-        }
 
         Set<Coaching> coachings = coachingsDTO.getCoachings().stream()
                 .map(coachingMapper::toEntity)
                 .collect(Collectors.toSet());
 
+        Set<CoachingDTO> savedCoachingDTO = new HashSet<>();
 
         for (Coaching coaching : coachings) {
-            coaching = coachingRepository.save(coaching);
-            CoachingDTO coachingDTO = coachingMapper.toDTO(coaching);
-            responseCoachings.add(coachingDTO);
+            if (coachingRepository.existsBySubjectAndUser(coaching.getSubject(), teacher)) {
+                throw new DuplicatedException("Subject" + coaching.getSubject() + " already exists for this teacher!");
+            }
+            coaching.setUser(teacher);
+            coaching = coachingRepository.save(coaching); // save id and also update the coaching in the set
             teacher.addCoachings(coaching);
+            savedCoachingDTO.add(coachingMapper.toDTO(coaching));
         }
-        responseDTO.setCoachings(responseCoachings);
-
         teacherRepository.save(teacher);
 
-        return responseDTO;
+        CoachingsDTO coachingsDTOWithIds = new CoachingsDTO();
+        coachingsDTOWithIds.setCoachings(savedCoachingDTO);
+
+        return coachingsDTOWithIds;
     }
 }

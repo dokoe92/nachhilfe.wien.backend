@@ -9,9 +9,9 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class StudentCreationDTO {
-
     String firstName;
     String lastName;
+    String image;
     LocalDate birthdate;
     ProfileDTO profile;
 }

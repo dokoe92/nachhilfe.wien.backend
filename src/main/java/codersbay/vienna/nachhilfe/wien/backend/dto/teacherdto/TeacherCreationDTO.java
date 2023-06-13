@@ -11,6 +11,7 @@ import java.time.LocalDate;
 public class TeacherCreationDTO {
     String firstName;
     String lastName;
+    String image;
     LocalDate birthdate;
     String description;
     ProfileDTO profile;
