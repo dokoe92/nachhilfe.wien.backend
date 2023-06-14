@@ -19,6 +19,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.EnumSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -54,6 +55,8 @@ public class AuthService {
                 .map(conversationMapper::toDTO)
                 .collect(Collectors.toSet());
         auth.setConversations(conversationDtos);
+
+        auth.setAvailableSubjects(EnumSet.allOf(Subject.class));
 
         return auth;
     }

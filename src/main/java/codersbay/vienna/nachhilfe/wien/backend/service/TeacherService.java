@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
@@ -44,6 +45,9 @@ public class TeacherService {
         return teacherDistricts;
     }
 
+    public List<Teacher> getAllTeachersPublic() {
+        return teacherRepository.findAll();
+    }
 
 
 }

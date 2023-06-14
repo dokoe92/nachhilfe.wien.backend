@@ -87,6 +87,7 @@ public class AuthController {
                 };
             }
             AuthResponse authResponse = authService.createAuthResponse(profile.getUser());
+            authResponse.setToken(jwtService.generateToken(profile.getUser()));
             return new ResponseEntity<>(authResponse, HttpStatus.OK);
         } else {
             throw new AuthenticationException("Authentication Header is missing or not properly formatted!") {
