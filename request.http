@@ -39,7 +39,7 @@ POST http://localhost:8080/auth
 Content-Type: application/json
 
 {
-  "email": "hans@wurst.at",
+  "email": "hans@wuwrst.at2",
   "password": "1234"
 
 }
@@ -91,3 +91,8 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYW5zQHd1cnN0LmF0MSIsImlhd
 {
   "districts": ["DISTRICT_1010", "DISTRICT_1030"]
 }
+
+### Get Authentication Token
+POST http://localhost:8080/auth/getAuth
+Content-Type: : application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYW5zQHd1d3JzdC5hdDIiLCJpYXQiOjE2ODY3NjEzMjMsImV4cCI6MTY4Njc2Mjc2M30.5rwJnhCDvfsQDyfSPSk6y-WoSDxXvUT_6cjCzm8VXFk
