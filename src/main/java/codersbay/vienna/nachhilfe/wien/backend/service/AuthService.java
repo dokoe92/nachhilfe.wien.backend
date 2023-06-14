@@ -86,6 +86,9 @@ public class AuthService {
         student.setRole(Role.ROLE_STUDENT);
         studentRepository.save(student);
 
+
+
+
         AuthResponse auth = createAuthResponse(student);
 
         String jwtToken = jwtService.generateToken(student);
