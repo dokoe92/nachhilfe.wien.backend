@@ -13,6 +13,8 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.service.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,7 @@ import java.nio.file.AccessDeniedException;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
+@Tag(name="Authentication")
 public class AuthController {
 
     private final AuthService authService;
@@ -40,7 +43,10 @@ public class AuthController {
      * @return ResponseEntity with the created Student object and HTTP status CREATED
     */
 
-    @PostMapping("/createStudent")
+    @PostMapping("/create-student")
+    @Operation(
+            description = "Create a student and link a profile"
+    )
     public ResponseEntity<AuthResponse> createStudent(@RequestBody StudentCreationDTO studentDTO) {
         AuthResponse auth = authService.createStudentWithProfile(studentMapper.toEntity(studentDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
@@ -52,25 +58,28 @@ public class AuthController {
      * @param teacherDTO  the TeacherDTO object containing the teacher and profile details
      * @return ResponseEntity with the created Teacher object and HTTP status CREATED
      */
-    @PostMapping("/createTeacher")
+    @PostMapping("/create-teacher")
+    @Operation(
+            description = "Create a teacher and link a profile"
+    )
     public ResponseEntity<AuthResponse> createTeacher(@RequestBody TeacherCreationDTO teacherDTO) {
         AuthResponse auth = authService.createTeacherWithProfile(teacherMapper.toEntity(teacherDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }
 
-    @GetMapping
-    public ResponseEntity<String> createTestString(){
-        return new ResponseEntity<>("Test", HttpStatus.OK);
-    }
-
-
     @PostMapping
+    @Operation(
+            description = "Login via email and password"
+    )
     public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest authRequest) {
         AuthResponse authResponse = authService.authenticate(authRequest);
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/getAuth")
+    @PostMapping("/info")
+    @Operation(
+            description = "Send a Bearer Token and get all personal user information"
+    )
     public ResponseEntity<AuthResponse> getAuthResponse(@RequestHeader("Authorization") String authHeader) {
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);

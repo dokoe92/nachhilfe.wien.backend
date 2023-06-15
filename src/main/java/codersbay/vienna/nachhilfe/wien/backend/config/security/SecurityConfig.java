@@ -46,15 +46,21 @@ public class SecurityConfig{
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs").permitAll()
                         .requestMatchers("/v3/api-docs/swagger-config").permitAll()
+
                         .requestMatchers("/auth").permitAll()
-                        .requestMatchers("/auth/getAuth").permitAll()
-                        .requestMatchers("/auth/createTeacher").permitAll()
-                        .requestMatchers("/auth/createStudent").permitAll()
-                        .requestMatchers("/teacher/updateDistricts/**").hasRole("TEACHER")
-                        .requestMatchers("/coaching/**").permitAll()
-                        .requestMatchers("/conversation/**").hasAnyRole("STUDENT, TEACHER, ADMIN")
-                        .requestMatchers("/message/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
-                        .requestMatchers("/feedback").hasAnyRole("STUDENT", "ADMIN")
+                        .requestMatchers("/auth/get-auth").permitAll()
+                        .requestMatchers("/auth/create-teacher").permitAll()
+                        .requestMatchers("/auth/create-student").permitAll()
+
+                        .requestMatchers("/teacher/update-districts/**").hasRole("TEACHER")
+                        .requestMatchers("/teacher/allTeachers").hasAnyRole("STUDENT", "ADMIN")
+
+                        .requestMatchers("/offer-coaching/**").hasRole("TEACHER")
+
+                        .requestMatchers("/create-conversation/**").hasAnyRole("STUDENT, TEACHER, ADMIN")
+
+                        .requestMatchers("/send-message/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
