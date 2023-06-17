@@ -1,13 +1,11 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackDTO.FeedbackDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbackDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Feedback;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.respository.FeedbackRepository;
-import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
-import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

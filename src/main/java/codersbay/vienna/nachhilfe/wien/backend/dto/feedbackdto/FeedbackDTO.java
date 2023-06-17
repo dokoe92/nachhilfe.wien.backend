@@ -1,4 +1,4 @@
-package codersbay.vienna.nachhilfe.wien.backend.dto.feedbackDTO;
+package codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto;
 
 import lombok.Getter;
 import lombok.Setter;

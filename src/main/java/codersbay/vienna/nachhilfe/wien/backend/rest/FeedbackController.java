@@ -1,9 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackDTO.FeedbackDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbackDTO;
 import codersbay.vienna.nachhilfe.wien.backend.service.FeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

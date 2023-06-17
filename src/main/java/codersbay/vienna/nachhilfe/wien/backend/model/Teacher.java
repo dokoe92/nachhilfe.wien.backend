@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class Teacher extends User {
     @Getter
     @Setter
     @OneToMany(mappedBy = "teacher")
+    @JsonManagedReference
     private Set<Feedback> feedbacks = new HashSet<>();
 
     @Getter
