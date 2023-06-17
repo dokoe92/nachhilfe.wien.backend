@@ -18,10 +18,12 @@ public class Feedback {
 
     @ManyToOne
     @JoinColumn(name="fk_teacher_id")
+    @Setter
     private Teacher teacher;
 
     @ManyToOne
     @JoinColumn(name="fk_student_id")
+    @Setter
     private Student student;
 
     @Setter

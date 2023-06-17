@@ -61,6 +61,8 @@ public class SecurityConfig{
 
                         .requestMatchers("/send-message/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
 
+                        .requestMatchers("/feedback").permitAll()
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

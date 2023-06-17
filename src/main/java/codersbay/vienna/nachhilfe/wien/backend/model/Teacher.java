@@ -16,8 +16,10 @@ public class Teacher extends User {
         super(UserType.TEACHER);
     }
 
+    @Getter
+    @Setter
     @OneToMany(mappedBy = "teacher")
-    private Set<Feedback> feedback = new HashSet<>();
+    private Set<Feedback> feedbacks = new HashSet<>();
 
     @Getter
     @Setter
@@ -37,5 +39,13 @@ public class Teacher extends User {
         this.getCoachings().add(coaching);
         coaching.setUser(this);
     }
+
+    public void addFeedback(Feedback feedback) {
+        if (feedback == null) {
+            return;
+        }
+        this.getFeedbacks().add(feedback);
+    }
+
 
 }

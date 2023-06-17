@@ -16,7 +16,7 @@ public class TeacherPublicMapper {
         teacherPublicDTO.setImage(teacherPublicDTO.getImage());
         teacherPublicDTO.setActive(teacher.getProfile().isActive());
         teacherPublicDTO.setAverageRatingScore(teacher.getProfile().getAverageRatingScore());
-        teacherPublicDTO.setFeedbacks(teacher.getFeedback());
+        teacherPublicDTO.setFeedbacks(teacher.getFeedbacks());
         teacherPublicDTO.setDistricts(teacher.getDisctricts());
 
         return teacherPublicDTO;
