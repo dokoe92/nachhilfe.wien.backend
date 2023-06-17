@@ -5,6 +5,8 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.Conver
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingsMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbacksMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
@@ -13,6 +15,7 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,8 +23,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_TEACHER;
 
 @Component
 @RequiredArgsConstructor
@@ -36,6 +42,8 @@ public class AuthService {
     private final ConversationMapper conversationMapper;
     private final TeacherRepository teacherRepository;
     private final StudentRepository studentRepository;
+    private final FeedbacksMapper feedbacksMapper;
+
 
     public AuthResponse createAuthResponse(User user) {
         AuthResponse auth = new AuthResponse();
@@ -50,6 +58,12 @@ public class AuthService {
         auth.setActive(user.getProfile().isActive());
         auth.setAverageRatingScore(user.getProfile().getAverageRatingScore());
         auth.setCoachings(coachingsMapper.toDTO(user).getCoachings());
+
+
+        if(user instanceof Teacher) {
+            Teacher teacher = (Teacher) user;
+            auth.setFeedbacks(feedbacksMapper.toDTO(teacher.getFeedbacks()));
+        }
 
         Set<ConversationDTO> conversationDtos = user.getConversations().stream()
                 .map(conversationMapper::toDTO)
@@ -66,7 +80,7 @@ public class AuthService {
         profile.setPassword(passwordEncoder.encode(teacher.getPassword()));
         profileRepository.save(profile);
         teacher.setProfile(profile);
-        teacher.setRole(Role.ROLE_TEACHER);
+        teacher.setRole(ROLE_TEACHER);
         teacherRepository.save(teacher);
 
         AuthResponse auth = createAuthResponse(teacher);

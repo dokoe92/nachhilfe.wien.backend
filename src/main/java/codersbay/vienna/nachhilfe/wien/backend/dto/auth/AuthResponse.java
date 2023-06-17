@@ -2,6 +2,8 @@ package codersbay.vienna.nachhilfe.wien.backend.dto.auth;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbackDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbacksDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.District;
 import codersbay.vienna.nachhilfe.wien.backend.model.Feedback;
 import codersbay.vienna.nachhilfe.wien.backend.model.Subject;
@@ -28,7 +30,7 @@ public class AuthResponse {
     String image;
     Boolean active;
     Double averageRatingScore;
-    Set<Feedback> feedbacks = new HashSet<>();
+    FeedbacksDTO feedbacks = new FeedbacksDTO();
     Set<CoachingDTO> coachings = new HashSet<>();
     Set<ConversationDTO> conversations = new HashSet<>();
     Set<District> districts = new HashSet<>();
