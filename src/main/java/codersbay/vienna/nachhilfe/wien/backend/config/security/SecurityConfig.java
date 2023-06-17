@@ -62,7 +62,7 @@ public class SecurityConfig{
 
                         .requestMatchers("/send-message/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
 
-                        .requestMatchers("/feedback").permitAll()
+                        .requestMatchers("/feedback").hasAnyRole("STUDENT")
 
                         .anyRequest().authenticated()
                 )
