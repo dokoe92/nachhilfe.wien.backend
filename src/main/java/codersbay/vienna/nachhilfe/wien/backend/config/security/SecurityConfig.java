@@ -54,6 +54,7 @@ public class SecurityConfig{
 
                         .requestMatchers("/teacher/update-districts/**").hasRole("TEACHER")
                         .requestMatchers("/teacher/allTeachers").hasAnyRole("STUDENT", "ADMIN")
+                        .requestMatchers("/teacher/teacher-profiles").permitAll()
 
                         .requestMatchers("/offer-coaching/**").hasRole("TEACHER")
 
