@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 
 import java.util.Set;
@@ -41,14 +42,12 @@ class AuthServiceTest {
     public void testUpdateTeacherDistricts(){
         Teacher teacher = new Teacher();
         Profile profile = new Profile();
-        profile.setUserName("superhans");
         profile.setEmail("hansi@gmail.com");
         profile.setPassword("12345678");
         teacher.setProfile(profile);
         teacher.setRole(Role.ROLE_TEACHER);
         profileRepository.save(profile);
         teacherRepository.save(teacher);
-        TeacherCreationDTO teacherDTO = teacherMapper.toDTO(teacher);
 
         Long teacherId = teacher.getId();
 
@@ -64,12 +63,13 @@ class AuthServiceTest {
 
 
         System.out.println(teacherDistricts.getTeacherId() + " districts " + teacherDistricts.getDistricts());
+        System.out.println(headers);
         HttpEntity<TeacherDistricts> request = new HttpEntity<>(teacherDistricts, headers );
 
         ResponseEntity<TeacherDistricts> responseEntity =
                 testRestTemplate.exchange("/teacher/updateDistricts/"+ teacherId, HttpMethod.PUT, request, TeacherDistricts.class );
 
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+        assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
     }
 
 

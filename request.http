@@ -1,5 +1,5 @@
 ### Create teacher
-POST http://localhost:8080/auth/createTeacher
+POST http://localhost:8080/auth/create-teacher
 Content-Type: application/json
 
 {
@@ -9,14 +9,14 @@ Content-Type: application/json
   "profile": {
     "userName": "wursti",
     "password": "1234",
-    "email": "hans@wuwrst.at2",
+    "email": "hans@wuwrst.at3d",
     "active": true,
     "description": "hasdlft"
   }
 }
 
 ### Create Student
-POST http://localhost:8080/auth/createStudent
+POST http://localhost:8080/auth/create-student
 Content-Type: application/json
 
 {
@@ -68,17 +68,18 @@ Content-Type: application/json
 }
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/1
+POST http://localhost:8080/coaching/offer-coaching/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAd3V3cnN0LmF0M2QiLCJpYXQiOjE2ODcyMDI1MDIsImV4cCI6MTY4NzIwMzk0Mn0.C_2Lf8dzXw6CsoLqWaPrVy1gqiK4dLCSN1tNbQAvR_U
 
 {
   "coachings": [
     {
+      "userId": 1,
       "subject": "MATHEMATIK",
       "level": "Oberstufe",
       "rate": 20.5,
       "active": true
-
     }
   ]
 }
@@ -86,13 +87,13 @@ Content-Type: application/json
 ### Update Teacher districts
 PUT http://localhost:8080/teacher/updateDistricts/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYW5zQHd1cnN0LmF0MSIsImlhdCI6MTY4NjU5NDM0MCwiZXhwIjoxNjg2NTk1NzgwfQ.gt8up2Cf7g13_u4PjIMYGpchlhYvpG7rfJT_J6vSrmI
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAd3V3cnN0LmF0M2QiLCJpYXQiOjE2ODcyMDIwMjAsImV4cCI6MTY4NzIwMzQ2MH0.M_Ox7E1NEcEUIbX-OUzjeYVKyHr_Kd2DOmu7t9ZzV9Q
 
 {
   "districts": ["DISTRICT_1010", "DISTRICT_1030"]
 }
 
 ### Get Authentication Token
-POST http://localhost:8080/auth/getAuth
+POST http://localhost:8080/auth/info
 Content-Type: : application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJoYW5zQHd1d3JzdC5hdDIiLCJpYXQiOjE2ODY3NjEzMjMsImV4cCI6MTY4Njc2Mjc2M30.5rwJnhCDvfsQDyfSPSk6y-WoSDxXvUT_6cjCzm8VXFk
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmF0ZCIsImlhdCI6MTY4NzE5OTkwNiwiZXhwIjoxNjg3MjAxMzQ2fQ.3cFbtqhrvwjY8uTrULeXoIO2b8BQyWD2Iv8ZuwrgMPM

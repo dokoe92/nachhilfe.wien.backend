@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingsDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
@@ -27,6 +28,7 @@ public class CoachingService {
     private final CoachingsMapper coachingsMapper;
     private final CoachingMapper coachingMapper;
     private final TeacherRepository teacherRepository;
+    private final JwtService jwtService;
 
 
     /**
@@ -42,9 +44,12 @@ public class CoachingService {
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
+
         Set<Coaching> coachings = coachingsDTO.getCoachings().stream()
                 .map(coachingMapper::toEntity)
                 .collect(Collectors.toSet());
+
+
 
         Set<CoachingDTO> savedCoachingDTO = new HashSet<>();
 
