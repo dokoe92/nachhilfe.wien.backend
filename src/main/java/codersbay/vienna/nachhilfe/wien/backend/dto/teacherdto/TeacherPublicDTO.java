@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -21,7 +22,7 @@ public class TeacherPublicDTO {
     String image;
     Boolean active;
     Double averageRatingScore;
-    FeedbacksDTO feedbacks = new FeedbacksDTO();
+    Set<FeedbackDTO> feedbacks = new HashSet<>();
     Set<CoachingDTO> coachings = new HashSet<>();
     Set<District> districts = new HashSet<>();
 
