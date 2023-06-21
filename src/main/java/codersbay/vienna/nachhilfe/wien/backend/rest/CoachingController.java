@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingsDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -46,11 +48,11 @@ public class CoachingController {
     @Operation(
             description = "Add a coaching which will be offered by a teacher"
     )
-    public ResponseEntity<CoachingsDTO> createCoachings(@RequestBody CoachingsDTO coachingsDTO,
-                                                        @PathVariable Long teacherId
+    public ResponseEntity<Set<CoachingDTO>> createCoachings(@RequestBody CoachingsDTO coachingsDTO,
+                                                            @PathVariable Long teacherId
                                                          ) {
 
-        CoachingsDTO savedCoachingsDTO = coachingService.createCoachings(coachingsDTO, teacherId);
-        return new ResponseEntity<>(savedCoachingsDTO, HttpStatus.CREATED);
+        Set<CoachingDTO> savedCoachingDTO = coachingService.createCoachings(coachingsDTO, teacherId);
+        return new ResponseEntity<>(savedCoachingDTO, HttpStatus.CREATED);
     }
 }

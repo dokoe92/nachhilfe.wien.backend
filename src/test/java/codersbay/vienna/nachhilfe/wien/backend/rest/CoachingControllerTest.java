@@ -48,7 +48,6 @@ class CoachingControllerTest {
         CoachingsDTO coachingsDTO = new CoachingsDTO();
 
         CoachingDTO coachingDTO1 = new CoachingDTO();
-        coachingDTO1.setUserId(101L);
         coachingDTO1.setSubject(Subject.MATHEMATIK);
         coachingDTO1.setLevel("Intermediate");
         coachingDTO1.setRate(25.0);
@@ -56,7 +55,6 @@ class CoachingControllerTest {
 
         CoachingDTO coachingDTO2 = new CoachingDTO();
         coachingDTO2.setCoachingId(2L);
-        coachingDTO2.setUserId(102L);
         coachingDTO2.setSubject(Subject.DEUTSCH);
         coachingDTO2.setLevel("Advanced");
         coachingDTO2.setRate(30.0);
@@ -64,7 +62,6 @@ class CoachingControllerTest {
 
         CoachingDTO coachingDTO3 = new CoachingDTO();
         coachingDTO3.setCoachingId(3L);
-        coachingDTO3.setUserId(103L);
         coachingDTO3.setSubject(Subject.ENGLISCH);
         coachingDTO3.setLevel("Beginner");
         coachingDTO3.setRate(20.0);

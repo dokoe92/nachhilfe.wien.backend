@@ -9,7 +9,7 @@ Content-Type: application/json
   "profile": {
     "userName": "wursti",
     "password": "1234",
-    "email": "hans@wuwrst.at3d",
+    "email": "hans@wuwrst.adt3d",
     "active": true,
     "description": "hasdlft"
   }
@@ -70,12 +70,17 @@ Content-Type: application/json
 ### Create coaachings which are offered by a teacher
 POST http://localhost:8080/coaching/offer-coaching/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAd3V3cnN0LmF0M2QiLCJpYXQiOjE2ODcyMDI1MDIsImV4cCI6MTY4NzIwMzk0Mn0.C_2Lf8dzXw6CsoLqWaPrVy1gqiK4dLCSN1tNbQAvR_U
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDNkIiwiaWF0IjoxNjg3MzYzMTYxLCJleHAiOjE2ODczNjQ2MDF9.f_7PAVRxB3dxlzR_i18x1CpqX3PzPuD-wT_cu86Favs
 
 {
   "coachings": [
     {
-      "userId": 1,
+      "subject": "ENGLISCH",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+    },
+    {
       "subject": "MATHEMATIK",
       "level": "Oberstufe",
       "rate": 20.5,
