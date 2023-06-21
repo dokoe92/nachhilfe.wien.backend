@@ -10,6 +10,5 @@ import java.util.Set;
 @Setter
 public class CoachingsDTO {
 
-    Long userId;
     Set<CoachingDTO> coachings = new HashSet<>();
 }

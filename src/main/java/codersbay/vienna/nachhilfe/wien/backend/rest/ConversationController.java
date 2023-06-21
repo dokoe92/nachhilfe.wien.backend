@@ -2,10 +2,13 @@ package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Conversation;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicateIdException;
+import codersbay.vienna.nachhilfe.wien.backend.model.Conversation;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.MissingIdException;
 import codersbay.vienna.nachhilfe.wien.backend.service.ConversationService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +22,8 @@ import java.util.Set;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/conversation")
+@Tag(name = "Conversation")
+@SecurityRequirement(name="bearerAuth")
 public class ConversationController {
 
     private final ConversationService conversationService;
@@ -31,9 +36,12 @@ public class ConversationController {
      * @param user2 the ID of the second user
      * @return the ConversationDTO object representing the created conversation
      * @throws MissingIdException     if either user1 or user2 is missing
-     * @throws DuplicateIdException   if user1 and user2 have the same ID
+     * @throws DuplicatedException   if user1 and user2 have the same ID
      */
-    @PostMapping("/{user1}/{user2}")
+    @PostMapping("/create-conversation/{user1}/{user2}")
+    @Operation(
+            description = "Create a conversation between two users where messages can be added"
+    )
     private ConversationDTO createConversation(@PathVariable Optional<Long> user1, @PathVariable Optional<Long> user2) {
         Set<Long> userIds = new HashSet<>();
         if (!user1.isPresent() || !user2.isPresent()) {
@@ -43,7 +51,7 @@ public class ConversationController {
         boolean addUser2 = userIds.add(user2.get());
 
         if (!addUser2) {
-            throw new DuplicateIdException("Users must have different IDs");
+            throw new DuplicatedException("Users must have different IDs");
         }
 
         Conversation conversation = conversationService.createConversation(userIds);

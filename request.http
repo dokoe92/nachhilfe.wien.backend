@@ -1,22 +1,22 @@
 ### Create teacher
-POST http://localhost:8080/user/createTeacher
+POST http://localhost:8080/auth/create-teacher
 Content-Type: application/json
 
 {
-  "firstName": "Hans'",
+  "firstName": "1'",
   "lastName": "Wurst",
   "birthdate": "1992-07-29",
   "profile": {
     "userName": "wursti",
     "password": "1234",
-    "email": "hans@wurst.at",
+    "email": "hans@wuwrst.adt232d",
     "active": true,
     "description": "hasdlft"
   }
 }
 
 ### Create Student
-POST http://localhost:8080/user/createStudent
+POST http://localhost:8080/auth/create-student
 Content-Type: application/json
 
 {
@@ -31,12 +31,15 @@ Content-Type: application/json
   }
 }
 
+### Test Auth
+GET http://localhost:8080/auth
+
 ### Get AuthToken via Email and Password of User
 POST http://localhost:8080/auth
 Content-Type: application/json
 
 {
-  "email": "hans@wurst.at",
+  "email": "hans@wuwrst.at2",
   "password": "1234"
 
 }
@@ -65,26 +68,37 @@ Content-Type: application/json
 }
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/2
+POST http://localhost:8080/coaching/offer-coaching/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDIzMmQiLCJpYXQiOjE2ODczNjM5MjEsImV4cCI6MTY4NzM2NTM2MX0.cgmpW10jT8SOl_33cUfZvqv4NoovqQddPdrvymArNcs
 
 {
   "coachings": [
+    {
+      "subject": "ENGLISCH",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+    },
     {
       "subject": "MATHEMATIK",
       "level": "Oberstufe",
       "rate": 20.5,
       "active": true
-
     }
-
   ]
 }
 
 ### Update Teacher districts
-PUT http://localhost:8080/teacher/updateDistricts/1
+PUT http://localhost:8080/teacher/updateDistricts/2
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAd3V3cnN0LmF0M2QiLCJpYXQiOjE2ODcyMDIwMjAsImV4cCI6MTY4NzIwMzQ2MH0.M_Ox7E1NEcEUIbX-OUzjeYVKyHr_Kd2DOmu7t9ZzV9Q
 
 {
   "districts": ["DISTRICT_1010", "DISTRICT_1030"]
 }
+
+### Get Authentication Token
+POST http://localhost:8080/auth/info
+Content-Type: : application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmF0ZCIsImlhdCI6MTY4NzE5OTkwNiwiZXhwIjoxNjg3MjAxMzQ2fQ.3cFbtqhrvwjY8uTrULeXoIO2b8BQyWD2Iv8ZuwrgMPM

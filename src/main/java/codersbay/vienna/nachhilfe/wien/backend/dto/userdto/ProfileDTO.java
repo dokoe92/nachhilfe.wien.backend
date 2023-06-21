@@ -6,12 +6,11 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ProfileDTO {
-    String userName;
+    String username;
     String password;
     String email;
     String description;
     Boolean active;
     Double averageRatingScore;
-
 }
 

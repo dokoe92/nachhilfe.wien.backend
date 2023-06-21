@@ -1,7 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.Pojo.TeacherDistricts;
+import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -16,10 +16,6 @@ public class TeacherService {
 
     private final TeacherRepository teacherRepository;
 
-    public List<Teacher> findAllTeachers() {
-        return teacherRepository.findAll();
-    }
-
 
     /**
      * Updates the districts of a teacher.
@@ -29,6 +25,7 @@ public class TeacherService {
      * @return the updated TeacherDistricts object
      * @throws ResourceNotFoundException if the teacher is not found
      */
+
     public TeacherDistricts updateTeacherDistricts(TeacherDistricts teacherDistricts, Long teacherId) {
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         if (teacher.isEmpty()) {
@@ -44,6 +41,14 @@ public class TeacherService {
         return teacherDistricts;
     }
 
+    public List<Teacher> getAllTeachersPublic() {
+        return teacherRepository.findAll();
+    }
+
+    public Teacher findTeacherById(Long id) {
+        return teacherRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher not found!"));
+    }
 
 
 }

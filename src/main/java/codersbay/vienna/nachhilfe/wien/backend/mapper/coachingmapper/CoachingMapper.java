@@ -1,8 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Coaching;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -21,12 +21,11 @@ public class CoachingMapper {
 
         CoachingDTO coachingDTO = new CoachingDTO();
 
-        coachingDTO.setId(coaching.getId());
+        coachingDTO.setCoachingId(coaching.getId());
         coachingDTO.setSubject(coaching.getSubject());
         coachingDTO.setLevel(coaching.getLevel());
         coachingDTO.setRate(coaching.getRate());
         coachingDTO.setActive(coaching.isActive());
-        coachingDTO.setUserId(coaching.getUser().getId());
 
         return coachingDTO;
     }
@@ -43,10 +42,6 @@ public class CoachingMapper {
         coaching.setRate(coachingDTO.getRate());
         coaching.setActive(coachingDTO.getActive());
 
-        User user = userRepository.findById(coachingDTO.getUserId())
-                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
-
-        coaching.setUser(user);
 
         return coaching;
     }
