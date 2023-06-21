@@ -17,7 +17,8 @@ import org.springframework.http.*;
 
 import java.util.Set;
 
-import static codersbay.vienna.nachhilfe.wien.backend.model.District.DISTRICT_1010;
+import static codersbay.vienna.nachhilfe.wien.backend.model.Districts.DISTRICT_1010;
+import static codersbay.vienna.nachhilfe.wien.backend.model.Districts.DISTRICT_1010;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -59,11 +60,11 @@ class TeacherControllerTest {
 
         TeacherDistricts teacherDistricts = new TeacherDistricts();
         teacherDistricts.setTeacherId(teacher.getId());
-        Set<District> districts = teacher.getDisctricts();
+        Set<Districts> districts = teacher.getDistricts();
 
 
         districts.add(DISTRICT_1010);
-        teacher.setDisctricts(districts);
+        teacher.setDistricts(districts);
         teacherDistricts.getDistricts().addAll(districts);
 
         HttpEntity<TeacherDistricts> request = new HttpEntity<>(teacherDistricts, headers );

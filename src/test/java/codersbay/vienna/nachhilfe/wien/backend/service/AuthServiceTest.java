@@ -17,7 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 
 import java.util.Set;
 
-import static codersbay.vienna.nachhilfe.wien.backend.model.District.DISTRICT_1010;
+import static codersbay.vienna.nachhilfe.wien.backend.model.Districts.DISTRICT_1010;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -57,9 +57,9 @@ class AuthServiceTest {
 
         TeacherDistricts teacherDistricts = new TeacherDistricts();
         teacherDistricts.setTeacherId(teacher.getId());
-        Set<District> districts = teacher.getDisctricts();
+        Set<Districts> districts = teacher.getDistricts();
         districts.add(DISTRICT_1010);
-        teacher.setDisctricts(districts);
+        teacher.setDistricts(districts);
 
 
         System.out.println(teacherDistricts.getTeacherId() + " districts " + teacherDistricts.getDistricts());
