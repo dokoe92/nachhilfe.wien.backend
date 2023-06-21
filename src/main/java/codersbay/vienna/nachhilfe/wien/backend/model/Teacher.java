@@ -25,11 +25,11 @@ public class Teacher extends User {
 
     @Getter
     @Setter
-    @ElementCollection(targetClass = District.class)
-    @CollectionTable(name = "district",
-            joinColumns = @JoinColumn(name = "coaching_id"))
+    @ElementCollection(targetClass = Districts.class)
+    @CollectionTable(name = "districts",
+            joinColumns = @JoinColumn(name = "teacher_id"))
     @Enumerated(EnumType.STRING)
-    private Set<District> disctricts = new HashSet<>();
+    private Set<Districts> districts = new HashSet<>();
 
 
     /**

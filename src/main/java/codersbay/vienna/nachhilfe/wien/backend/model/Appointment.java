@@ -6,39 +6,40 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Table(name="appointment")
-@NoArgsConstructor
-public class Appointment {
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Long id;
+@DiscriminatorValue(value = "appointment")
+public class Appointment extends Message{
+
+    public Appointment() {
+        super(MessageType.APPOINTMENT);
+    }
 
     @Setter
-    @Column(name = "start_coaching", nullable = false)
-    private LocalDate start;
+    @Column(name = "start_coaching")
+    private LocalDateTime start;
 
     @Setter
-    @Column(name="end_coaching", nullable = false)
-    private LocalDate end;
+    @Column(name="end_coaching")
+    private LocalDateTime end;
 
     @Setter
     @Column(name="status")
     @Enumerated(value=EnumType.STRING)
     private Status status;
 
+    @Setter
     @ManyToOne
-    @JoinColumn(name="fk_coaching_id", nullable = false)
+    @JoinColumn(name="fk_coaching_id")
     private Coaching coaching;
 
+    @Setter
     @ManyToOne
-    @JoinColumn(name="fk_student_id", nullable = false)
+    @JoinColumn(name="fk_student_id")
     private Student student;
 
-    @OneToOne
-    @JoinColumn(name="fk_message_id")
-    private Message message;
+
 
 }

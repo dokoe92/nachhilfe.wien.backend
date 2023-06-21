@@ -20,16 +20,16 @@ public class TeacherPublicMapper {
         TeacherPublicDTO teacherPublicDTO = new TeacherPublicDTO();
         teacherPublicDTO.setTeacherId(teacher.getId());
         teacherPublicDTO.setFirstName(teacher.getFirstName());
-        teacherPublicDTO.setLastName(teacher.getLastName());
-        teacherPublicDTO.setDescription(teacher.getDescription());
-        teacherPublicDTO.setImage(teacher.getProfile().getImageBase64());
+        teacherPublicDTO.setLastName(teacherPublicDTO.getLastName());
+        teacherPublicDTO.setDescription(teacherPublicDTO.getDescription());
+        teacherPublicDTO.setImage(teacherPublicDTO.getImage());
         teacherPublicDTO.setActive(teacher.getProfile().isActive());
         teacherPublicDTO.setAverageRatingScore(teacher.getProfile().getAverageRatingScore());
         teacherPublicDTO.setFeedbacks(teacher.getFeedbacks()
                 .stream()
                 .map(feedbackMapper::toDTO)
                 .collect(Collectors.toSet()));
-        teacherPublicDTO.setDistricts(teacher.getDisctricts());
+        teacherPublicDTO.setDistricts(teacher.getDistricts());
 
         return teacherPublicDTO;
     }

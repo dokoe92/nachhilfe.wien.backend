@@ -1,10 +1,12 @@
 package codersbay.vienna.nachhilfe.wien.backend.config.security;
 
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,10 @@ public class JwtService {
 
     public String extractUsername(String jwtToken) {
         return extractClaim(jwtToken, Claims::getSubject);
+    }
+
+    public Long extractUserId(String jwtToken) {
+        return Long.parseLong(extractAllClaims(jwtToken).get("userId").toString());
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -50,7 +56,9 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", ((User) userDetails).getId());
+        return generateToken(claims, userDetails);
     }
 
     public boolean isTokenValid(String jwtToken, UserDetails userDetails) {
@@ -70,5 +78,17 @@ public class JwtService {
     private Key getSignKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    public String getTokenFromHeader(String authHeader) {
+        if (authHeader != null && authHeader.startsWith("Bearer ")) {
+            return authHeader.substring(7);
+        }
+        throw new AuthenticationException("No valid authentication token!") {
+            @Override
+            public String getMessage() {
+                return super.getMessage();
+            }
+        };
     }
 }

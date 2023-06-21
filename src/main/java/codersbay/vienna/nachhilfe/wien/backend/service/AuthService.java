@@ -42,7 +42,7 @@ public class AuthService {
     private final ConversationMapper conversationMapper;
     private final TeacherRepository teacherRepository;
     private final StudentRepository studentRepository;
-    private final FeedbacksMapper feedbacksMapper;
+    private final FeedbackMapper feedbackMapper;
 
 
     public AuthResponse createAuthResponse(User user) {
@@ -62,7 +62,7 @@ public class AuthService {
 
         if(user instanceof Teacher) {
             Teacher teacher = (Teacher) user;
-            auth.setFeedbacks(feedbacksMapper.toDTO(teacher.getFeedbacks()));
+            auth.setFeedbacks(teacher.getFeedbacks().stream().map(feedbackMapper::toDTO).collect(Collectors.toSet()));
         }
 
         Set<ConversationDTO> conversationDtos = user.getConversations().stream()
@@ -84,7 +84,7 @@ public class AuthService {
         teacherRepository.save(teacher);
 
         AuthResponse auth = createAuthResponse(teacher);
-        auth.setDistricts(teacher.getDisctricts());
+        auth.setDistricts(teacher.getDistricts());
 
         String jwtToken = jwtService.generateToken(teacher);
         auth.setToken(jwtToken);
@@ -99,9 +99,6 @@ public class AuthService {
         student.setProfile(profile);
         student.setRole(Role.ROLE_STUDENT);
         studentRepository.save(student);
-
-
-
 
         AuthResponse auth = createAuthResponse(student);
 

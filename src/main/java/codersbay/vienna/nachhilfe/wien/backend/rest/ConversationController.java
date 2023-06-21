@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserConversationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Conversation;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
@@ -10,10 +11,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -42,9 +42,9 @@ public class ConversationController {
     @Operation(
             description = "Create a conversation between two users where messages can be added"
     )
-    private ConversationDTO createConversation(@PathVariable Optional<Long> user1, @PathVariable Optional<Long> user2) {
+    private ResponseEntity<ConversationDTO> createConversation(@PathVariable Optional<Long> user1, @PathVariable Optional<Long> user2) {
         Set<Long> userIds = new HashSet<>();
-        if (!user1.isPresent() || !user2.isPresent()) {
+        if (user1.isEmpty() || user2.isEmpty()) {
             throw new MissingIdException("Two Ids are required");
         }
         userIds.add(user1.get());
@@ -56,6 +56,21 @@ public class ConversationController {
 
         Conversation conversation = conversationService.createConversation(userIds);
 
-        return conversationMapper.toDTO(conversation);
+        ConversationDTO conversationDTO = conversationMapper.toDTO(conversation);
+        return new ResponseEntity<>(conversationDTO, HttpStatus.OK);
     }
+
+
+    @GetMapping("/{conversationId}")
+    public ResponseEntity<ConversationDTO> findConversationById(@PathVariable Long conversationId) {
+        ConversationDTO conversationDTO = conversationService.findConversationById(conversationId);
+        return new ResponseEntity<>(conversationDTO, HttpStatus.OK);
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<UserConversationDTO> findConversationsOfUser (@PathVariable Long userId) {
+        UserConversationDTO userConversationDTO = conversationService.findConversationsOfUser(userId);
+        return new ResponseEntity<>(userConversationDTO, HttpStatus.OK);
+    }
+
 }

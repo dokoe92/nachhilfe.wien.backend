@@ -1,10 +1,9 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 
 @Getter
-public enum District {
+public enum Districts {
     DISTRICT_1010("1010", "Innere Stadt"),
     DISTRICT_1020("1020", "Leopoldstadt"),
     DISTRICT_1030("1030", "Landstraße"),
@@ -32,7 +31,7 @@ public enum District {
     private final String postCode;
     private final String name;
 
-    District(String postCode, String name) {
+    Districts(String postCode, String name) {
         this.postCode = postCode;
         this.name = name;
     }

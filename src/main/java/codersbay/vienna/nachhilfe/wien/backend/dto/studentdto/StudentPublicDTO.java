@@ -1,7 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.studentdto;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
-import codersbay.vienna.nachhilfe.wien.backend.model.District;
+import codersbay.vienna.nachhilfe.wien.backend.model.Districts;
 import codersbay.vienna.nachhilfe.wien.backend.model.Feedback;
 import lombok.Getter;
 import lombok.Setter;

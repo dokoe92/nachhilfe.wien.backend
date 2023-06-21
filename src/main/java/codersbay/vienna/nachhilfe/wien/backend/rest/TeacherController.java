@@ -4,10 +4,10 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherPublicMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
+import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.TeacherUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.service.TeacherService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,14 +18,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/teacher")
 @RequiredArgsConstructor
-@SecurityRequirement(name="bearerAuth")
-@Tag(name = "Teacher")
 public class TeacherController {
-
     private final TeacherService teacherService;
     private final TeacherPublicMapper teacherPublicMapper;
 
-
+    @GetMapping
+    public ResponseEntity<List<Teacher>> findAllTeachers() {
+        List<Teacher> teacherList = teacherService.findAllTeachers();
+        return new ResponseEntity<>(teacherList, HttpStatus.OK);
+    }
 
     /**
      * Updates the districts of a teacher.
@@ -64,5 +65,33 @@ public class TeacherController {
         Teacher teacher = teacherService.findTeacherById(teacherId);
         TeacherPublicDTO teacherPublicDTO = teacherPublicMapper.toDTO(teacher);
         return new ResponseEntity<>(teacherPublicDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateTeacher/{teacherId}")
+    public ResponseEntity<Teacher> updateTeacher(
+            @PathVariable Long teacherId,
+            @RequestBody TeacherUpdateRequest request
+    ) {
+        Teacher updatedTeacher =
+                teacherService.updateTeacher(teacherId,
+                        request.getFirstName(),
+                        request.getLastName(),
+                        request.getDescription(),
+                        request.getPassword(),
+                        request.getEmail(),
+                        request.isActive());
+        return new ResponseEntity<>(updatedTeacher, HttpStatus.OK);
+
+    }
+
+
+    @DeleteMapping("/deleteTeacher/{teacherId}")
+    public ResponseEntity<String> deleteTeacher(@PathVariable Long teacherId) {
+        boolean deleted = teacherService.deleteAdmin(teacherId);
+        if (deleted) {
+            return ResponseEntity.ok("Teacher with ID " + teacherId + " deleted succesfully.");
+        } else {
+            throw new UserNotFoundException("Teacher with ID " + teacherId + " was not found.");
+        }
     }
 }

@@ -9,7 +9,6 @@ import lombok.Setter;
 public class CoachingDTO {
 
     private Long coachingId;
-    private Long userId;
     private Subject subject;
     private String level;
     private Double rate;

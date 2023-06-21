@@ -16,8 +16,9 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @Setter
-    @Column(name="password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Setter
@@ -25,7 +26,7 @@ public class Profile {
     private String email;
 
     @Setter
-    @Column(name="picture")
+    @Column(name = "picture")
     private String imageBase64;
 
     @Setter
@@ -48,5 +49,6 @@ public class Profile {
     @OneToOne(mappedBy = "profile")
     @JsonBackReference
     private User user;
+
 
 }

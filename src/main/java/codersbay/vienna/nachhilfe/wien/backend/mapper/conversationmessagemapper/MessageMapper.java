@@ -1,7 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.MessageDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserTypeMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Message;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
@@ -18,9 +17,7 @@ import java.util.Optional;
 @Table(name="message")
 public class MessageMapper {
 
-    private final UserTypeMapper userTypeMapper;
     private final UserRepository userRepository;
-    private final ConversationRepository conversationRepository;
 
     public MessageDTO toDTO(Message message) {
         if (message == null) {
@@ -28,12 +25,13 @@ public class MessageMapper {
         }
 
         MessageDTO messageDTO = new MessageDTO();
-
+        messageDTO.setTimeStamp(message.getTimestamp());
         messageDTO.setMessageId(message.getId());
         messageDTO.setTitle(message.getTitle());
         messageDTO.setContent(message.getContent());
         messageDTO.setSenderId(message.getSender().getId());
-        messageDTO.setConversationId(message.getConversations().getId());
+        messageDTO.setConversationId(message.getConversation().getId());
+        messageDTO.setMessageType(message.getMessageType());
 
         return messageDTO;
     }

@@ -13,6 +13,7 @@ import java.util.Set;
 @Setter
 public class UserConversationDTO {
 
-    UserTypeDTO userTypeDTO;
+    Long userId;
+    UserTypeDTO userType;
     Set<ConversationDTO> conversations = new HashSet<>();
 }

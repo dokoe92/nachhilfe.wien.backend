@@ -41,15 +41,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(restError, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(value= AccessDeniedException.class)
-    public ResponseEntity<RestError> handleAccessDeniedException(org.springframework.security.access.AccessDeniedException ex) {
+    @ExceptionHandler(value = UserNotAuthorizedException.class)
+    public ResponseEntity<RestError> handleUserNotAuthorizedException(UserNotAuthorizedException ex) {
         RestError restError = new RestError(ex.getMessage(), HttpStatus.FORBIDDEN.value());
         return new ResponseEntity<>(restError, HttpStatus.FORBIDDEN);
     }
 
-    @ExceptionHandler(value= org.springframework.security.core.AuthenticationException.class)
-    public ResponseEntity<RestError> handleAccessDeniedException(AuthenticationException ex) {
-        RestError restError = new RestError(ex.getMessage(), HttpStatus.FORBIDDEN.value());
-        return new ResponseEntity<>(restError, HttpStatus.FORBIDDEN);
-    }
+
 }

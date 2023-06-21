@@ -24,7 +24,7 @@ public class UserConversationMapper {
         Set<ConversationDTO> conversations = user.getConversations().stream()
                 .map(conversationMapper::toDTO)
                 .collect(Collectors.toSet());
-        return new UserConversationDTO(userTypeMapper.toDTO(user), conversations);
+        return new UserConversationDTO(user.getId(),userTypeMapper.toDTO(user), conversations);
     }
 
 }

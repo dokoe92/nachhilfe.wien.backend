@@ -51,7 +51,6 @@ public abstract class User implements UserDetails {
     @Column(name="description")
     private String description;
 
-
     /**
      * Sets the Profile associated with the user.
      * The @JsonManagedReference annotation is used to manage the serialization and deserialization of this relationship.
