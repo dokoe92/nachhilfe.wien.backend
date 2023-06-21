@@ -1,15 +1,15 @@
 -- Insert 10 Teachers
-INSERT INTO profile(user_name, password, email, picture, description, active, average_rating)
-VALUES ('john01', 'password', 'john01@example.com', null, 'I love studying!', true, 4.5),
-       ('jane02', 'password', 'jane02@example.com', null, 'Experienced teacher!', true, 4.7),
-       ('mark03', 'password', 'mark03@example.com', null, 'I love teaching!', true, 4.6),
-       ('susan04', 'password', 'susan04@example.com', null, 'Committed to excellence in teaching!', true, 4.8),
-       ('peter05', 'password', 'peter05@example.com', null, 'Teaching is my passion!', true, 4.7),
-       ('lucy06', 'password', 'lucy06@example.com', null, 'Inspiring young minds!', true, 4.6),
-       ('jack07', 'password', 'jack07@example.com', null, 'Making complex concepts simple!', true, 4.9),
-       ('alice08', 'password', 'alice08@example.com', null, 'Believe in lifelong learning!', true, 4.8),
-       ('josh09', 'password', 'josh09@example.com', null, 'Creating an inclusive learning environment!', true, 4.7),
-       ('emma10', 'password', 'emma10@example.com', null, 'Adaptive teaching style!', true, 4.6);
+INSERT INTO profile(password, email, picture, description, active, average_rating)
+VALUES ('password', 'john01@example.com', null, 'I love studying!', true, 4.5),
+       ('password', 'jane02@example.com', null, 'Experienced teacher!', true, 4.7),
+       ('password', 'mark03@example.com', null, 'I love teaching!', true, 4.6),
+       ('password', 'susan04@example.com', null, 'Committed to excellence in teaching!', true, 4.8),
+       ('password', 'peter05@example.com', null, 'Teaching is my passion!', true, 4.7),
+       ('password', 'lucy06@example.com', null, 'Inspiring young minds!', true, 4.6),
+       ('password', 'jack07@example.com', null, 'Making complex concepts simple!', true, 4.9),
+       ('password', 'alice08@example.com', null, 'Believe in lifelong learning!', true, 4.8),
+       ('password', 'josh09@example.com', null, 'Creating an inclusive learning environment!', true, 4.7),
+       ('password', 'emma10@example.com', null, 'Adaptive teaching style!', true, 4.6);
 
 INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id)
 VALUES ('teacher', 'John', 'Doe', '2000-01-01', 1),
@@ -29,17 +29,17 @@ INSERT INTO districts(teacher_id, districts) VALUES
 
 
 -- Insert 10 Student Profiles
-INSERT INTO profile(user_name, password, email, picture, description, active, average_rating)
-VALUES ('student01', 'password', 'student01@example.com', null, 'Eager to learn!', true, null),
-       ('student02', 'password', 'student02@example.com', null, 'Learning is fun!', true, null),
-       ('student03', 'password', 'student03@example.com', null, 'I love studying!', true, null),
-       ('student04', 'password', 'student04@example.com', null, 'Strive to improve!', true, null),
-       ('student05', 'password', 'student05@example.com', null, 'Hardworking student!', true, null),
-       ('student06', 'password', 'student06@example.com', null, 'Learning never stops!', true, null),
-       ('student07', 'password', 'student07@example.com', null, 'Ready to learn!', true, null),
-       ('student08', 'password', 'student08@example.com', null, 'Believe in self-improvement!', true, null),
-       ('student09', 'password', 'student09@example.com', null, 'Passionate about learning!', true, null),
-       ('student10', 'password', 'student10@example.com', null, 'Always ready for a challenge!', true, null);
+INSERT INTO profile(password, email, picture, description, active, average_rating)
+VALUES ('password', 'student01@example.com', null, 'Eager to learn!', true, null),
+       ('password', 'student02@example.com', null, 'Learning is fun!', true, null),
+       ('password', 'student03@example.com', null, 'I love studying!', true, null),
+       ('password', 'student04@example.com', null, 'Strive to improve!', true, null),
+       ('password', 'student05@example.com', null, 'Hardworking student!', true, null),
+       ('password', 'student06@example.com', null, 'Learning never stops!', true, null),
+       ('password', 'student07@example.com', null, 'Ready to learn!', true, null),
+       ('password', 'student08@example.com', null, 'Believe in self-improvement!', true, null),
+       ('password', 'student09@example.com', null, 'Passionate about learning!', true, null),
+       ('password', 'student10@example.com', null, 'Always ready for a challenge!', true, null);
 
 -- Insert 10 Students
 INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id)

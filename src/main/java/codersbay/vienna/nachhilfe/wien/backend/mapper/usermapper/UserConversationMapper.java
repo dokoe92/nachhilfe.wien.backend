@@ -5,7 +5,7 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserConversationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserTypeDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.MessageMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

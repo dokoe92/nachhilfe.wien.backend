@@ -1,9 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
@@ -19,22 +16,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
 
-
-    public Teacher createTeacherWithProfile(Teacher teacher) {
-        Profile profile = teacher.getProfile();
-        profileRepository.save(profile);
-        teacher.setProfile(profile);
-        userRepository.save(teacher);
-        return teacher;
-    }
-
-    public Student createStudentWithProfile(Student student) {
-        Profile profile = student.getProfile();
-        profileRepository.save(profile);
-        student.setProfile(profile);
-        userRepository.save(student);
-        return student;
-    }
 
     public Optional<User> findById(Long userId) {
         Optional<User> user = userRepository.findById(userId);

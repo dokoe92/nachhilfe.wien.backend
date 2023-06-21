@@ -1,7 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto;
 
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Status;
+import codersbay.vienna.nachhilfe.wien.backend.model.Status;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.cglib.core.Local;

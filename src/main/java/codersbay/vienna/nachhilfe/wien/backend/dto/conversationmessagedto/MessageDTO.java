@@ -1,6 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.MessageType;
+import codersbay.vienna.nachhilfe.wien.backend.model.MessageType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Getter;
