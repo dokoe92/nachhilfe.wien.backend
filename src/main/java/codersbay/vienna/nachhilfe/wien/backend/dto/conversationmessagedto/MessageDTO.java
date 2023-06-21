@@ -10,11 +10,9 @@ import java.time.LocalDateTime;
 public class MessageDTO {
 
     private Long messageId;
-    private LocalDateTime timeStamp;
     private Long conversationId;
+    private LocalDateTime timeStamp;
     private String title;
     private String content;
     private Long senderId;
-
-
 }

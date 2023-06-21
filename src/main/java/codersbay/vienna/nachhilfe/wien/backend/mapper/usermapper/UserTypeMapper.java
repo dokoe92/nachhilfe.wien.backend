@@ -1,7 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserTypeDTO;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import org.springframework.stereotype.Component;
 
 @Component

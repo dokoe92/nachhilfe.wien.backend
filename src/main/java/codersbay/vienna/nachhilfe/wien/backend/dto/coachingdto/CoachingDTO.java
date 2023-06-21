@@ -1,6 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Subject;
+import codersbay.vienna.nachhilfe.wien.backend.model.Subject;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -8,11 +8,9 @@ import lombok.Setter;
 @Setter
 public class CoachingDTO {
 
-    private Long id;
+    private Long coachingId;
     private Subject subject;
     private String level;
     private Double rate;
     private Boolean active;
-    private Long userId;
-
 }

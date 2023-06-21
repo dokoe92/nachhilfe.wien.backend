@@ -1,18 +1,15 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Coaching;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
-import codersbay.vienna.nachhilfe.wien.backend.model.Pojo.TeacherDistricts;
+import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
+import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,6 +50,14 @@ public class TeacherService {
         return teacherDistricts;
     }
 
+    public List<Teacher> getAllTeachersPublic() {
+        return teacherRepository.findAll();
+    }
+
+    public Teacher findTeacherById(Long id) {
+        return teacherRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Teacher not found!"));
+    }
     public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, String email, boolean active) {
         //find existing teacher by ID
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);

@@ -1,7 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.model.updaterequest;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Coaching;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Status;
+import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.Status;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

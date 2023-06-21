@@ -2,7 +2,7 @@ package codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.AdminDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.ProfileMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Admin;
+import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

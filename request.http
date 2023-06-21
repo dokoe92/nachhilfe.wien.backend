@@ -1,5 +1,5 @@
 ### Create teacher
-POST http://localhost:8080/user/createTeacher
+POST http://localhost:8080/auth/create-teacher
 Content-Type: application/json
 
 {
@@ -7,30 +7,15 @@ Content-Type: application/json
   "lastName": "Wurst",
   "birthdate": "1992-07-29",
   "profile": {
-    "userName": "wursti",
     "password": "1234",
-    "email": "hans@wurst.at",
+    "email": "hans@fs.at",
     "active": true,
     "description": "hasdlft"
   }
 }
 
-### Update Teacher
-PUT http://localhost:8080/teacher/updateTeacher/2
-Content-Type: application/json
-
-{
-  "firstName": "Günther",
-  "lastName": "Wurstelmann",
-  "description": "letsss goooo",
-  "active": false,
-  "password": "teacher@teacher",
-  "email": "12345@meinemail.at"
-}
-
-
 ### Create Student
-POST http://localhost:8080/user/createStudent
+POST http://localhost:8080/auth/create-student
 Content-Type: application/json
 
 {
@@ -40,49 +25,13 @@ Content-Type: application/json
   "profile": {
     "userName": "hansl",
     "password": "12345",
-    "email": "hans@hansi.at",
-    "active": false
-  }
-}
-
-### Get Student
-GET http://localhost:8080/student
-
-
-### Update Student
-PUT http://localhost:8080/student/updateStudent/2
-Content-Type: application/json
-
-{
-  "firstName": "Olaf",
-  "lastName": "Günther",
-  "description": "xyz",
-  "active": true,
-  "password": "sstudent12344",
-  "email": "student@student.at"
-}
-
-### Delete Student
-DELETE http://localhost:8080/student/deleteStudent/2
-Content-Type: application/json
-
-
-
-### Create Admin
-POST http://localhost:8080/user/createAdmin
-Content-Type: application/json
-
-{
-  "firstName": "René",
-  "lastName": "Günürün",
-  "birthdate": "1995-04-25",
-  "profile": {
-    "userName": "User25",
-    "password": "333432434",
-    "email": "admin@chef.at",
+    "email": "hans@hannhnsi.at",
     "active": true
   }
 }
+
+### Test Auth
+GET http://localhost:8080/auth
 
 ### Update Admin
 PUT http://localhost:8080/admin/updateAdmin/1
@@ -144,13 +93,21 @@ Content-Type: application/json
 }
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/2
+POST http://localhost:8080/coaching/offer-coaching/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAZnMuYXQiLCJpYXQiOjE2ODczNzIxMzIsImV4cCI6MTY4NzM3MzU3Mn0.ODqXusZuOnF4K7TR9Taq9luQEuAcroC9kVVRbh3nrwQ
 
 {
   "coachings": [
     {
-      "subject": "MATHEMATIK",
+      "subject": "ENGLISCH",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    },
+    {
+      "subject": "DEUTSCH",
       "level": "Oberstufe",
       "rate": 20.5,
       "active": true

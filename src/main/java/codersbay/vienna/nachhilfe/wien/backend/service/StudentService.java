@@ -1,10 +1,9 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Entity.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,9 +16,9 @@ public class StudentService {
 
     private final StudentRepository studentRepository;
 
-    public List<Student> findAllStudents() {
-
-        return studentRepository.findAll();
+    public Student findStudentById(Long id) {
+        return studentRepository.findById(id)
+                .orElseThrow(()-> new ResourceNotFoundException("Student not found!"));
     }
 
     public Student updateStudent(Long studentId, String firstName, String lastName, String description, String password, String email, boolean active) {
@@ -58,5 +57,3 @@ public class StudentService {
         }
     }
 }
-
-
