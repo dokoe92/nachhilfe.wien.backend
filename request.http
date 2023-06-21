@@ -9,7 +9,7 @@ Content-Type: application/json
   "profile": {
     "userName": "wursti",
     "password": "1234",
-    "email": "hans@wuwrst.adt3d",
+    "email": "hans@wuwrst.adt232d",
     "active": true,
     "description": "hasdlft"
   }
@@ -68,9 +68,9 @@ Content-Type: application/json
 }
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/offer-coaching/1
+POST http://localhost:8080/coaching/offer-coaching/2
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDNkIiwiaWF0IjoxNjg3MzYzMTYxLCJleHAiOjE2ODczNjQ2MDF9.f_7PAVRxB3dxlzR_i18x1CpqX3PzPuD-wT_cu86Favs
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDIzMmQiLCJpYXQiOjE2ODczNjM5MjEsImV4cCI6MTY4NzM2NTM2MX0.cgmpW10jT8SOl_33cUfZvqv4NoovqQddPdrvymArNcs
 
 {
   "coachings": [

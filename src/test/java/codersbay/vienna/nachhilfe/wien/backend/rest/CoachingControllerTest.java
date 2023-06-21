@@ -54,14 +54,12 @@ class CoachingControllerTest {
         coachingDTO1.setActive(true);
 
         CoachingDTO coachingDTO2 = new CoachingDTO();
-        coachingDTO2.setCoachingId(2L);
         coachingDTO2.setSubject(Subject.DEUTSCH);
         coachingDTO2.setLevel("Advanced");
         coachingDTO2.setRate(30.0);
         coachingDTO2.setActive(true);
 
         CoachingDTO coachingDTO3 = new CoachingDTO();
-        coachingDTO3.setCoachingId(3L);
         coachingDTO3.setSubject(Subject.ENGLISCH);
         coachingDTO3.setLevel("Beginner");
         coachingDTO3.setRate(20.0);

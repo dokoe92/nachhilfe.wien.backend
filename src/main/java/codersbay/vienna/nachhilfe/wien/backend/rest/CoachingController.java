@@ -6,6 +6,7 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingsDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.service.CoachingService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -49,9 +50,15 @@ public class CoachingController {
             description = "Add a coaching which will be offered by a teacher"
     )
     public ResponseEntity<Set<CoachingDTO>> createCoachings(@RequestBody CoachingsDTO coachingsDTO,
-                                                            @PathVariable Long teacherId
+                                                            @PathVariable Long teacherId,
+                                                            HttpServletRequest request
                                                          ) {
 
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+        if (!userId.equals(teacherId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
         Set<CoachingDTO> savedCoachingDTO = coachingService.createCoachings(coachingsDTO, teacherId);
         return new ResponseEntity<>(savedCoachingDTO, HttpStatus.CREATED);
     }
