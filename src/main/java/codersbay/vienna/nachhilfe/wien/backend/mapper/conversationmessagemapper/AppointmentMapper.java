@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.ProfileDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Appointment;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
@@ -65,7 +66,6 @@ public class AppointmentMapper {
 
         return appointment;
     }
-
 
 
 }

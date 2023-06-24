@@ -21,6 +21,7 @@ import java.util.function.Function;
 public class JwtService {
 
     private final String SECRET_KEY = "552235e05e1171a82d518377b9cbcf5deb71f3cc20110ad9cbd00c0a489db429";
+    private byte[] secret;
 
     public String extractUsername(String jwtToken) {
         return extractClaim(jwtToken, Claims::getSubject);
@@ -91,4 +92,14 @@ public class JwtService {
             }
         };
     }
-}
+
+    public String extractUserRole(String jwtToken) {
+        Claims claims = Jwts.parser()
+                .setSigningKey(secret)
+                .parseClaimsJws(jwtToken)
+                .getBody();
+        return (String) claims.get("role");
+    }
+    }
+
+

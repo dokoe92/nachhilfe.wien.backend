@@ -73,7 +73,7 @@ public class MessageService {
         // Make an appointment from the DTO and set the fields
         // Sender and student fields are handled in the mapper
         Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
-        appointment.setStatus(Status.CREATED);
+        appointment.setStatus(Status.SCHEDULED);
         appointment.setCoaching(coaching);
         appointment.setConversation(conversation);
 

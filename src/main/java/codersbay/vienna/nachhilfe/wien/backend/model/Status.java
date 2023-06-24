@@ -1,7 +1,9 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
 public enum Status {
-    CREATED,
-    CANCELED,
-    DONE
+    SCHEDULED,
+    PENDING,
+    REJECTED,
+    CANCELLED,
+    CONFIRMED
 }
