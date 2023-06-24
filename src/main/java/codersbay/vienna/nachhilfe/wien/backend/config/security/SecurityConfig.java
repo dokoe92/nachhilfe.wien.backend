@@ -14,17 +14,22 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.server.SecurityWebFilterChain;
+import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console; // !
+
 
 import java.util.Arrays;
 
@@ -46,6 +51,9 @@ public class SecurityConfig{
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs").permitAll()
                         .requestMatchers("/v3/api-docs/swagger-config").permitAll()
+                        .requestMatchers(toH2Console()).permitAll()
+                        .requestMatchers("h2-console/**").permitAll()
+
 
                         .requestMatchers("/auth").permitAll()
                         .requestMatchers("/auth/get-auth").permitAll()
@@ -68,8 +76,11 @@ public class SecurityConfig{
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .headers((header) -> header.frameOptions().sameOrigin())
                 .build();
     }
+
+
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

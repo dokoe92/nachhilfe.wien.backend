@@ -91,6 +91,7 @@ public abstract class User implements UserDetails {
 
     @Setter
     @Enumerated(EnumType.STRING)
+    @Column(name="role")
     private Role role;
 
     @Override
