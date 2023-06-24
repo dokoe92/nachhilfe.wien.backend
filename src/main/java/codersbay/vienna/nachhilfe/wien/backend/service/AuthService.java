@@ -63,7 +63,9 @@ public class AuthService {
         if(user instanceof Teacher) {
             Teacher teacher = (Teacher) user;
             auth.setFeedbacks(teacher.getFeedbacks().stream().map(feedbackMapper::toDTO).collect(Collectors.toSet()));
+            auth.setDistricts(teacher.getDistricts());
         }
+
 
         Set<ConversationDTO> conversationDtos = user.getConversations().stream()
                 .map(conversationMapper::toDTO)
