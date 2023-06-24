@@ -1,9 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerator;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -11,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 
@@ -49,6 +45,4 @@ public class Coaching {
     @JoinColumn(name="fk_user_id")
     @Setter
     private User user;
-
-
 }

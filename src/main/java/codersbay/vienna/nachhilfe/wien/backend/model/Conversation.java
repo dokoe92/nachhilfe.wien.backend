@@ -13,6 +13,8 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @Entity
+
+// Composite Key -> 2 User = Primärschlüssel (eigene Klasse)
 public class Conversation {
 
     @Id

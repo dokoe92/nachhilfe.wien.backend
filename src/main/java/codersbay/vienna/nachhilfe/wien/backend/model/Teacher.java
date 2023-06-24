@@ -1,8 +1,8 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.HashSet;
@@ -17,23 +17,37 @@ public class Teacher extends User {
         super(UserType.TEACHER);
     }
 
+    @Getter
+    @Setter
     @OneToMany(mappedBy = "teacher")
-    private Set<Feedback> feedback = new HashSet<>();
+    @JsonManagedReference
+    private Set<Feedback> feedbacks = new HashSet<>();
 
     @Getter
     @Setter
-    @ElementCollection(targetClass = District.class)
-    @CollectionTable(name = "district",
-            joinColumns = @JoinColumn(name = "coaching_id"))
+    @ElementCollection(targetClass = Districts.class)
+    @CollectionTable(name = "districts",
+            joinColumns = @JoinColumn(name = "teacher_id"))
     @Enumerated(EnumType.STRING)
-    private Set<District> disctricts;
+    private Set<Districts> districts = new HashSet<>();
 
 
-
-
+    /**
+     * Establishes the bidirectional relationship between the teacher and the coaching.
+     *
+     * @param coaching the coaching to be added
+     */
     public void addCoachings(Coaching coaching) {
         this.getCoachings().add(coaching);
         coaching.setUser(this);
     }
+
+    public void addFeedback(Feedback feedback) {
+        if (feedback == null) {
+            return;
+        }
+        this.getFeedbacks().add(feedback);
+    }
+
 
 }

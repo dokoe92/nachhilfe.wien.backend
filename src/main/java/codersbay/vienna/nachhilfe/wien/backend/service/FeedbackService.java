@@ -1,0 +1,45 @@
+package codersbay.vienna.nachhilfe.wien.backend.service;
+
+import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbackDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
+import codersbay.vienna.nachhilfe.wien.backend.model.Feedback;
+import codersbay.vienna.nachhilfe.wien.backend.model.Student;
+import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.respository.FeedbackRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+
+@Component
+@RequiredArgsConstructor
+public class FeedbackService {
+
+    private final FeedbackRepository feedbackRepository;
+    private final FeedbackMapper feedbackMapper;
+    private final TeacherService teacherService;
+    private final StudentService studentService;
+
+    @Transactional
+    public FeedbackDTO sendFeedback(FeedbackDTO feedbackDTO) {
+        Teacher teacher = teacherService.findTeacherById(feedbackDTO.getTeacherId());
+        if (teacher == null) {
+            throw new ResourceNotFoundException("Teacher with ID " + feedbackDTO.getTeacherId() + " not found");
+        }
+
+        Student student = studentService.findStudentById(feedbackDTO.getStudentId());
+        if (student == null) {
+            throw new ResourceNotFoundException("Student with ID " + feedbackDTO.getStudentId() + " not found");
+        }
+
+        Feedback feedback = feedbackMapper.toEntity(feedbackDTO, teacher, student);
+
+        feedback.getTeacher().addFeedback(feedback);
+        feedback.getStudent().addFeedback(feedback);
+
+        feedback = feedbackRepository.save(feedback);
+        return feedbackMapper.toDTO(feedback);
+    }
+
+
+}

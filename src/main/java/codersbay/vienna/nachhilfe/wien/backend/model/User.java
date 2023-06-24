@@ -6,9 +6,14 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -17,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "application_user")
 @Getter
-public abstract class User {
+public abstract class User implements UserDetails {
 
     public User(UserType userType) {
         this.userType = userType;
@@ -31,21 +36,25 @@ public abstract class User {
     private UserType userType;
 
     @Setter
-    @Column(name="first_name", nullable = false)
+    @Column(name="first_name")
     private String firstName;
 
     @Setter
-    @Column(name="last_name", nullable = false)
+    @Column(name="last_name")
     private String lastName;
 
     @Setter
-    @Column(name="birthdate", nullable = false)
+    @Column(name="birthdate")
     private LocalDate birthdate;
 
     @Setter
     @Column(name="description")
     private String description;
 
+    /**
+     * Sets the Profile associated with the user.
+     * The @JsonManagedReference annotation is used to manage the serialization and deserialization of this relationship.
+     */
     @Setter
     @OneToOne
     @JoinColumn(name="fk_profile_id", nullable = false)
@@ -57,6 +66,18 @@ public abstract class User {
     private Set<Coaching> coachings = new HashSet<>();
 
 
+    /**
+     * Many-to-Many relationship mapping with the Conversation entity.
+     * Defines a join table "user_conversations" to represent the relationship between users and conversations.
+     * The "user_id" column in the join table references the primary key of the User entity.
+     * The "conversation_id" column in the join table references the primary key of the Conversation entity.
+     * The @JsonIgnore annotation is used to exclude this property from serialization and deserialization.
+     * The conversations property represents the set of conversations associated with the user.
+     * **************************************************************************************************
+     * IMPORTANT: This mapping signifies a many-to-many relationship between users and conversations.
+     * The conversations property should be properly managed to maintain the integrity of the relationship.
+     * **************************************************************************************************
+     */
     @ManyToMany
     @JoinTable(
             name = "user_conversations",
@@ -66,4 +87,44 @@ public abstract class User {
     private Set<Conversation> conversations = new HashSet<>();
 
 
+    // SPRING SECURITY
+
+    @Setter
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getPassword() {
+        return this.profile.getPassword();
+    }
+
+    @Override
+    public String getUsername() {
+        return this.profile.getEmail();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 }

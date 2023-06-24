@@ -16,20 +16,17 @@ public class Profile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Setter
-    @Column(name="user_name", nullable = false)
-    private String userName;
 
     @Setter
-    @Column(name="password", nullable = false)
+    @Column(name = "password", nullable = false)
     private String password;
 
     @Setter
-    @Column(name="email", nullable = false)
+    @Column(name="email", nullable = false, unique = true)
     private String email;
 
     @Setter
-    @Column(name="picture")
+    @Column(name = "picture")
     private String imageBase64;
 
     @Setter
@@ -44,6 +41,11 @@ public class Profile {
     @Column(name="average_rating")
     private Double averageRatingScore;
 
+    /**
+     * Represents the User associated with this profile.
+     *
+     * The @JsonBackReference annotation is used to manage the serialization and deserialization of this relationship from the non-owning side.
+     */
     @OneToOne(mappedBy = "profile")
     @JsonBackReference
     private User user;

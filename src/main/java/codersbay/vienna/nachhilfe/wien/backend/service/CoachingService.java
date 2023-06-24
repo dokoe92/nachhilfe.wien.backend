@@ -1,23 +1,23 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.CoachingDTO;
-import codersbay.vienna.nachhilfe.wien.backend.dto.CoachingsDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.CoachingMapper;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.CoachingsMapper;
+import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingsDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingsMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.model.Subject;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicateCoachingException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,35 +30,51 @@ public class CoachingService {
     private final CoachingsMapper coachingsMapper;
     private final CoachingMapper coachingMapper;
     private final TeacherRepository teacherRepository;
+    private final JwtService jwtService;
 
-    public CoachingsDTO createCoachings(CoachingsDTO coachingsDTO, Long id) {
-        CoachingsDTO responseDTO = new CoachingsDTO();
-        Set<CoachingDTO> responseCoachings = responseDTO.getCoachings();
 
+    /**
+     * Creates a list of coachings for a specific teacher.
+     *
+     * @param coachingsDTO object containing the coachings to be created
+     * @param id           the ID of the teacher
+     * @return the set of coachings with the created coachings
+     * @throws ResourceNotFoundException if the teacher is not found
+     * @throws DuplicatedException if the subject is already saved for this user
+     */
+    @Transactional
+    public Set<CoachingDTO> createCoachings(CoachingsDTO coachingsDTO, Long id) {
         Teacher teacher = teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
-        responseDTO.setUserId(id);
-
-        for (CoachingDTO coachingDTO : coachingsDTO.getCoachings()) {
-            coachingDTO.setUserId(id);
-        }
 
         Set<Coaching> coachings = coachingsDTO.getCoachings().stream()
                 .map(coachingMapper::toEntity)
                 .collect(Collectors.toSet());
 
 
-        for (Coaching coaching : coachings) {
-            coaching = coachingRepository.save(coaching);
-            CoachingDTO coachingDTO = coachingMapper.toDTO(coaching);
-            responseCoachings.add(coachingDTO);
-            teacher.addCoachings(coaching);
-        }
-        responseDTO.setCoachings(responseCoachings);
+        Set<CoachingDTO> savedCoachingDTO = new HashSet<>();
+        Set<Subject> alreadyExistingSubjects = new HashSet<>();
 
+        for (Coaching coaching : coachings) {
+            if (coachingRepository.existsBySubjectAndUser(coaching.getSubject(), teacher)) {
+                alreadyExistingSubjects.add(coaching.getSubject());
+            }
+            teacher.addCoachings(coaching);
+            coaching = coachingRepository.save(coaching);
+            savedCoachingDTO.add(coachingMapper.toDTO(coaching));
+        }
+        if (!alreadyExistingSubjects.isEmpty()) {
+            StringBuilder sb = new StringBuilder();
+            for (Subject subject : alreadyExistingSubjects) {
+                sb.append(subject.name());
+                sb.append(", ");
+            }
+            throw new DuplicatedException("Subjects : " + sb + " already exists for this teacher!");
+        }
         teacherRepository.save(teacher);
 
-        return responseDTO;
+
+        return savedCoachingDTO;
     }
 }

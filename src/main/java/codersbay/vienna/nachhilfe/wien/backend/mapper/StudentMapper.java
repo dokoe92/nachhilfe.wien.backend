@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.StudentDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentCreationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.ProfileMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -11,7 +12,7 @@ public class StudentMapper {
 
     private final ProfileMapper profileMapper;
 
-    public Student toEntity(StudentDTO studentDTO) {
+    public Student toEntity(StudentCreationDTO studentDTO) {
         if (studentDTO == null) {
             return null;
         }
@@ -24,12 +25,12 @@ public class StudentMapper {
         return student;
     }
 
-    public StudentDTO toDTO(Student student) {
+    public StudentCreationDTO toDTO(Student student) {
         if (student == null) {
             return null;
         }
 
-        StudentDTO studentDTO = new StudentDTO();
+        StudentCreationDTO studentDTO = new StudentCreationDTO();
         studentDTO.setFirstName(student.getFirstName());
         studentDTO.setLastName(student.getLastName());
         studentDTO.setBirthdate(student.getBirthdate());

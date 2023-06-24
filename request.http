@@ -1,5 +1,5 @@
 ### Create teacher
-POST http://localhost:8080/user/createTeacher
+POST http://localhost:8080/auth/create-teacher
 Content-Type: application/json
 
 {
@@ -9,7 +9,7 @@ Content-Type: application/json
   "profile": {
     "userName": "wursti",
     "password": "1234",
-    "email": "hans@wurst.at",
+    "email": "hans@wudrst.at",
     "active": true,
     "description": "hasdlft"
   }
@@ -47,15 +47,6 @@ GET http://localhost:8080/teacher
 ### Find User by Id
 GET http://localhost:8080/user/1
 
-### Add coaching to user
-POST http://localhost:8080/user/coaching/1
-Content-Type: application/json
-
-{
-  "subject": "MATHEMATIK",
-  "level": "Oberstufe",
-  "rate": 20.50
-}
 
 
 ### Create conversation between two users
@@ -74,8 +65,9 @@ Content-Type: application/json
 }
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/2
+POST http://localhost:8080/coaching/offer-coaching/22
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4NzM3ODg2MywiZXhwIjoxNjg3MzgwMzAzfQ.I8Vc_5IwyYChHCBXIWoRwlI1OfzCa4t5l-y0tnii0xo
 
 {
   "coachings": [
