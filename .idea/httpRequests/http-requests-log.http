@@ -1,3 +1,59 @@
+POST http://localhost:8080/auth/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjExLCJzdWIiOiJzdHVkZW50MDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODc2MDAyMTYsImV4cCI6MTY4NzYwMTY1Nn0.ROWaxwoTEEk_a8Fz770vNRhd4x0TnqWRfIw5xCw0DrA
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-24T115135.200.json
+
+###
+
+POST http://localhost:8080/auth/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImpvaG4wMUBleGFtcGxlLmNvbSIsImlhdCI6MTY4NzYwMDIxNiwiZXhwIjoxNjg3NjAxNjU2fQ.4njOBt9LwcYsI0VIbSJuqJMLKuBeaM13wGHRT7P-Unw
+Content-Length: 0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-24T115109.200.json
+
+###
+
+GET http://localhost:8080/user/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4NzU5OTU2MywiZXhwIjoxNjg3NjAxMDAzfQ.R5SBhF--GczU4EZCqPT6aWdbEXxj1G_iTCDQtmtfys0
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+<> 2023-06-24T113947.200.json
+
+###
+
+POST http://localhost:8080/auth/create-teacher
+Content-Type: application/json
+Content-Length: 228
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "firstName": "Hans'",
+  "lastName": "Wurst",
+  "birthdate": "1992-07-29",
+  "profile": {
+    "userName": "wursti",
+    "password": "1234",
+    "email": "hans@wudrst.at",
+    "active": true,
+    "description": "hasdlft"
+  }
+}
+
+<> 2023-06-24T113923.201.json
+
+###
+
 POST http://localhost:8080/coaching/offer-coaching/22
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4NzM3ODg2MywiZXhwIjoxNjg3MzgwMzAzfQ.I8Vc_5IwyYChHCBXIWoRwlI1OfzCa4t5l-y0tnii0xo
@@ -1111,112 +1167,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
     }
   ]
 }
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 229
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "1'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wuwrst.adt32d",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-<> 2023-06-21T180644.201.json
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 228
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "1'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wuwrst.adt3d",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-<> 2023-06-21T180637.201.json
-
-###
-
-POST http://localhost:8080/coaching/offer-coaching/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDNkIiwiaWF0IjoxNjg3MzYzMTYxLCJleHAiOjE2ODczNjQ2MDF9.f_7PAVRxB3dxlzR_i18x1CpqX3PzPuD-wT_cu86Favs
-Content-Length: 247
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "coachings": [
-    {
-      "subject": "ENGLISCH",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    },
-    {
-      "subject": "MATHEMATIK",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    }
-  ]
-}
-
-<> 2023-06-21T175939.400.json
-
-###
-
-POST http://localhost:8080/coaching/offer-coaching/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDNkIiwiaWF0IjoxNjg3MzYzMTYxLCJleHAiOjE2ODczNjQ2MDF9.f_7PAVRxB3dxlzR_i18x1CpqX3PzPuD-wT_cu86Favs
-Content-Length: 247
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "coachings": [
-    {
-      "subject": "ENGLISCH",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    },
-    {
-      "subject": "MATHEMATIK",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    }
-  ]
-}
-
-<> 2023-06-21T175937.201.json
 
 ###
 
