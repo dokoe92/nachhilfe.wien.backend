@@ -33,13 +33,13 @@ public class AppointmentController {
 
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long userId = jwtService.extractUserId(token);
-        String role = jwtService.extractUserRole(token);  // You need to implement this method
+        String role = jwtService.extractUserRole(token);  
 
         if (!userId.equals(studentId) && !role.equals("ROLE_STUDENT")) {
             throw new UserNotAuthorizedException("User not authorized!");
         }
-
-        AppointmentDTO savedAppointment = appointmentService.createAppointment(appointmentDTO);
+        
+    AppointmentDTO savedAppointment = appointmentService.createAppointment(appointmentDTO);
         return new ResponseEntity<>(savedAppointment, HttpStatus.CREATED);
     }
 
@@ -94,4 +94,7 @@ public class AppointmentController {
         AppointmentDTO rescheduledAppointment = appointmentService.rescheduleAppointment(appointmentId, appointmentDTO);
         return new ResponseEntity<>(rescheduledAppointment, HttpStatus.OK);
     }
+
+    public ResponseEntity<AppointmentDTO> getAppointment (@PathVariable Long appointmentID,
+                                                          HttpServletRequest request)
 }
