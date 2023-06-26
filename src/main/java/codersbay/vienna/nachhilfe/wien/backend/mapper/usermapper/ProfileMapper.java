@@ -16,6 +16,7 @@ public class ProfileMapper {
         profile.setPassword(profileDTO.getPassword());
         profile.setEmail(profileDTO.getEmail());
         profile.setDescription(profileDTO.getDescription());
+        profile.setImageBase64(profileDTO.getImageBase64());
         profile.setActive(profileDTO.getActive());
         profile.setAverageRatingScore(profileDTO.getAverageRatingScore());
 
@@ -31,6 +32,7 @@ public class ProfileMapper {
         profileDTO.setEmail(profile.getEmail());
         profileDTO.setDescription(profile.getDescription());
         profileDTO.setActive(profile.isActive());
+        profileDTO.setImageBase64(profile.getImageBase64());
         profileDTO.setAverageRatingScore(profile.getAverageRatingScore());
 
         return profileDTO;
