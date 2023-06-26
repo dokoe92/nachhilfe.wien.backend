@@ -17,6 +17,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Base64;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -49,10 +51,29 @@ public class UserController {
             summary = "Update a user's profile picture"
     )
     public ResponseEntity<ProfileDTO> setProfilePicture(@PathVariable Long id,
-                                                        @RequestBody String imageBase64,
+                                                        @RequestBody Map<String, String> imageData,
                                                         HttpServletRequest request) {
+
+
+        //check filesize
+        String imageBase64 = imageData.get("image");
+        if (imageBase64 == null) {
+            throw new IllegalArgumentException("Missing image data");
+        }
         if (imageBase64.length() > 3000000) {
             throw new IllegalArgumentException("Image is too large");
+        }
+
+        //decode to see if String is of type Base64
+        try {
+            String[] parts = imageBase64.split(",");
+            if (parts.length != 2) {
+                throw new IllegalArgumentException("Invalid image data");
+            }
+            String base64Part = parts[1];
+            Base64.getDecoder().decode(base64Part);
+        } catch(IllegalArgumentException e) {
+            throw new IllegalArgumentException("Invalid base64 input");
         }
 
         Optional<User> user = userService.findById(id);
