@@ -52,16 +52,12 @@ public class AppointmentMapper {
         Appointment appointment = new Appointment();
 
 
-        Student student = studentRepository.findById(appointmentDTO.getStudentId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Student not found!"));
 
         appointment.setTitle(appointmentDTO.getTitle());
         appointment.setContent(appointmentDTO.getContent());
-        appointment.setSender(student);
         appointment.setStart(appointmentDTO.getStart());
         appointment.setEnd(appointmentDTO.getEnd());
         appointment.setStatus(appointmentDTO.getStatus());
-        appointment.setStudent(student);
 
         return appointment;
     }

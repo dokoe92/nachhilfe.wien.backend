@@ -1,10 +1,14 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.Application;
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.*;
+import codersbay.vienna.nachhilfe.wien.backend.model.Districts;
+import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
+import codersbay.vienna.nachhilfe.wien.backend.model.Role;
+import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -18,11 +22,9 @@ import org.springframework.http.*;
 import java.util.Set;
 
 import static codersbay.vienna.nachhilfe.wien.backend.model.Districts.DISTRICT_1010;
-import static codersbay.vienna.nachhilfe.wien.backend.model.Districts.DISTRICT_1010;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 class TeacherControllerTest {
     @Autowired
     private TestRestTemplate testRestTemplate;

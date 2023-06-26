@@ -18,5 +18,5 @@ public class AppointmentDTO extends MessageDTO{
     private LocalDateTime start;
     private LocalDateTime end;
     private Status status;
-    private String content;
+    private Boolean confirmed;
 }

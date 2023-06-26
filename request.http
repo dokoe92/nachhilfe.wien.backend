@@ -9,14 +9,14 @@ Content-Type: application/json
   "profile": {
     "userName": "wursti",
     "password": "1234",
-    "email": "hans@wudrst.at",
+    "email": "hans@wudrsdt.at",
     "active": true,
     "description": "hasdlft"
   }
 }
 
 ### Create Student
-POST http://localhost:8080/user/createStudent
+POST http://localhost:8080/auth/create-student
 Content-Type: application/json
 
 {
@@ -50,13 +50,15 @@ GET http://localhost:8080/user/1
 
 
 ### Create conversation between two users
-POST http://localhost:8080/conversation/1/2
+POST http://localhost:8080/conversation/create-conversation/21/22
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
 
 
 ### Send a message in a conversation
-POST http://localhost:8080/message/sendMessage/1
+POST http://localhost:8080/message/send-message/1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4Nzc5ODExNSwiZXhwIjoxNjg3Nzk5NTU1fQ.GF1EhHeSb9NQqPqEpNAxZO922mM8KX9HcENr2BcznZk
 
 {
   "title": "Neue Nachricht",
@@ -64,10 +66,26 @@ Content-Type: application/json
   "senderId": 1
 }
 
-### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/offer-coaching/22
+### Send appointment
+POST http://localhost:8080/message/sendAppointment/5/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4NzM3ODg2MywiZXhwIjoxNjg3MzgwMzAzfQ.I8Vc_5IwyYChHCBXIWoRwlI1OfzCa4t5l-y0tnii0xo
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQGhhbnNpLmF0IiwiaWF0IjoxNjg3ODA2MjUyLCJleHAiOjE2ODc4MDc2OTJ9.bjAa0S4RvBdH2D0kNIXhVa-ojxLj5ItMkuNrUxLNhkM
+
+{
+  "title": "Neue Nachricht",
+  "content": "erste nachricht",
+  "senderId": 1,
+  "studentId": 22
+}
+
+
+### Send appointment in conversation
+POST http://localhost:8080/app
+
+### Create coaachings which are offered by a teacher
+POST http://localhost:8080/coaching/offer-coaching/21
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
 
 {
   "coachings": [
