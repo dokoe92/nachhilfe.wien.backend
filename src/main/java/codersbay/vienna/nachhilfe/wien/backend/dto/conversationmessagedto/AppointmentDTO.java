@@ -19,4 +19,13 @@ public class AppointmentDTO extends MessageDTO{
     private LocalDateTime end;
     private Status status;
     private String content;
+    private long id;
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public long getId() {
+        return id;
+    }
 }

@@ -1,15 +1,15 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.Application;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.AppointmentMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Appointment;
-import codersbay.vienna.nachhilfe.wien.backend.model.Status;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
+import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 @Component
 @RequiredArgsConstructor
@@ -17,13 +17,27 @@ public class AppointmentService {
 
     private final AppointmentRepository appointmentRepository;
     private final AppointmentMapper appointmentMapper;
+    private final UserRepository userRepository;
 
     @Transactional
-    public AppointmentDTO createAppointment(AppointmentDTO appointmentDTO) {
+    public AppointmentDTO createAppointment(AppointmentDTO appointmentDTO, Long studentId, Long userId) {
+
+        User user = userRepository.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+
+        if (!(user instanceof Student)) {
+            throw new UserNotAuthorizedException("User must be a Student!");
+        }
+
         Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
+        appointment.setStudent((Student) user);
         appointment.setStatus(Status.PENDING);
-        Appointment savedAppointment = appointmentRepository.save(appointment);
-        return appointmentMapper.toDTO(savedAppointment);
+        appointmentRepository.save(appointment);
+
+        appointmentDTO.setStatus(Status.PENDING);
+
+
+        return appointmentDTO;
     }
 
     @Transactional
