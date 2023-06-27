@@ -12,7 +12,6 @@ import java.time.LocalDateTime;
 @Setter
 public class AppointmentDTO extends MessageDTO{
 
-    private Long appointmentId;
     private Long coachingId;
     private Long studentId;
     private LocalDateTime start;

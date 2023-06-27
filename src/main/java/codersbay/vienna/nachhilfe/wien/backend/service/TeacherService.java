@@ -10,12 +10,13 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundE
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class TeacherService {
 

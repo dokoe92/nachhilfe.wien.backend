@@ -29,7 +29,7 @@ public class AppointmentMapper {
         }
 
         AppointmentDTO appointmentDTO = new AppointmentDTO();
-        appointmentDTO.setAppointmentId(appointment.getId());
+        appointmentDTO.setId(appointment.getId());
         appointmentDTO.setTimeStamp(appointment.getTimestamp());
         appointmentDTO.setConversationId(appointment.getConversation().getId());
         appointmentDTO.setTitle(appointment.getTitle());

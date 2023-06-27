@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Setter
 public class MessageDTO {
 
-    private Long messageId;
+    private Long id;
     private LocalDateTime timeStamp;
     private Long conversationId;
     private String title;
