@@ -23,7 +23,7 @@ public class TeacherPublicMapper {
         teacherPublicDTO.setTeacherId(teacher.getId());
         teacherPublicDTO.setFirstName(teacher.getFirstName());
         teacherPublicDTO.setLastName(teacher.getLastName());
-        teacherPublicDTO.setDescription(teacher.getDescription());
+        teacherPublicDTO.setDescription(teacher.getProfile().getDescription());
         teacherPublicDTO.setImage(teacher.getProfile().getImageBase64());
         teacherPublicDTO.setActive(teacher.getProfile().isActive());
         teacherPublicDTO.setAverageRatingScore(teacher.getProfile().getAverageRatingScore());

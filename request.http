@@ -46,6 +46,7 @@ GET http://localhost:8080/teacher
 
 ### Find User by Id
 GET http://localhost:8080/user/1
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4NzU5OTU2MywiZXhwIjoxNjg3NjAxMDAzfQ.R5SBhF--GczU4EZCqPT6aWdbEXxj1G_iTCDQtmtfys0
 
 
 
@@ -107,3 +108,7 @@ Content-Type: application/json
 {
   "districts": ["DISTRICT_1010", "DISTRICT_1030"]
 }
+
+### Get Auth via token
+POST http://localhost:8080/auth/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjExLCJzdWIiOiJzdHVkZW50MDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODc2MDAyMTYsImV4cCI6MTY4NzYwMTY1Nn0.ROWaxwoTEEk_a8Fz770vNRhd4x0TnqWRfIw5xCw0DrA

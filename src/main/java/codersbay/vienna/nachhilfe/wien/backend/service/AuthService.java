@@ -53,7 +53,7 @@ public class AuthService {
         auth.setFirstName(user.getFirstName());
         auth.setLastName(user.getLastName());
         auth.setBirthdate(user.getBirthdate());
-        auth.setDescription(user.getDescription());
+        auth.setDescription(user.getProfile().getDescription());
         auth.setImage(user.getProfile().getImageBase64());
         auth.setActive(user.getProfile().isActive());
         auth.setAverageRatingScore(user.getProfile().getAverageRatingScore());
