@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.Application;
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
@@ -20,7 +21,7 @@ import java.util.Set;
 import static codersbay.vienna.nachhilfe.wien.backend.model.Districts.DISTRICT_1010;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 class AuthServiceTest {
 
     @Autowired
@@ -43,7 +44,7 @@ class AuthServiceTest {
         Teacher teacher = new Teacher();
         Profile profile = new Profile();
         profile.setEmail("hansi@gmail.com");
-        profile.setPassword("12345678");
+        profile.setPassword("password");
         teacher.setProfile(profile);
         teacher.setRole(Role.ROLE_TEACHER);
         profileRepository.save(profile);
