@@ -15,7 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
+import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -42,22 +45,24 @@ public class ConversationController {
     @Operation(
             description = "Create a conversation between two users where messages can be added"
     )
-    private ResponseEntity<ConversationDTO> createConversation(@PathVariable Optional<Long> user1, @PathVariable Optional<Long> user2) {
-        Set<Long> userIds = new HashSet<>();
-        if (user1.isEmpty() || user2.isEmpty()) {
-            throw new MissingIdException("Two Ids are required");
+    public ResponseEntity<ConversationDTO> createConversation(@PathVariable Long user1, @PathVariable Long user2) {
+        if (user1 == null || user2 == null) {
+            throw new MissingIdException("Both user IDs are required");
         }
-        userIds.add(user1.get());
-        boolean addUser2 = userIds.add(user2.get());
 
-        if (!addUser2) {
+        if (Objects.equals(user1, user2)) {
             throw new DuplicatedException("Users must have different IDs");
         }
 
-        Conversation conversation = conversationService.createConversation(userIds);
+        Optional<Conversation> existingConversation = conversationService.findConversationOfUsers(user1, user2);
+        if (existingConversation.isPresent()) {
+            return new ResponseEntity<>(conversationMapper.toDTO(existingConversation.get()), HttpStatus.OK);
+        }
 
+        Set<Long> userIds = new HashSet<>(Arrays.asList(user1, user2));
+        Conversation conversation = conversationService.createConversation(userIds);
         ConversationDTO conversationDTO = conversationMapper.toDTO(conversation);
-        return new ResponseEntity<>(conversationDTO, HttpStatus.OK);
+        return new ResponseEntity<>(conversationDTO, HttpStatus.CREATED);
     }
 
 
