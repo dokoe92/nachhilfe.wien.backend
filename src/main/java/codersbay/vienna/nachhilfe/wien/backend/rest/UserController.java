@@ -7,6 +7,7 @@ import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.service.ImageService;
 import codersbay.vienna.nachhilfe.wien.backend.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -17,7 +18,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Base64;
 import java.util.Map;
 import java.util.Optional;
 
@@ -30,8 +30,8 @@ public class UserController {
 
     private final UserService userService;
     private final ProfileMapper profileMapper;
-    private final ProfileRepository profileRepository;
     private final JwtService jwtService;
+    private final ImageService imageService;
 
     @GetMapping("/{id}")
     @Operation(
@@ -46,6 +46,7 @@ public class UserController {
         }
     }
 
+
     @PostMapping("/picture/{id}")
     @Operation(
             summary = "Update a user's profile picture"
@@ -55,32 +56,10 @@ public class UserController {
                                                         HttpServletRequest request) {
 
 
-        //check filesize
-        String imageBase64 = imageData.get("image");
-        if (imageBase64 == null) {
-            throw new IllegalArgumentException("Missing image data");
-        }
-        if (imageBase64.length() > 3000000) {
-            throw new IllegalArgumentException("Image is too large");
-        }
-
-        //decode to see if String is of type Base64
-        try {
-            String[] parts = imageBase64.split(",");
-            if (parts.length != 2) {
-                throw new IllegalArgumentException("Invalid image data");
-            }
-            String base64Part = parts[1];
-            Base64.getDecoder().decode(base64Part);
-        } catch(IllegalArgumentException e) {
-            throw new IllegalArgumentException("Invalid base64 input");
-        }
+        String imageBase64 = imageData.get("image" );
+        imageService.checkBase64(imageBase64, 3000000);
 
         Optional<User> user = userService.findById(id);
-        if (user.isEmpty()) {
-            throw new UserNotFoundException("User not found");
-        }
-
         User actualUser = user.get();
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long userId = jwtService.extractUserId(token);
@@ -88,8 +67,7 @@ public class UserController {
             throw new UserNotAuthorizedException("User not authorized!");
         }
 
-        actualUser.getProfile().setImageBase64(imageBase64);
-        profileRepository.save(actualUser.getProfile());
+        userService.updateProfilePicture(userId, imageBase64);
         return new ResponseEntity<>(profileMapper.toDTO(actualUser.getProfile()), HttpStatus.OK);
     }
 
