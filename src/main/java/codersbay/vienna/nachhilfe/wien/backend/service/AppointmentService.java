@@ -28,28 +28,21 @@ public class AppointmentService {
 
 
 
-    public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId) {
+    public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId, Long studentId) {
         Conversation conversation = conversationRepository.findById(conversationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
 
         Coaching coaching = coachingRepository.findById(coachingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Coaching not found!"));
 
-
-        if (appointmentDTO.getStudentId() == null) {
-            throw new ResourceNotFoundException("User Id needed");
-        }
-        User user = userRepository.findById(appointmentDTO.getStudentId())
+        User user = userRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
-
-        if (!(user instanceof Student)) {
-            throw new UserNotAuthorizedException("User must be a Student!");
-        }
 
 
         // Make an appointment from the DTO and set the fields
         // Sender and student fields are handled in the mapper
         Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
+        appointment.setSender(user);
         appointment.setStudent((Student) user);
         appointment.setStatus(Status.SCHEDULED);
         appointment.setCoaching(coaching);
@@ -72,13 +65,12 @@ public class AppointmentService {
             userRepository.save(conversationPartner);
         }
         // Set all DTO fields
-        appointmentDTO.setId(appointment.getId());
-        appointmentDTO.setCoachingId(coachingId);
-        appointmentDTO.setStatus(Status.SCHEDULED);
-        appointmentDTO.setMessageType(MessageType.APPOINTMENT);
-        appointmentDTO.setConfirmed(false);
-
-        return appointmentDTO;
+        AppointmentDTO appointmentDTOCreated = appointmentMapper.toDTO(appointment);
+        appointmentDTOCreated.setStudentId(studentId);
+        appointmentDTOCreated.setStatus(Status.SCHEDULED);
+        appointmentDTOCreated.setMessageType(MessageType.APPOINTMENT);
+        appointmentDTOCreated.setConfirmed(false);
+        return appointmentDTOCreated;
     }
 
     public Status changeAppointmentStatus(Status status, Long appointmentId) {

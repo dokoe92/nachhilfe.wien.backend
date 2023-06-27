@@ -66,11 +66,14 @@ public class SecurityConfig{
 
                         .requestMatchers("/coaching/offer-coaching/**").hasRole("TEACHER")
 
-                        .requestMatchers("/create-conversation/**").hasAnyRole("STUDENT, TEACHER, ADMIN")
+                        .requestMatchers("/create-conversation/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
 
                         .requestMatchers("/send-message/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
 
+                        .requestMatchers("/appointment/send-appointment/**").hasRole("STUDENT")
+
                         .requestMatchers("/feedback").hasAnyRole("STUDENT")
+
 
                         .anyRequest().authenticated()
                 )
