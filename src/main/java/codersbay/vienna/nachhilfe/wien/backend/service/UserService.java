@@ -35,10 +35,9 @@ public class UserService {
     @Transactional
     public void updateProfilePicture(Long userId, String imageBase64) {
         try {
-            Optional<User> user = findById(userId);
-            User actualUser = user.get();
-            actualUser.getProfile().setImageBase64(imageBase64);
-            profileRepository.save(actualUser.getProfile());
+            User user = findById(userId).orElseThrow(() -> new UserNotFoundException("User with id " + userId +" not found."));
+            user.getProfile().setImageBase64(imageBase64);
+            profileRepository.save(user.getProfile());
         } catch ( RuntimeException e) {
             throw new IllegalArgumentException("Couldn't set profile picture");
         }

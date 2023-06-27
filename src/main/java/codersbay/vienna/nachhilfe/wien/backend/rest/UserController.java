@@ -59,8 +59,8 @@ public class UserController {
         String imageBase64 = imageData.get("image" );
         imageService.checkBase64(imageBase64, 3000000);
 
-        Optional<User> user = userService.findById(id);
-        User actualUser = user.get();
+        User user = userService.findById(id).orElseThrow(() -> new UserNotFoundException("User with the id " + id + " not found."));
+
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long userId = jwtService.extractUserId(token);
         if (!userId.equals(id)) {
@@ -68,7 +68,7 @@ public class UserController {
         }
 
         userService.updateProfilePicture(userId, imageBase64);
-        return new ResponseEntity<>(profileMapper.toDTO(actualUser.getProfile()), HttpStatus.OK);
+        return new ResponseEntity<>(profileMapper.toDTO(user.getProfile()), HttpStatus.OK);
     }
 
 
