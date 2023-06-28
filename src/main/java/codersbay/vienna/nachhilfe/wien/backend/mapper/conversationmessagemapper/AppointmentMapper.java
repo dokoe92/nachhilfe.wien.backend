@@ -34,13 +34,14 @@ public class AppointmentMapper {
         appointmentDTO.setConversationId(appointment.getConversation().getId());
         appointmentDTO.setTitle(appointment.getTitle());
         appointmentDTO.setContent(appointment.getContent());
-        appointmentDTO.setSenderId(appointment.getSender().getId());
+        appointmentDTO.setStudentId(appointment.getStudent().getId());
         appointmentDTO.setStart(appointment.getStart());
         appointmentDTO.setEnd(appointment.getEnd());
         appointmentDTO.setStatus(appointment.getStatus());
         appointmentDTO.setCoachingId(appointment.getCoaching().getId());
-        appointmentDTO.setTeacherId(appointmentDTO.getTeacherId());
-        appointmentDTO.setSenderId(appointment.getStudent().getId());
+        appointmentDTO.setTeacherId(appointment.getCoaching().getUser().getId());
+        appointmentDTO.setSenderId(appointment.getSender().getId());
+        appointmentDTO.setMessageType(appointment.getMessageType());
 
         return appointmentDTO;
     }
@@ -59,6 +60,7 @@ public class AppointmentMapper {
         appointment.setStart(appointmentDTO.getStart());
         appointment.setEnd(appointmentDTO.getEnd());
         appointment.setStatus(appointmentDTO.getStatus());
+
 
         return appointment;
     }

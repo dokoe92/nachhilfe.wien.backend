@@ -77,6 +77,7 @@ public class AuthController {
     }
 
     @PostMapping("/info")
+
     @Operation(
             description = "Send a Bearer Token and get all personal user information"
     )
