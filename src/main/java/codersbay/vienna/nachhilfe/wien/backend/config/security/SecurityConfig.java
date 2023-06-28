@@ -52,6 +52,8 @@ public class SecurityConfig{
                         .requestMatchers("/auth/create-teacher").permitAll()
                         .requestMatchers("/auth/create-student").permitAll()
 
+                        .requestMatchers("/user/picture/**").permitAll()
+
                         .requestMatchers("/teacher/update-districts/**").hasRole("TEACHER")
                         .requestMatchers("/teacher/allTeachers").hasAnyRole("STUDENT", "ADMIN")
                         .requestMatchers("/teacher/teacher-profiles").permitAll()
