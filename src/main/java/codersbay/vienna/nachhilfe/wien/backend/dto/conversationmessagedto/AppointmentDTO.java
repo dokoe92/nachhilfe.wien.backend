@@ -12,11 +12,11 @@ import java.time.LocalDateTime;
 @Setter
 public class AppointmentDTO extends MessageDTO{
 
-    private Long appointmentId;
     private Long coachingId;
+    private Long teacherId;
     private Long studentId;
     private LocalDateTime start;
     private LocalDateTime end;
     private Status status;
-    private String content;
+    private Boolean confirmed;
 }

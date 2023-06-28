@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.Application;
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingsDTO;

@@ -2,11 +2,9 @@ package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingsMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbacksMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
@@ -15,21 +13,20 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.EnumSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_TEACHER;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class AuthService {
 
@@ -53,7 +50,7 @@ public class AuthService {
         auth.setFirstName(user.getFirstName());
         auth.setLastName(user.getLastName());
         auth.setBirthdate(user.getBirthdate());
-        auth.setDescription(user.getDescription());
+        auth.setDescription(user.getProfile().getDescription());
         auth.setImage(user.getProfile().getImageBase64());
         auth.setActive(user.getProfile().isActive());
         auth.setAverageRatingScore(user.getProfile().getAverageRatingScore());

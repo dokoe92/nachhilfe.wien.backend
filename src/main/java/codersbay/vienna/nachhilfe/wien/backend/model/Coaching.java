@@ -39,6 +39,7 @@ public class Coaching {
     private boolean active;
 
     @OneToMany(mappedBy = "coaching")
+    @Setter
     Set<Appointment> appointments = new HashSet<>();
 
     @ManyToOne (fetch = FetchType.LAZY)

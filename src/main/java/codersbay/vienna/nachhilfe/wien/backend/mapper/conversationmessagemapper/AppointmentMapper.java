@@ -29,7 +29,7 @@ public class AppointmentMapper {
         }
 
         AppointmentDTO appointmentDTO = new AppointmentDTO();
-        appointmentDTO.setAppointmentId(appointment.getId());
+        appointmentDTO.setId(appointment.getId());
         appointmentDTO.setTimeStamp(appointment.getTimestamp());
         appointmentDTO.setConversationId(appointment.getConversation().getId());
         appointmentDTO.setTitle(appointment.getTitle());
@@ -39,6 +39,7 @@ public class AppointmentMapper {
         appointmentDTO.setEnd(appointment.getEnd());
         appointmentDTO.setStatus(appointment.getStatus());
         appointmentDTO.setCoachingId(appointment.getCoaching().getId());
+        appointmentDTO.setTeacherId(appointmentDTO.getTeacherId());
         appointmentDTO.setSenderId(appointment.getStudent().getId());
 
         return appointmentDTO;
@@ -52,16 +53,12 @@ public class AppointmentMapper {
         Appointment appointment = new Appointment();
 
 
-        Student student = studentRepository.findById(appointmentDTO.getStudentId())
-                        .orElseThrow(() -> new ResourceNotFoundException("Student not found!"));
 
         appointment.setTitle(appointmentDTO.getTitle());
         appointment.setContent(appointmentDTO.getContent());
-        appointment.setSender(student);
         appointment.setStart(appointmentDTO.getStart());
         appointment.setEnd(appointmentDTO.getEnd());
         appointment.setStatus(appointmentDTO.getStatus());
-        appointment.setStudent(student);
 
         return appointment;
     }
