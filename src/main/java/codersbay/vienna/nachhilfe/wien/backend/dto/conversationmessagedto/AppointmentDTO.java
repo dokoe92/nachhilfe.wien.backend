@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class AppointmentDTO extends MessageDTO{
 
     private Long coachingId;
+    private Long teacherId;
     private Long studentId;
     private LocalDateTime start;
     private LocalDateTime end;

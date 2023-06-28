@@ -70,6 +70,7 @@ public class AppointmentService {
         appointmentDTOCreated.setStatus(Status.SCHEDULED);
         appointmentDTOCreated.setMessageType(MessageType.APPOINTMENT);
         appointmentDTOCreated.setConfirmed(false);
+        appointmentDTOCreated.setTeacherId(coaching.getUser().getId());
         return appointmentDTOCreated;
     }
 

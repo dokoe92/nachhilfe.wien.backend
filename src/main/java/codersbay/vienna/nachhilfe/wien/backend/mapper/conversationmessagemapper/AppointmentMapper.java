@@ -39,6 +39,7 @@ public class AppointmentMapper {
         appointmentDTO.setEnd(appointment.getEnd());
         appointmentDTO.setStatus(appointment.getStatus());
         appointmentDTO.setCoachingId(appointment.getCoaching().getId());
+        appointmentDTO.setTeacherId(appointmentDTO.getTeacherId());
         appointmentDTO.setSenderId(appointment.getStudent().getId());
 
         return appointmentDTO;
