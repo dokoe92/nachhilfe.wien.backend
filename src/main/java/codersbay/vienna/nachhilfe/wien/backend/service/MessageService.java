@@ -11,13 +11,17 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.MessageRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class MessageService {
 
@@ -56,52 +60,10 @@ public class MessageService {
 
 
         messageDTO.setTimeStamp(savedMessage.getTimestamp());
-        messageDTO.setMessageId(message.getId());
+        messageDTO.setId(message.getId());
         messageDTO.setMessageType(message.getMessageType());
 
         return messageDTO;
     }
-
-    public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId) {
-        Conversation conversation = conversationRepository.findById(conversationId)
-                .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
-
-        Coaching coaching = coachingRepository.findById(coachingId)
-                .orElseThrow(() -> new ResourceNotFoundException("Coaching not found!"));
-
-
-        // Make an appointment from the DTO and set the fields
-        // Sender and student fields are handled in the mapper
-        Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
-        appointment.setStatus(Status.SCHEDULED);
-        appointment.setCoaching(coaching);
-        appointment.setConversation(conversation);
-
-        appointmentRepository.save(appointment);
-
-        // Add message to the conversation
-        Set<Message> messages = conversation.getMessages();
-        messages.add(appointment);
-        conversation.setMessages(messages);
-        conversationRepository.save(conversation);
-
-        // Add the coaching to the users coachings
-        Set<User> conversationPartners = conversation.getUsers();
-        for (User user : conversationPartners) {
-            Set<Coaching> coachings = user.getCoachings();
-            coachings.add(coaching);
-            user.setCoachings(coachings);
-            userRepository.save(user);
-        }
-
-        // Set all DTO fields
-
-
-        return appointmentDTO;
-
-    }
-
-
-
 
 }

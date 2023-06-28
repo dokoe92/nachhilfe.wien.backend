@@ -1,7 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
-import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.ProfileDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Appointment;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
@@ -30,7 +29,7 @@ public class AppointmentMapper {
         }
 
         AppointmentDTO appointmentDTO = new AppointmentDTO();
-        appointmentDTO.setAppointmentId(appointment.getId());
+        appointmentDTO.setId(appointment.getId());
         appointmentDTO.setTimeStamp(appointment.getTimestamp());
         appointmentDTO.setConversationId(appointment.getConversation().getId());
         appointmentDTO.setTitle(appointment.getTitle());
@@ -53,8 +52,6 @@ public class AppointmentMapper {
         Appointment appointment = new Appointment();
 
 
-//        Student student = studentRepository.findById(appointmentDTO.getStudentId())
-//                        .orElseThrow(() -> new ResourceNotFoundException("Student not found!"));
 
         appointment.setTitle(appointmentDTO.getTitle());
         appointment.setContent(appointmentDTO.getContent());
@@ -64,6 +61,7 @@ public class AppointmentMapper {
 
         return appointment;
     }
+
 
 
 }

@@ -36,10 +36,6 @@ public class MessageController {
         return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
-    @PostMapping("sendAppointment/{conversationId}/{coachingId}")
-    public ResponseEntity<AppointmentDTO> sendAppointment(@RequestBody AppointmentDTO appointmentDTO, @PathVariable Long conversationId, @PathVariable Long coachingId) {
-        AppointmentDTO appointment =  messageService.sendAppointment(appointmentDTO, conversationId, coachingId);
-        return new ResponseEntity<>(appointment, HttpStatus.CREATED);
-    }
+
 
 }

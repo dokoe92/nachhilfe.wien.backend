@@ -12,20 +12,15 @@ import java.time.LocalDateTime;
 @Setter
 public class AppointmentDTO extends MessageDTO{
 
-    private Long appointmentId;
     private Long coachingId;
     private Long studentId;
     private LocalDateTime start;
     private LocalDateTime end;
     private Status status;
-    private String content;
-    private long id;
+    private Boolean confirmed;
 
-    public void setId(long id) {
-        this.id = id;
-    }
 
-    public long getId() {
-        return id;
+    public boolean isConfirmed() {
+        return confirmed;
     }
 }

@@ -22,7 +22,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "application_user")
 @Getter
-public abstract class User implements UserDetails {
+public class User implements UserDetails {
 
     public User(UserType userType) {
         this.userType = userType;
@@ -46,10 +46,6 @@ public abstract class User implements UserDetails {
     @Setter
     @Column(name="birthdate")
     private LocalDate birthdate;
-
-    @Setter
-    @Column(name="description")
-    private String description;
 
     /**
      * Sets the Profile associated with the user.
@@ -91,6 +87,7 @@ public abstract class User implements UserDetails {
 
     @Setter
     @Enumerated(EnumType.STRING)
+    @Column(name="role")
     private Role role;
 
     @Override

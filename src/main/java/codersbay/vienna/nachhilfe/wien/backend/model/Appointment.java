@@ -43,6 +43,12 @@ public class Appointment extends Message{
     @JoinColumn(name="fk_student_id")
     private Student student;
 
+    @Setter
+    @Column(name="confirmed")
+    private Boolean confirmed;
 
 
+    public boolean isConfirmed() {
+        return confirmed;
+    }
 }
