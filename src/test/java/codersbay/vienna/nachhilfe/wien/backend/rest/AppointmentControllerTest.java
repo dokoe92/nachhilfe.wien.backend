@@ -1,33 +1,38 @@
-package codersbay.vienna.nachhilfe.wien.backend.service;
+package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.Application;
+import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.AppointmentMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.*;
-import codersbay.vienna.nachhilfe.wien.backend.respository.*;
-import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
+        import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.AppointmentMapper;
+        import codersbay.vienna.nachhilfe.wien.backend.model.*;
+        import codersbay.vienna.nachhilfe.wien.backend.respository.*;
+        import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
+import codersbay.vienna.nachhilfe.wien.backend.service.AppointmentService;
+import codersbay.vienna.nachhilfe.wien.backend.service.AuthService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
+        import org.junit.jupiter.api.BeforeEach;
+        import org.junit.jupiter.api.Test;
+        import org.junit.jupiter.api.extension.ExtendWith;
+        import org.mockito.Mock;
+        import org.mockito.junit.jupiter.MockitoExtension;
+        import org.springframework.beans.factory.annotation.Autowired;
+        import org.springframework.boot.test.context.SpringBootTest;
+        import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+        import java.util.Optional;
+        import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+        import static org.junit.jupiter.api.Assertions.*;
+        import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 @ActiveProfiles("dev")
-class AppointmentServiceTest {
+class AppointmentControllerTest {
 
     @Autowired
     private CoachingRepository coachingRepository;
@@ -49,6 +54,12 @@ class AppointmentServiceTest {
     private TeacherRepository teacherRepository;
     @Autowired
     private ObjectMapper objectMapper;
+    @Autowired
+    private AppointmentService appointmentService;
+    @Autowired
+    private JwtService jwtService;
+    @Autowired
+    private TestRestTemplate testRestTemplate;
 
 
     private Profile studentProfile1;
@@ -76,11 +87,9 @@ class AppointmentServiceTest {
     private Conversation conversation3;
 
 
-    private AppointmentService underTest;
-
     @BeforeEach
     void setUp() {
-        underTest = new AppointmentService(coachingRepository, conversationRepository, userRepository, appointmentMapper, appointmentRepository);
+        appointmentService = new AppointmentService(coachingRepository, conversationRepository, userRepository, appointmentMapper, appointmentRepository);
 
         // Create Student
         studentProfile1 = new Profile();
@@ -106,6 +115,10 @@ class AppointmentServiceTest {
         student1.setProfile(studentProfile1);
         student2.setProfile(studentProfile2);
         student3.setProfile(studentProfile3);
+
+        student1.setRole(Role.ROLE_STUDENT);
+        student2.setRole(Role.ROLE_STUDENT);
+        student3.setRole(Role.ROLE_STUDENT);
 
         studentRepository.save(student1);
         studentRepository.save(student2);
@@ -136,6 +149,11 @@ class AppointmentServiceTest {
         teacher1.setProfile(teacherProfile1);
         teacher2.setProfile(teacherProfile2);
         teacher3.setProfile(teacherProfile3);
+
+        teacher1.setRole(Role.ROLE_TEACHER);
+        teacher2.setRole(Role.ROLE_TEACHER);
+        teacher3.setRole(Role.ROLE_TEACHER);
+
 
         teacherRepository.save(teacher1);
         teacherRepository.save(teacher2);
@@ -183,102 +201,34 @@ class AppointmentServiceTest {
 
     }
 
-
-/*
-    @Test
-    void testGetAllAppointments_UserWithOneCoaching_ReturnAllAppointments() {
-        //given
-        Long userId = 1L;
-        Student student = new Student();
-        Set<Coaching> coachings = new HashSet<>();
-        Set<Appointment> appointments = new HashSet<>();
-
-        Coaching coaching = new Coaching();
-
-        Appointment appointment1 = new Appointment();
-        Appointment appointment2 = new Appointment();
-
-        coachings.add(coaching);
-        appointments.add(appointment1);
-        appointments.add(appointment2);
-
-        student.setCoachings(coachings);
-        coaching.setAppointments(appointments);
-
-        AppointmentDTO appointmentDTO1 = new AppointmentDTO();
-        AppointmentDTO appointmentDTO2 = new AppointmentDTO();
-
-        when(userRepository.findById(userId)).thenReturn(Optional.of(student));
-        when(appointmentMapper.toDTO(appointment1)).thenReturn(appointmentDTO1);
-        when(appointmentMapper.toDTO(appointment2)).thenReturn(appointmentDTO2);
-
-        //when
-        Set<AppointmentDTO> result = underTest.getAllAppointments(userId);
-
-        //then
-        assertEquals(2, result.size());
+    private String getToken(User user) {
+        return jwtService.generateToken(user);
     }
 
-    @Test
-    void testGetAllAppointments_UserWithTwoCoachings_ReturnAllAppointments() {
-        //given
-        Long userId = 1L;
-        Student student = new Student();
-        Set<Coaching> coachings = new HashSet<>();
-        Set<Appointment> appointmentsCoaching1 = new HashSet<>();
-        Set<Appointment> appointmentsCoaching2 = new HashSet<>();
 
-
-        Coaching coaching1 = new Coaching();
-        Coaching coaching2 = new Coaching();
-
-        Appointment appointment1 = new Appointment();
-        Appointment appointment2 = new Appointment();
-        Appointment appointment3 = new Appointment();
-        Appointment appointment4 = new Appointment();
-
-        coachings.add(coaching1);
-        coachings.add(coaching2);
-        appointmentsCoaching1.add(appointment1);
-        appointmentsCoaching1.add(appointment2);
-        appointmentsCoaching2.add(appointment3);
-        appointmentsCoaching2.add(appointment4);
-
-        student.setCoachings(coachings);
-        coaching1.setAppointments(appointmentsCoaching1);
-        coaching2.setAppointments(appointmentsCoaching2);
-
-
-        AppointmentDTO appointmentDTO1 = new AppointmentDTO();
-        AppointmentDTO appointmentDTO2 = new AppointmentDTO();
-        AppointmentDTO appointmentDTO3 = new AppointmentDTO();
-        AppointmentDTO appointmentDTO4 = new AppointmentDTO();
-
-        when(userRepository.findById(userId)).thenReturn(Optional.of(student));
-        when(appointmentMapper.toDTO(appointment1)).thenReturn(appointmentDTO1);
-        when(appointmentMapper.toDTO(appointment2)).thenReturn(appointmentDTO2);
-        when(appointmentMapper.toDTO(appointment3)).thenReturn(appointmentDTO3);
-        when(appointmentMapper.toDTO(appointment4)).thenReturn(appointmentDTO4);
-
-        //when
-        Set<AppointmentDTO> result = underTest.getAllAppointments(userId);
-
-        //then
-        assertEquals(4, result.size());
-    }
-*/
     @Test
     public void testSendAppointment() {
         // when
         AppointmentDTO appointmentDTO = new AppointmentDTO();
-        Appointment appointment = new Appointment();
+        appointmentDTO.setContent("New appointment");
 
-        AppointmentDTO responseDTO = underTest.sendAppointment(appointmentDTO, conversation1.getId(), coaching1.getId(), student1.getId());
+        HttpHeaders  headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + getToken(student1));
 
+        HttpEntity<AppointmentDTO> request = new HttpEntity<>(appointmentDTO, headers);
 
-        appointment = appointmentMapper.toEntity(appointmentDTO);
+        ResponseEntity<AppointmentDTO> responseEntity =
+                testRestTemplate.exchange("/appointment/send-appointment/" + conversation1.getId() + "/" + coaching1.getId(), HttpMethod.POST, request, AppointmentDTO.class);
 
+        AppointmentDTO appointmentDtoResponse = responseEntity.getBody();
+        try {
+            String json = objectMapper.writeValueAsString(appointmentDtoResponse);
+            System.out.println(json);
+        } catch(JsonProcessingException ex) {
+            ex.printStackTrace();
+        }
 
     }
-
 }
+

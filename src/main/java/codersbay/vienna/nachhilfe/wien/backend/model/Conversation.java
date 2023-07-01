@@ -22,11 +22,11 @@ public class Conversation {
     Long id;
 
     @Setter
-    @ManyToMany(mappedBy = "conversations")
+    @ManyToMany(mappedBy = "conversations", fetch = FetchType.EAGER)
     @JsonBackReference
     private Set<User> users = new HashSet<>();
 
     @Setter
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     Set<Message> messages = new HashSet<>();
 }
