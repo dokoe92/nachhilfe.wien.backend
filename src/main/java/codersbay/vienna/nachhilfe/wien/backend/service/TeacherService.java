@@ -58,7 +58,7 @@ public class TeacherService {
         return teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher not found!"));
     }
-    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, String email, boolean active) {
+    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, boolean active) {
         //find existing teacher by ID
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         if (teacher.isPresent()) {
@@ -84,9 +84,6 @@ public class TeacherService {
             }
             if (password != null) {
                 profile.setPassword(password);
-            }
-            if (email != null) {
-                profile.setEmail(email);
             }
 
             teacherRepository.save(existingTeacher);
