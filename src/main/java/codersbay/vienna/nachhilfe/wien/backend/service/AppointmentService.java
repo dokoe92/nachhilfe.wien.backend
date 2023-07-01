@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.AppointmentMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
@@ -11,6 +12,7 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundE
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -101,18 +103,16 @@ public class AppointmentService {
     }
 
     public AppointmentDTO confirmAppointment(Long appointmentId, Long teacherId) {
-        Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
 
-        if (!appointment.getSender().getId().equals(teacherId)) {
-            throw new ResourceNotFoundException("Unauthorized to confirm this appointment");
-        }
+        appointment.setStatus(Status.CONFIRMED);
+        appointment.setConfirmed(true);
+        appointmentRepository.save(appointment);
 
-            appointment.setStatus(Status.CONFIRMED);
-            appointment.setConfirmed(true);
-            appointmentRepository.save(appointment);
+        AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
 
-            AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
-            return appointmentDTO;
-        }
+        return appointmentDTO;
     }
+}
 

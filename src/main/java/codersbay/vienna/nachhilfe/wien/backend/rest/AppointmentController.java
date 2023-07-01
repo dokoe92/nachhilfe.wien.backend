@@ -48,8 +48,9 @@ public class AppointmentController {
 
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long teacherId = jwtService.extractUserId(token);
-
-
+        if (!teacherId.equals(appointmentId)) {
+            throw new UserNotAuthorizedException("Teacher not authorized!");
+        }
 
         AppointmentDTO confirmedAppointment = appointmentService.confirmAppointment(appointmentId, teacherId);
         return new ResponseEntity<>(confirmedAppointment, HttpStatus.OK);

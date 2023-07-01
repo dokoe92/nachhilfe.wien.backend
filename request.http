@@ -119,3 +119,14 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjExLCJzdWIiOiJzdHVkZW50M
 PUT http://localhost:8080/appointment/confirm/1/21
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4ODE5OTg3MywiZXhwIjoxNjg4MjAxMzEzfQ.8tr3WeHZDCsF9yUvuBCpBXkn9LJfMRb8l_Sa-dMtfUc
+
+### Change Vorname von Teacher
+PUT http://localhost:8080/teacher/updateTeacher/21
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4ODIxMzI4OSwiZXhwIjoxNjg4MjE0NzI5fQ.yUhHY9MAY5dsUxLjEMNrpI8L9qXvZ4y_vV72beP63Qs
+
+{
+  "firstName": "Günther"
+}
+
+
