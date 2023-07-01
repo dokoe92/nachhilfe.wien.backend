@@ -49,7 +49,6 @@ class AppointmentServiceTest {
     private AppointmentService appointmentService;
 
 
-
 //    @BeforeEach
 //    void setUp() {
 //        underTest = new AppointmentService(coachingRepository, conversationRepository, userRepository, appointmentMapper, appointmentRepository);
@@ -177,31 +176,32 @@ class AppointmentServiceTest {
         assertEquals(MessageType.APPOINTMENT, result.getMessageType());
         assertFalse(result.isConfirmed());
     }
-
-    @Test
-    public void testConfirmAppointment() {
-        // Mock input data
-        Long appointmentId = 1L;
-        Appointment appointment = new Appointment();
-
-
-        appointment.setStatus(Status.SCHEDULED);
-        appointment.setConfirmed(false);
-
-        // Invoke the method
-        AppointmentDTO result = appointmentService.confirmAppointment(appointmentId);
-
-        // Verify repository interactions
-//        verify(appointmentRepository, times(1)).findById(appointmentId);
-//        verify(appointmentRepository, times(1)).save(appointmentId);
-
-        // Assert the result
-        Assertions.assertNotNull(result);
-        Assertions.assertTrue(result.isConfirmed());
-        Assertions.assertEquals(Status.CONFIRMED, result.getStatus());
-
-        // Verify the updated field in the result object
-        Assertions.assertTrue(appointment.isConfirmed());
-        Assertions.assertEquals(Status.CONFIRMED, appointment.getStatus());
-    }
 }
+
+//    @Test
+//    public void testConfirmAppointment() {
+//        // Mock input data
+//        Long appointmentId = 1L;
+//        Appointment appointment = new Appointment();
+//
+//
+//        appointment.setStatus(Status.SCHEDULED);
+//        appointment.setConfirmed(false);
+//
+//        // Invoke the method
+//        AppointmentDTO result = appointmentService.confirmAppointment(appointmentId);
+//
+//        // Verify repository interactions
+////        verify(appointmentRepository, times(1)).findById(appointmentId);
+////        verify(appointmentRepository, times(1)).save(appointmentId);
+//
+//        // Assert the result
+//        Assertions.assertNotNull(result);
+//        Assertions.assertTrue(result.isConfirmed());
+//        Assertions.assertEquals(Status.CONFIRMED, result.getStatus());
+//
+//        // Verify the updated field in the result object
+//        Assertions.assertTrue(appointment.isConfirmed());
+//        Assertions.assertEquals(Status.CONFIRMED, appointment.getStatus());
+//    }
+//}

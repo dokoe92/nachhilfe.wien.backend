@@ -42,20 +42,16 @@ public class AppointmentController {
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
-    @PutMapping("/confirm/{appointmentId}/{teacherId}")
+    @PutMapping("/confirm/{appointmentId}")
     public ResponseEntity<AppointmentDTO> confirmAppointment(@PathVariable Long appointmentId,
-                                                             @PathVariable Long teacherId,
                                                              HttpServletRequest request) {
 
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-        Long userId = jwtService.extractUserId(token);
-        String role = jwtService.extractUserRole(token);  // You need to implement this method
+        Long teacherId = jwtService.extractUserId(token);
 
-        if (!userId.equals(teacherId) && !role.equals("ROLE_TEACHER")) {
-            throw new UserNotAuthorizedException("User not authorized!");
-        }
 
-        AppointmentDTO confirmedAppointment = appointmentService.confirmAppointment(appointmentId);
+
+        AppointmentDTO confirmedAppointment = appointmentService.confirmAppointment(appointmentId, teacherId);
         return new ResponseEntity<>(confirmedAppointment, HttpStatus.OK);
     }
 }

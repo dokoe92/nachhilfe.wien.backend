@@ -100,14 +100,19 @@ public class AppointmentService {
         return appointmentDTOS;
     }
 
-    public AppointmentDTO confirmAppointment(Long appointmentId) {
+    public AppointmentDTO confirmAppointment(Long appointmentId, Long teacherId) {
         Appointment appointment = appointmentRepository.findById(appointmentId).orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
 
-        appointment.setStatus(Status.CONFIRMED);
-        appointment.setConfirmed(true);
-        appointmentRepository.save(appointment);
+        if (!appointment.getSender().getId().equals(teacherId)) {
+            throw new ResourceNotFoundException("Unauthorized to confirm this appointment");
+        }
 
-        AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
-        return appointmentDTO;
+            appointment.setStatus(Status.CONFIRMED);
+            appointment.setConfirmed(true);
+            appointmentRepository.save(appointment);
+
+            AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
+            return appointmentDTO;
+        }
     }
-}
+
