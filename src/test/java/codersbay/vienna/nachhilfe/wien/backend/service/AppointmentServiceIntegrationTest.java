@@ -2,8 +2,7 @@ package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.AppointmentMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Appointment;
-import codersbay.vienna.nachhilfe.wien.backend.model.Status;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,13 +34,23 @@ class AppointmentServiceIntegrationTest {
 
     @Test
     public void testConfirmAppointment() {
-        // Create test data
+
+
+        Long userId = 1L;
+        Teacher teacher = new Teacher();
         Appointment appointment = new Appointment();
+
+        // Create test data
         appointment.setStatus(Status.SCHEDULED);
         appointment.setConfirmed(false);
 
+        entityManager.persist(appointment);
+        entityManager.flush();
+        entityManager.refresh(appointment);
+
 
         Long appointmentId = appointment.getId();
+        Long teacherId = teacher.getId();
 
         // Invoke the method
         AppointmentDTO result = appointmentService.confirmAppointment(appointmentId);

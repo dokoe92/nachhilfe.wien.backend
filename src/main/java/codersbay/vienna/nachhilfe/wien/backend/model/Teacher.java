@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @DiscriminatorValue(value = "teacher")
 @Getter
+@Setter
 public class Teacher extends User {
 
     public Teacher() {

@@ -51,33 +51,36 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1Z
 
 
 ### Create conversation between two users
-POST http://localhost:8080/conversation/create-conversation/21/22
+POST http://localhost:8080/conversation/create-conversation/22/21
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQGhhbnNpLmF0IiwiaWF0IjoxNjg4MTk5OTAwLCJleHAiOjE2ODgyMDEzNDB9.MOMxx5AQQUl5MWcRIPSU3MoGfZ3YG6_kq_8qgD3HPVo
 
 
 ### Send a message in a conversation
-POST http://localhost:8080/message/send-message/1
+POST http://localhost:8080/message/send-message/4
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4Nzc5ODExNSwiZXhwIjoxNjg3Nzk5NTU1fQ.GF1EhHeSb9NQqPqEpNAxZO922mM8KX9HcENr2BcznZk
-
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQGhhbnNpLmF0IiwiaWF0IjoxNjg4MTk5NTM2LCJleHAiOjE2ODgyMDA5NzZ9._wxaZESCEOk76JHehjIkiZeH9wbgl8Zo66vyEWpCgOc
 {
   "title": "Neue Nachricht",
   "content": "erste nachricht",
-  "senderId": 1
+  "senderId": 22
 }
 
 ### Send appointment
-POST http://localhost:8080/message/sendAppointment/5/1
+POST http://localhost:8080/message/sendAppointment/4/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQGhhbnNpLmF0IiwiaWF0IjoxNjg3ODA2MjUyLCJleHAiOjE2ODc4MDc2OTJ9.bjAa0S4RvBdH2D0kNIXhVa-ojxLj5ItMkuNrUxLNhkM
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQGhhbnNpLmF0IiwiaWF0IjoxNjg4MTk5OTAwLCJleHAiOjE2ODgyMDEzNDB9.MOMxx5AQQUl5MWcRIPSU3MoGfZ3YG6_kq_8qgD3HPVo
 
 {
   "title": "Neue Nachricht",
   "content": "erste nachricht",
-  "senderId": 1,
   "studentId": 22
 }
+
+### Get Appointments
+POST http://localhost:8080/appointment/get-appointments/22
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQGhhbnNpLmF0IiwiaWF0IjoxNjg4MTk5OTAwLCJleHAiOjE2ODgyMDEzNDB9.MOMxx5AQQUl5MWcRIPSU3MoGfZ3YG6_kq_8qgD3HPVo
 
 
 ### Send appointment in conversation
@@ -86,7 +89,7 @@ POST http://localhost:8080/app
 ### Create coaachings which are offered by a teacher
 POST http://localhost:8080/coaching/offer-coaching/21
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4ODE5OTg3MywiZXhwIjoxNjg4MjAxMzEzfQ.8tr3WeHZDCsF9yUvuBCpBXkn9LJfMRb8l_Sa-dMtfUc
 
 {
   "coachings": [
@@ -95,9 +98,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1Z
       "level": "Oberstufe",
       "rate": 20.5,
       "active": true
-
     }
-
   ]
 }
 
@@ -112,3 +113,9 @@ Content-Type: application/json
 ### Get Auth via token
 POST http://localhost:8080/auth/info
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjExLCJzdWIiOiJzdHVkZW50MDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODc2MDAyMTYsImV4cCI6MTY4NzYwMTY1Nn0.ROWaxwoTEEk_a8Fz770vNRhd4x0TnqWRfIw5xCw0DrA
+
+
+### Confirm Appointments
+PUT http://localhost:8080/appointment/confirm/1/21
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzdC5hdCIsImlhdCI6MTY4ODE5OTg3MywiZXhwIjoxNjg4MjAxMzEzfQ.8tr3WeHZDCsF9yUvuBCpBXkn9LJfMRb8l_Sa-dMtfUc
