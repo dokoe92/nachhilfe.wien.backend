@@ -11,7 +11,10 @@ import codersbay.vienna.nachhilfe.wien.backend.service.AppointmentService;
 import codersbay.vienna.nachhilfe.wien.backend.service.AuthService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-        import org.junit.jupiter.api.BeforeEach;
+import jakarta.transaction.Transactional;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
         import org.junit.jupiter.api.Test;
         import org.junit.jupiter.api.extension.ExtendWith;
         import org.mockito.Mock;
@@ -278,6 +281,9 @@ class AppointmentControllerTest {
 
     }
 
+
+
+
     private String getToken(User user) {
         return jwtService.generateToken(user);
     }
@@ -290,6 +296,16 @@ class AppointmentControllerTest {
         return headers;
     }
 
+    @AfterEach
+    void tearDown() {
+        appointmentRepository.deleteAll();
+        conversationRepository.deleteAll();
+        coachingRepository.deleteAll();
+        teacherRepository.deleteAll();
+        studentRepository.deleteAll();
+        profileRepository.deleteAll();
+        userRepository.deleteAll();
+    }
 
     @Test
     public void testSendAppointment() {
