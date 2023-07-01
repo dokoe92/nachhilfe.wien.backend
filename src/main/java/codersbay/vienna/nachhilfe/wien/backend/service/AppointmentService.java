@@ -35,15 +35,15 @@ public class AppointmentService {
         Coaching coaching = coachingRepository.findById(coachingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Coaching not found!"));
 
-        User user = userRepository.findById(studentId)
+        User student = userRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
 
         // Make an appointment from the DTO and set the fields
         // Sender and student fields are handled in the mapper
         Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
-        appointment.setSender(user);
-        appointment.setStudent((Student) user);
+        appointment.setSender(student);
+        appointment.setStudent((Student) student);
         appointment.setStatus(Status.SCHEDULED);
         appointment.setCoaching(coaching);
         appointment.setConversation(conversation);
@@ -57,13 +57,10 @@ public class AppointmentService {
         conversationRepository.save(conversation);
 
         // Add the coaching to the users coachings
-        Set<User> conversationPartners = conversation.getUsers();
-        for (User conversationPartner : conversationPartners) {
-            Set<Coaching> coachings = conversationPartner.getCoachings();
-            coachings.add(coaching);
-            conversationPartner.setCoachings(coachings);
-            userRepository.save(conversationPartner);
-        }
+        coaching.getAppointments().add(appointment);
+        ((Student) student).getAppointments().add(appointment);
+        userRepository.save(student);
+
         // Set all DTO fields
         AppointmentDTO appointmentDTOCreated = appointmentMapper.toDTO(appointment);
         appointmentDTOCreated.setStudentId(studentId);
@@ -71,9 +68,11 @@ public class AppointmentService {
         appointmentDTOCreated.setMessageType(MessageType.APPOINTMENT);
         appointmentDTOCreated.setConfirmed(false);
         appointmentDTOCreated.setTeacherId(coaching.getUser().getId());
+
         return appointmentDTOCreated;
     }
 
+    /*
     public Status changeAppointmentStatus(Status status, Long appointmentId) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment not found!"));
@@ -82,19 +81,25 @@ public class AppointmentService {
         appointmentRepository.save(appointment);
         return appointment.getStatus();
     }
+    */
 
     public Set<AppointmentDTO> getAllAppointments(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
-        Set<AppointmentDTO> userAppointments = new HashSet<>();
 
-        Set<Coaching> coachings = user.getCoachings();
         Set<Appointment> appointments = new HashSet<>();
-        for (Coaching coaching : coachings) {
-            appointments.addAll((coaching.getAppointments()));
+        Set<AppointmentDTO> appointmentDTOS = new HashSet<>();
+
+        if (user instanceof Teacher) {
+            Set<Coaching> coachings = user.getCoachings();
+            for (Coaching coaching : coachings) {
+                appointments.addAll((coaching.getAppointments()));
+            }
+        }
+        if (user instanceof Student) {
+            appointments.addAll(((Student) user).getAppointments());
         }
 
-        Set<AppointmentDTO> appointmentDTOS = new HashSet<>();
         for (Appointment appointment : appointments) {
             AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
             appointmentDTOS.add(appointmentDTO);

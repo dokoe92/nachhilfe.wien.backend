@@ -29,8 +29,8 @@ public class AppointmentController {
                                                           @PathVariable Long coachingId,
                                                           HttpServletRequest request) {
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-        Long userId = jwtService.extractUserId(token);
-        AppointmentDTO appointment =  appointmentService.sendAppointment(appointmentDTO, conversationId, coachingId, userId);
+        Long studentId = jwtService.extractUserId(token);
+        AppointmentDTO appointment =  appointmentService.sendAppointment(appointmentDTO, conversationId, coachingId, studentId);
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
