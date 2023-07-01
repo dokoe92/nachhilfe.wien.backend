@@ -20,7 +20,7 @@ public class Teacher extends User {
     @Getter
     @Setter
     @OneToMany(mappedBy = "teacher")
-    @JsonManagedReference
+    @JsonManagedReference(value="teacher-feedbacks-reference")
     private Set<Feedback> feedbacks = new HashSet<>();
 
     @Getter

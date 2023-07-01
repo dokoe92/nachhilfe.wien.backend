@@ -21,7 +21,6 @@ import java.util.Set;
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
-    private Set<Coaching> coachings;
 
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
@@ -66,17 +65,29 @@ public class TeacherService {
             Teacher existingTeacher = teacher.get();
 
             User user = existingTeacher.getProfile().getUser();
+            if (firstName != null) {
             user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setCoachings(coachings);
+            }
+
+            if (lastName != null) {
+                user.setLastName(lastName);
+            }
 
             Profile profile = existingTeacher.getProfile();
 
             //Update the properties of the existing teacher with the updated values
-            profile.setActive(active);
-            profile.setDescription(description);
-            profile.setPassword(password);
-            profile.setEmail(email);
+            if (active) {
+            profile.setActive(true);
+            }
+            if (description != null) {
+                profile.setDescription(description);
+            }
+            if (password != null) {
+                profile.setPassword(password);
+            }
+            if (email != null) {
+                profile.setEmail(email);
+            }
 
             teacherRepository.save(existingTeacher);
 

@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -22,7 +23,7 @@ public class Student extends User {
     @Getter
     @Setter
     @OneToMany(mappedBy = "student")
-    @JsonBackReference
+    @JsonManagedReference(value="student-feedbacks-reference")
     private Set<Feedback> feedbacks = new HashSet<>();
 
     public void addFeedback(Feedback feedback) {
