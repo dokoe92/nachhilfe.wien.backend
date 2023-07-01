@@ -86,6 +86,10 @@ class AppointmentControllerTest {
     private Conversation conversation2;
     private Conversation conversation3;
 
+    private Appointment appointment1;
+    private Appointment appointment2;
+    private Appointment appointment3;
+
 
     @BeforeEach
     void setUp() {
@@ -172,6 +176,11 @@ class AppointmentControllerTest {
         coaching2.setUser(teacher2);
         coaching3.setUser(teacher3);
 
+        coachingRepository.save(coaching1);
+        coachingRepository.save(coaching2);
+        coachingRepository.save(coaching3);
+
+
         // Create conversations
         conversation1 = new Conversation();
         conversation2 = new Conversation();
@@ -189,20 +198,43 @@ class AppointmentControllerTest {
         teacher3.setConversations(Set.of(conversation3));
         student3.setConversations(Set.of(conversation3));
 
-        // Persist
-
-        coachingRepository.save(coaching1);
-        coachingRepository.save(coaching2);
-        coachingRepository.save(coaching3);
-
         conversationRepository.save(conversation1);
         conversationRepository.save(conversation2);
         conversationRepository.save(conversation3);
+
+        // Create Appointments
+        appointment1 = new Appointment();
+        appointment2 = new Appointment();
+        appointment3 = new Appointment();
+
+        appointment1.setCoaching(coaching1);
+        appointment1.setStudent(student1);
+
+        appointmentRepository.save(appointment1);
+
+        coaching1.getAppointments().add(appointment1);
+        student1.getAppointments().add(appointment1);
+        coachingRepository.save(coaching1);
+
+
+
+
+        // Persist
+
+
 
     }
 
     private String getToken(User user) {
         return jwtService.generateToken(user);
+    }
+
+    private HttpHeaders createAuthorizationHeader(User user) {
+        HttpHeaders  headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + getToken(user));
+
+        return headers;
     }
 
 
@@ -228,6 +260,15 @@ class AppointmentControllerTest {
         } catch(JsonProcessingException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Test
+    public void testGetAllAppointments() {
+
+        HttpEntity<String> request = new HttpEntity<>(createAuthorizationHeader(student1));
+
+        ResponseEntity<AppointmentDTO> responseEntity =
+                testRestTemplate.exchange("/appointment/get-appointments/" + student1.getId(), HttpMethod.GET, request, AppointmentDTO.class);
 
     }
 }
