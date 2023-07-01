@@ -34,7 +34,7 @@ public class AppointmentController {
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
-    @PostMapping("/get-appointments/{userId}")
+    @GetMapping("/get-appointments/{userId}")
     public ResponseEntity<Set<AppointmentDTO>> getAllAppointments(@PathVariable Long userId) {
         Set<AppointmentDTO> appointments = appointmentService.getAllAppointments(userId);
         return new ResponseEntity<>(appointments, HttpStatus.OK);

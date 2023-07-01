@@ -19,14 +19,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
         import org.springframework.beans.factory.annotation.Autowired;
         import org.springframework.boot.test.context.SpringBootTest;
         import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.util.HashSet;
-        import java.util.Optional;
-        import java.util.Set;
+import java.util.*;
 
-        import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
         import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -81,6 +80,7 @@ class AppointmentControllerTest {
     private Coaching coaching1;
     private Coaching coaching2;
     private Coaching coaching3;
+    private Coaching coaching4;
 
     private Conversation conversation1;
     private Conversation conversation2;
@@ -89,6 +89,10 @@ class AppointmentControllerTest {
     private Appointment appointment1;
     private Appointment appointment2;
     private Appointment appointment3;
+    private Appointment appointment4;
+    private Appointment appointment5;
+    private Appointment appointment6;
+
 
 
     @BeforeEach
@@ -167,18 +171,22 @@ class AppointmentControllerTest {
         coaching1 = new Coaching();
         coaching2 = new Coaching();
         coaching3 = new Coaching();
+        coaching4 = new Coaching();
 
         coaching1.setSubject(Subject.MATHEMATIK);
         coaching2.setSubject(Subject.DEUTSCH);
         coaching3.setSubject(Subject.ENGLISCH);
+        coaching4.setSubject(Subject.DEUTSCH);
 
         coaching1.setUser(teacher1);
         coaching2.setUser(teacher2);
         coaching3.setUser(teacher3);
+        coaching4.setUser(teacher1);
 
         coachingRepository.save(coaching1);
         coachingRepository.save(coaching2);
         coachingRepository.save(coaching3);
+        coachingRepository.save(coaching4);
 
 
         // Create conversations
@@ -206,22 +214,67 @@ class AppointmentControllerTest {
         appointment1 = new Appointment();
         appointment2 = new Appointment();
         appointment3 = new Appointment();
+        appointment4 = new Appointment();
+        appointment5 = new Appointment();
+        appointment6 = new Appointment();
 
         appointment1.setCoaching(coaching1);
         appointment1.setStudent(student1);
+        appointment1.setSender(student1);
+        appointment1.setConversation(conversation1);
+        appointment1.setContent("Test1");
+
+        appointment2.setCoaching(coaching2);
+        appointment2.setStudent(student1);
+        appointment2.setSender(student1);
+        appointment2.setConversation(conversation1);
+        appointment2.setContent("Test2");
+
+        appointment3.setCoaching(coaching3);
+        appointment3.setStudent(student1);
+        appointment3.setSender(student1);
+        appointment3.setConversation(conversation1);
+        appointment3.setContent("Test3");
+
+        appointment4.setCoaching(coaching1);
+        appointment4.setStudent(student2);
+        appointment4.setSender(student2);
+        appointment4.setConversation(conversation2);
+        appointment4.setContent("Test4");
+
+        appointment5.setCoaching(coaching2);
+        appointment5.setStudent(student2);
+        appointment5.setSender(student2);
+        appointment5.setConversation(conversation2);
+        appointment5.setContent("Test5");
+
+        appointment6.setCoaching(coaching4);
+        appointment6.setStudent(student3);
+        appointment6.setSender(student3);
+        appointment6.setConversation(conversation1);
+        appointment6.setContent("Test6");
 
         appointmentRepository.save(appointment1);
+        appointmentRepository.save(appointment2);
+        appointmentRepository.save(appointment3);
+        appointmentRepository.save(appointment4);
+        appointmentRepository.save(appointment5);
+        appointmentRepository.save(appointment6);
 
         coaching1.getAppointments().add(appointment1);
         student1.getAppointments().add(appointment1);
         coachingRepository.save(coaching1);
+        studentRepository.save(student1);
 
+        coaching2.getAppointments().add(appointment2);
+        student2.getAppointments().add(appointment2);
+        coachingRepository.save(coaching2);
+        studentRepository.save(student2);
 
-
-
-        // Persist
-
-
+        coaching3.getAppointments().add(appointment3);
+        student3.getAppointments().add(appointment3);
+        coachingRepository.save(coaching3);
+        studentRepository.save(student3);
 
     }
 
@@ -263,13 +316,53 @@ class AppointmentControllerTest {
     }
 
     @Test
-    public void testGetAllAppointments() {
+    public void testGetAllAppoinmtents_AppointmentsAsStudent_ReturnAllAppointments() {
 
         HttpEntity<String> request = new HttpEntity<>(createAuthorizationHeader(student1));
 
-        ResponseEntity<AppointmentDTO> responseEntity =
-                testRestTemplate.exchange("/appointment/get-appointments/" + student1.getId(), HttpMethod.GET, request, AppointmentDTO.class);
+        ParameterizedTypeReference<Set<AppointmentDTO>> responseType = new ParameterizedTypeReference<Set<AppointmentDTO>>() {};
 
+
+        ResponseEntity<Set<AppointmentDTO>> responseEntity =
+                testRestTemplate.exchange("/appointment/get-appointments/" + student1.getId(), HttpMethod.GET, request, responseType);
+
+        Set<AppointmentDTO> response = responseEntity.getBody();
+        List<AppointmentDTO> responseAsList = new ArrayList<>(response);
+        responseAsList.sort(Comparator.comparing(AppointmentDTO::getTimeStamp));
+        try {
+            String json = objectMapper.writeValueAsString(responseAsList);
+            System.out.println(json);
+        } catch (JsonProcessingException ex) {
+            ex.printStackTrace();
+        }
+
+        assertEquals(3, response.size());
+        assertEquals("Test1", responseAsList.get(0).getContent());
+        assertEquals("Test2", responseAsList.get(1).getContent());
+        assertEquals("Test3", responseAsList.get(2).getContent());
     }
+
+    @Test
+    public void testGetAllAppoinmtents_AppointmentsAsTeacher_ReturnAllAppointments() {
+
+        HttpEntity<String> request = new HttpEntity<>(createAuthorizationHeader(student1));
+
+        ParameterizedTypeReference<Set<AppointmentDTO>> responseType = new ParameterizedTypeReference<Set<AppointmentDTO>>() {};
+
+
+        ResponseEntity<Set<AppointmentDTO>> responseEntity =
+                testRestTemplate.exchange("/appointment/get-appointments/" + teacher1.getId(), HttpMethod.GET, request, responseType);
+
+        Set<AppointmentDTO> response = responseEntity.getBody();
+        List<AppointmentDTO> responseAsList = new ArrayList<>(response);
+        responseAsList.sort(Comparator.comparing(AppointmentDTO::getTimeStamp));
+        try {
+            String json = objectMapper.writeValueAsString(responseAsList);
+            System.out.println(json);
+        } catch (JsonProcessingException ex) {
+            ex.printStackTrace();
+        }
+
+        assertEquals(3, response.size());}
 }
 
