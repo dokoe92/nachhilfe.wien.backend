@@ -1,3 +1,207 @@
+POST http://localhost:8080/coaching/offer-coaching/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImpvaG4wMUBleGFtcGxlLmNvbSIsImlhdCI6MTY4ODM4MTMxNiwiZXhwIjoxNjg4MzgyNzU2fQ.M9qbsuCId44kQ1B2SfKfCubdDDVegDuqzBsmjuftmBg
+Content-Length: 247
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "coachings": [
+    {
+      "subject": "ENGLISCH",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    },
+    {
+      "subject": "DEUTSCH",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+<> 2023-07-03T125329.400.json
+
+###
+
+POST http://localhost:8080/coaching/offer-coaching/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImpvaG4wMUBleGFtcGxlLmNvbSIsImlhdCI6MTY4ODM4MTMxNiwiZXhwIjoxNjg4MzgyNzU2fQ.M9qbsuCId44kQ1B2SfKfCubdDDVegDuqzBsmjuftmBg
+Content-Length: 247
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "coachings": [
+    {
+      "subject": "ENGLISCH",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    },
+    {
+      "subject": "DEUTSCH",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+<> 2023-07-03T125011.201.json
+
+###
+
+POST http://localhost:8080/coaching/offer-coaching/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImpvaG4wMUBleGFtcGxlLmNvbSIsImlhdCI6MTY4ODM4MTMxNiwiZXhwIjoxNjg4MzgyNzU2fQ.M9qbsuCId44kQ1B2SfKfCubdDDVegDuqzBsmjuftmBg
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "coachings": [
+    {
+      "subject": "MATHEMATIK",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+<> 2023-07-03T124937.201.json
+
+###
+
+POST http://localhost:8080/coaching/offer-coaching/2
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "coachings": [
+    {
+      "subject": "MATHEMATIK",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+###
+
+POST http://localhost:8080/coaching/offer-coaching/12
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "coachings": [
+    {
+      "subject": "MATHEMATIK",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+###
+
+POST http://localhost:8080/coaching/offer-coaching/11
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "coachings": [
+    {
+      "subject": "MATHEMATIK",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+###
+
+POST http://localhost:8080/coaching/offer-coaching/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "coachings": [
+    {
+      "subject": "MATHEMATIK",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+###
+
+POST http://localhost:8080/coaching/offer-coaching/1
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
+Content-Length: 138
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
+Accept-Encoding: br,deflate,gzip,x-gzip
+
+{
+  "coachings": [
+    {
+      "subject": "MATHEMATIK",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    }
+
+  ]
+}
+
+###
+
 POST http://localhost:8080/message/sendAppointment/5/1
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQGhhbnNpLmF0IiwiaWF0IjoxNjg3ODA2MjUyLCJleHAiOjE2ODc4MDc2OTJ9.bjAa0S4RvBdH2D0kNIXhVa-ojxLj5ItMkuNrUxLNhkM
@@ -937,370 +1141,6 @@ Accept-Encoding: br,deflate,gzip,x-gzip
 }
 
 <> 2023-06-21T193806.201.json
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 230
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "1'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wuwrst.adt232d",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-###
-
-POST http://localhost:8080/auth/create-student
-Content-Type: application/json
-Content-Length: 202
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "Schüler'",
-  "lastName": "Hansi",
-  "birthdate": "1992-04-25",
-  "profile": {
-    "userName": "hansl",
-    "password": "12345",
-    "email": "hans@hansi.at",
-    "active": false
-  }
-}
-
-<> 2023-06-21T193755.201.json
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 230
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "1'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wuwrst.adt232d",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 230
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "1'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wuwrst.adt232d",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 230
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "1'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wuwrst.adt232d",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-###
-
-POST http://localhost:8080/coaching/offer-coaching/2
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDIzMmQiLCJpYXQiOjE2ODczNjM5MjEsImV4cCI6MTY4NzM2NTM2MX0.cgmpW10jT8SOl_33cUfZvqv4NoovqQddPdrvymArNcs
-Content-Length: 247
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "coachings": [
-    {
-      "subject": "ENGLISCH",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    },
-    {
-      "subject": "MATHEMATIK",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    }
-  ]
-}
-
-<> 2023-06-21T181219.201.json
-
-###
-
-POST http://localhost:8080/coaching/offer-coaching/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDIzMmQiLCJpYXQiOjE2ODczNjM5MjEsImV4cCI6MTY4NzM2NTM2MX0.cgmpW10jT8SOl_33cUfZvqv4NoovqQddPdrvymArNcs
-Content-Length: 247
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "coachings": [
-    {
-      "subject": "ENGLISCH",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    },
-    {
-      "subject": "MATHEMATIK",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    }
-  ]
-}
-
-<> 2023-06-21T181215.403.json
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 230
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "1'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wuwrst.adt232d",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-<> 2023-06-21T181201.201.json
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 229
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "1'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wuwrst.adt32d",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-<> 2023-06-21T181158.201.json
-
-###
-
-POST http://localhost:8080/coaching/offer-coaching/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDMyZCIsImlhdCI6MTY4NzM2MzYwNCwiZXhwIjoxNjg3MzY1MDQ0fQ.zY8GjXHMJ2-P2nSZ1SEFEg4c1c-z40mNpwJ8lTejhvs
-Content-Length: 247
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "coachings": [
-    {
-      "subject": "ENGLISCH",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    },
-    {
-      "subject": "MATHEMATIK",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    }
-  ]
-}
-
-###
-
-POST http://localhost:8080/coaching/offer-coaching/2
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDMyZCIsImlhdCI6MTY4NzM2MzYwNCwiZXhwIjoxNjg3MzY1MDQ0fQ.zY8GjXHMJ2-P2nSZ1SEFEg4c1c-z40mNpwJ8lTejhvs
-Content-Length: 247
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "coachings": [
-    {
-      "subject": "ENGLISCH",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    },
-    {
-      "subject": "MATHEMATIK",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    }
-  ]
-}
-
-<> 2023-06-21T180721.201.json
-
-###
-
-POST http://localhost:8080/coaching/offer-coaching/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIsInN1YiI6ImhhbnNAd3V3cnN0LmFkdDMyZCIsImlhdCI6MTY4NzM2MzYwNCwiZXhwIjoxNjg3MzY1MDQ0fQ.zY8GjXHMJ2-P2nSZ1SEFEg4c1c-z40mNpwJ8lTejhvs
-Content-Length: 247
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "coachings": [
-    {
-      "subject": "ENGLISCH",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    },
-    {
-      "subject": "MATHEMATIK",
-      "level": "Oberstufe",
-      "rate": 20.5,
-      "active": true
-    }
-  ]
-}
-
-###
-
-POST http://localhost:8080/conversation/create-conversation/21/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc3OTg2MDksImV4cCI6MTY4NzgwMDA0OX0.e7Xtg9duHCTG2QausSgqIgV5YdhrYjzHSy2VGZprjns
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-06-26T185710.200.json
-
-###
-
-POST http://localhost:8080/auth/create-teacher
-Content-Type: application/json
-Content-Length: 229
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "firstName": "Hans'",
-  "lastName": "Wurst",
-  "birthdate": "1992-07-29",
-  "profile": {
-    "userName": "wursti",
-    "password": "1234",
-    "email": "hans@wudrsdt.at",
-    "active": true,
-    "description": "hasdlft"
-  }
-}
-
-<> 2023-06-26T185649.201.json
-
-###
-
-POST http://localhost:8080/message/sendAppointment/4/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc3OTgyNTMsImV4cCI6MTY4Nzc5OTY5M30.PKMvV169ntuMedBWpo7aBFn1hfFlX2mSZ19Ie0DzoSM
-Content-Length: 80
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-{
-  "title": "Neue Nachricht",
-  "content": "erste nachricht",
-  "senderId": 1
-}
-
-###
-
-POST http://localhost:8080/conversation/create-conversation/22/1
-Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc3OTgyNTMsImV4cCI6MTY4Nzc5OTY5M30.PKMvV169ntuMedBWpo7aBFn1hfFlX2mSZ19Ie0DzoSM
-Content-Length: 0
-Connection: Keep-Alive
-User-Agent: Apache-HttpClient/4.5.14 (Java/17.0.6)
-Accept-Encoding: br,deflate,gzip,x-gzip
-
-<> 2023-06-26T185217.200.json
 
 ###
 

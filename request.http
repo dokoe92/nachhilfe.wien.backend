@@ -84,14 +84,21 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIyLCJzdWIiOiJoYW5zQGhhb
 POST http://localhost:8080/app
 
 ### Create coaachings which are offered by a teacher
-POST http://localhost:8080/coaching/offer-coaching/21
+POST http://localhost:8080/coaching/offer-coaching/1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjIxLCJzdWIiOiJoYW5zQHd1ZHJzZHQuYXQiLCJpYXQiOjE2ODc4MDY2MzQsImV4cCI6MTY4NzgwODA3NH0.sVOlAja7j-Ap4bp-m0nM8q4VAis7aFJC3UCeb5ac_Qw
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImpvaG4wMUBleGFtcGxlLmNvbSIsImlhdCI6MTY4ODM4MTMxNiwiZXhwIjoxNjg4MzgyNzU2fQ.M9qbsuCId44kQ1B2SfKfCubdDDVegDuqzBsmjuftmBg
 
 {
   "coachings": [
     {
-      "subject": "MATHEMATIK",
+      "subject": "ENGLISCH",
+      "level": "Oberstufe",
+      "rate": 20.5,
+      "active": true
+
+    },
+    {
+      "subject": "DEUTSCH",
       "level": "Oberstufe",
       "rate": 20.5,
       "active": true

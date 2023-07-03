@@ -296,6 +296,7 @@ class AppointmentControllerTest {
         return headers;
     }
 
+    /*
     @AfterEach
     void tearDown() {
         appointmentRepository.deleteAll();
@@ -306,6 +307,8 @@ class AppointmentControllerTest {
         profileRepository.deleteAll();
         userRepository.deleteAll();
     }
+    */
+
 
     @Test
     public void testSendAppointment() {
