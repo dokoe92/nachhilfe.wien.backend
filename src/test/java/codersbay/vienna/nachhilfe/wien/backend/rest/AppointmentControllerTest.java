@@ -131,6 +131,9 @@ class AppointmentControllerTest {
         student2.setRole(Role.ROLE_STUDENT);
         student3.setRole(Role.ROLE_STUDENT);
 
+        student1.setFirstName("Dominik");
+        student1.setLastName("Köberl");
+
         studentRepository.save(student1);
         studentRepository.save(student2);
         studentRepository.save(student3);
@@ -165,6 +168,8 @@ class AppointmentControllerTest {
         teacher2.setRole(Role.ROLE_TEACHER);
         teacher3.setRole(Role.ROLE_TEACHER);
 
+        teacher1.setFirstName("Hans");
+        teacher1.setLastName("Wurst");
 
         teacherRepository.save(teacher1);
         teacherRepository.save(teacher2);
@@ -283,7 +288,6 @@ class AppointmentControllerTest {
 
 
 
-
     private String getToken(User user) {
         return jwtService.generateToken(user);
     }
@@ -296,6 +300,7 @@ class AppointmentControllerTest {
         return headers;
     }
 
+    /*
     @AfterEach
     void tearDown() {
         appointmentRepository.deleteAll();
@@ -306,6 +311,8 @@ class AppointmentControllerTest {
         profileRepository.deleteAll();
         userRepository.deleteAll();
     }
+
+    */
 
     @Test
     public void testSendAppointment() {

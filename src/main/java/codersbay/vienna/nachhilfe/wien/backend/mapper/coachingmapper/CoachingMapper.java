@@ -20,7 +20,6 @@ public class CoachingMapper {
         }
 
         CoachingDTO coachingDTO = new CoachingDTO();
-
         coachingDTO.setCoachingId(coaching.getId());
         coachingDTO.setTeacherId(coaching.getUser().getId());
         coachingDTO.setSubject(coaching.getSubject());

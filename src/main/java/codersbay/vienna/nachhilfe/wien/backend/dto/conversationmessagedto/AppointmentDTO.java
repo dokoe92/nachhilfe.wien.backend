@@ -15,6 +15,9 @@ public class AppointmentDTO extends MessageDTO{
     private Long coachingId;
     private Long teacherId;
     private Long studentId;
+    private String coachingName;
+    private String teacherName;
+    private String studentName;
     private LocalDateTime start;
     private LocalDateTime end;
     private Status status;

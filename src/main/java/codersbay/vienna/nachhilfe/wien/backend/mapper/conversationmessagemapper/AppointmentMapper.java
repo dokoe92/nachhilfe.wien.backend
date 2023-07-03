@@ -42,6 +42,9 @@ public class AppointmentMapper {
         appointmentDTO.setTeacherId(appointment.getCoaching().getUser().getId());
         appointmentDTO.setSenderId(appointment.getSender().getId());
         appointmentDTO.setMessageType(appointment.getMessageType());
+        appointmentDTO.setCoachingName(String.valueOf(appointment.getCoaching().getSubject()));
+        appointmentDTO.setStudentName(appointment.getStudent().getFirstName() + " " + appointment.getStudent().getLastName());
+        appointmentDTO.setTeacherName(appointment.getCoaching().getUser().getFirstName() + " " + appointment.getCoaching().getUser().getLastName());
 
         return appointmentDTO;
     }
