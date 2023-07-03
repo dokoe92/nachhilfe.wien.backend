@@ -1,7 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.AppointmentMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
@@ -9,10 +8,9 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -102,17 +100,46 @@ public class AppointmentService {
         return appointmentDTOS;
     }
 
-    public AppointmentDTO confirmAppointment(Long appointmentId, Long teacherId) {
+    public AppointmentDTO updateStatus(Long appointmentId, Long teacherId, String action) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
 
-        appointment.setStatus(Status.CONFIRMED);
-        appointment.setConfirmed(true);
+        if(!appointment.getCoaching().getUser().getId().equals(teacherId)){
+            throw new UserNotFoundException("Teacher not authorized");
+        }
+
+        if(action.equalsIgnoreCase("confirm")){
+            appointment.setStatus(Status.CONFIRMED);
+            appointment.setConfirmed(true);
+        } else if (action.equalsIgnoreCase("reject")){
+            appointment.setStatus(Status.REJECTED);
+            appointment.setConfirmed(false);
+        } else {
+            throw new IllegalArgumentException("Invalid action: " + action);
+        }
+
         appointmentRepository.save(appointment);
 
         AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
 
         return appointmentDTO;
     }
+
+
+//    public AppointmentDTO rejectAppointment (Long appointmentId, Long teacherId) {
+//        Appointment appointment = appointmentRepository.findById(appointmentId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
+//
+//
+//        appointment.setStatus(Status.REJECTED);
+//        appointment.setConfirmed(false);
+//        if(!appointment.getCoaching().getUser().getId().equals(teacherId)){
+//            throw new UserNotFoundException("Teacher not authorized");
+//        }
+//
+//        AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
+//
+//        return appointmentDTO;
+//    }
 }
 

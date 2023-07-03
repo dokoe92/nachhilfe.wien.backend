@@ -42,37 +42,30 @@ public class AppointmentController {
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
 
-    @PutMapping("/confirm/{appointmentId}")
-    public ResponseEntity<AppointmentDTO> confirmAppointment(@PathVariable Long appointmentId,
+    @PutMapping("/update-status/{appointmentId}")
+    public ResponseEntity<AppointmentDTO> updateStatus(@PathVariable Long appointmentId,
+                                                             @RequestParam String action,
                                                              HttpServletRequest request) {
 
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long teacherId = jwtService.extractUserId(token);
-        if (!teacherId.equals(appointmentId)) {
-            throw new UserNotAuthorizedException("Teacher not authorized!");
-        }
 
-        AppointmentDTO confirmedAppointment = appointmentService.confirmAppointment(appointmentId, teacherId);
-        return new ResponseEntity<>(confirmedAppointment, HttpStatus.OK);
+        AppointmentDTO updatedStatus = appointmentService.updateStatus(appointmentId, teacherId, action);
+        return ResponseEntity.ok(updatedStatus);
     }
-}
 
-////    @PutMapping("/reject/{appointmentId}/{teacherId}")
-////    public ResponseEntity<AppointmentDTO> rejectAppointment(@PathVariable Long appointmentId,
-////                                                            @PathVariable Long teacherId,
-////                                                            HttpServletRequest request) {
-////
-////        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-////        Long userId = jwtService.extractUserId(token);
-////        String role = jwtService.extractUserRole(token);  // You need to implement this method
-////
-////        if (!userId.equals(teacherId) && !role.equals("ROLE_TEACHER")) {
-////            throw new UserNotAuthorizedException("User not authorized!");
-////        }
-////
-////        AppointmentDTO rejectedAppointment = appointmentService.rejectAppointment(appointmentId);
-////        return new ResponseEntity<>(rejectedAppointment, HttpStatus.OK);
-////    }
+
+//    @PutMapping("/reject/{appointmentId}")
+//    public ResponseEntity<AppointmentDTO> rejectAppointment(@PathVariable Long appointmentId,
+//                                                            HttpServletRequest request) {
+//
+//        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+//        Long teacherId = jwtService.extractUserId(token);
+//
+//        AppointmentDTO rejectedAppointment = appointmentService.rejectAppointment(appointmentId, teacherId);
+//        return new ResponseEntity<>(rejectedAppointment, HttpStatus.OK);
+//    }
+}
 //}
 //
 ////    @PostMapping("/create/{studentId}/{teacherId}")

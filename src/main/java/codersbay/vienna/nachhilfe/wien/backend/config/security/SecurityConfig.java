@@ -71,7 +71,7 @@ public class SecurityConfig{
                         .requestMatchers("/send-message/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
 
                         .requestMatchers("/appointment/send-appointment/**").hasRole("STUDENT")
-                        .requestMatchers("/appointment/confirm/**").hasRole("TEACHER")
+                        .requestMatchers("/appointment/update-status/**").hasRole("TEACHER")
 
                         .requestMatchers("/feedback").hasAnyRole("STUDENT")
 
