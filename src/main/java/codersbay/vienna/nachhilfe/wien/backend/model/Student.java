@@ -20,11 +20,14 @@ public class Student extends User {
         super(UserType.STUDENT);
     }
 
-    @Getter
     @Setter
     @OneToMany(mappedBy = "student")
     @JsonManagedReference(value="student-feedbacks-reference")
     private Set<Feedback> feedbacks = new HashSet<>();
+
+    @Setter
+    @OneToMany(mappedBy = "student")
+    private Set<Appointment> appointments = new HashSet<>();
 
     public void addFeedback(Feedback feedback) {
         if (feedback == null) {
@@ -32,6 +35,7 @@ public class Student extends User {
         }
         this.getFeedbacks().add(feedback);
     }
+
 
 
 }

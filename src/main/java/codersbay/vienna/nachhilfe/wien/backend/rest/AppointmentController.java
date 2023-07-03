@@ -29,12 +29,12 @@ public class AppointmentController {
                                                           @PathVariable Long coachingId,
                                                           HttpServletRequest request) {
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-        Long userId = jwtService.extractUserId(token);
-        AppointmentDTO appointment =  appointmentService.sendAppointment(appointmentDTO, conversationId, coachingId, userId);
+        Long studentId = jwtService.extractUserId(token);
+        AppointmentDTO appointment =  appointmentService.sendAppointment(appointmentDTO, conversationId, coachingId, studentId);
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
-    @PostMapping("/get-appointments/{userId}")
+    @GetMapping("/get-appointments/{userId}")
     public ResponseEntity<Set<AppointmentDTO>> getAllAppointments(@PathVariable Long userId) {
         Set<AppointmentDTO> appointments = appointmentService.getAllAppointments(userId);
         return new ResponseEntity<>(appointments, HttpStatus.OK);

@@ -27,6 +27,6 @@ public class Conversation {
     private Set<User> users = new HashSet<>();
 
     @Setter
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     Set<Message> messages = new HashSet<>();
 }
