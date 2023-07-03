@@ -22,8 +22,8 @@ public class Conversation {
     Long id;
 
     @Setter
-    @ManyToMany(mappedBy = "conversations", fetch = FetchType.EAGER)
-    @JsonBackReference
+    @ManyToMany(mappedBy = "conversations")
+    @JsonBackReference(value="user-conversation-reference")
     private Set<User> users = new HashSet<>();
 
     @Setter

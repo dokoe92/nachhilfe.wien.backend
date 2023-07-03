@@ -21,7 +21,6 @@ import java.util.Set;
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
-    private Set<Coaching> coachings;
 
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
@@ -59,24 +58,33 @@ public class TeacherService {
         return teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher not found!"));
     }
-    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, String email, boolean active) {
+    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, boolean active) {
         //find existing teacher by ID
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         if (teacher.isPresent()) {
             Teacher existingTeacher = teacher.get();
 
             User user = existingTeacher.getProfile().getUser();
+            if (firstName != null) {
             user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setCoachings(coachings);
+            }
+
+            if (lastName != null) {
+                user.setLastName(lastName);
+            }
 
             Profile profile = existingTeacher.getProfile();
 
             //Update the properties of the existing teacher with the updated values
-            profile.setActive(active);
-            profile.setDescription(description);
-            profile.setPassword(password);
-            profile.setEmail(email);
+            if (active) {
+            profile.setActive(true);
+            }
+            if (description != null) {
+                profile.setDescription(description);
+            }
+            if (password != null) {
+                profile.setPassword(password);
+            }
 
             teacherRepository.save(existingTeacher);
 

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface CoachingRepository extends JpaRepository<Coaching, Long> {
-    boolean existsBySubjectAndUser(Subject subject, User user);
+    boolean existsBySubjectAndUserAndActive(Subject subject, User user, Boolean active);
     List<Coaching> findByUser(User user);
 
 }

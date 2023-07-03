@@ -40,7 +40,6 @@ public class CoachingMapper {
         coaching.setSubject(coachingDTO.getSubject());
         coaching.setLevel(coachingDTO.getLevel());
         coaching.setRate(coachingDTO.getRate());
-        coaching.setActive(coachingDTO.getActive());
 
 
         return coaching;
