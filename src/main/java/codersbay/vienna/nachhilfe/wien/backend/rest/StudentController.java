@@ -47,7 +47,6 @@ public class StudentController {
                         request.getLastName(),
                         request.getDescription(),
                         request.getPassword(),
-                        request.getEmail(),
                         request.isActive());
         return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
     }

@@ -78,7 +78,6 @@ public class TeacherController {
                         request.getLastName(),
                         request.getDescription(),
                         request.getPassword(),
-                        request.getEmail(),
                         request.isActive());
         return new ResponseEntity<>(updatedTeacher, HttpStatus.OK);
 
