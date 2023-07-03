@@ -314,8 +314,6 @@ class AppointmentControllerTest {
     */
 
 
-    */
-
     @Test
     public void testSendAppointment() {
         // when
