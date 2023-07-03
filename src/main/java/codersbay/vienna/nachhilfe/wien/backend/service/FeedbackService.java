@@ -6,11 +6,15 @@ import codersbay.vienna.nachhilfe.wien.backend.model.Feedback;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.respository.FeedbackRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +35,12 @@ public class FeedbackService {
         Student student = studentService.findStudentById(feedbackDTO.getStudentId());
         if (student == null) {
             throw new ResourceNotFoundException("Student with ID " + feedbackDTO.getStudentId() + " not found");
+        }
+
+        for (Feedback feedback : student.getFeedbacks()) {
+            if (feedback.getTeacher().equals(teacher)) {
+                throw new DuplicatedException("User already sent feedback for this teacher");
+            }
         }
 
         Feedback feedback = feedbackMapper.toEntity(feedbackDTO, teacher, student);
