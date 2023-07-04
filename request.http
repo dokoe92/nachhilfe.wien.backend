@@ -119,3 +119,4 @@ Content-Type: application/json
 ### Get Auth via token
 POST http://localhost:8080/auth/info
 Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjExLCJzdWIiOiJzdHVkZW50MDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODc2MDAyMTYsImV4cCI6MTY4NzYwMTY1Nn0.ROWaxwoTEEk_a8Fz770vNRhd4x0TnqWRfIw5xCw0DrA
+

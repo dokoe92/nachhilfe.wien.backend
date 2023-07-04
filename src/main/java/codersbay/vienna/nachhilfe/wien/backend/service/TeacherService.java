@@ -8,6 +8,7 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.searchobjects.TeacherSearchObject;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -103,5 +104,10 @@ public class TeacherService {
         } else {
             return false;
         }
+    }
+
+    public List<Teacher> filterTeacher(TeacherSearchObject so) {
+        List<Teacher> teachersFiltered = teacherRepository.filterTeachers(so);
+        return teachersFiltered;
     }
 }

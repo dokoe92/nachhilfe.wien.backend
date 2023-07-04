@@ -129,3 +129,29 @@ INSERT INTO conversation_messages (conversation_id, messages_id)
 VALUES (3,5),
        (3,6);
 
+-- Insert Coaching
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('MATHEMATIK', 'Oberstufe', 20.00, true, 1);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('DEUTSCH', 'Mittelstufe', 25.00, true, 1);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('ENGLISCH', 'Oberstufe', 30.00, true, 1);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('MATHEMATIK', 'Oberstufe', 10.00, true, 2);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('DEUTSCH', 'Mittelstufe', 15.00, true, 2);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('ENGLISCH', 'Oberstufe', 30.00, true, 3);
+
+
+
+-- Insert Appointment for Conversation 1
+INSERT  into message(content, sender_id, conversation_id, message_type, fk_coaching_id, fk_student_id)
+    values ('New Appointment', 11, 1, 'appointment', 1, 11);
+
+
