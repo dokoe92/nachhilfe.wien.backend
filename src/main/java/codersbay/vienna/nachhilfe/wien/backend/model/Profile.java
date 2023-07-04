@@ -3,6 +3,7 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name="profile")
@@ -39,6 +40,7 @@ public class Profile {
 
     @Setter
     @Column(name="average_rating")
+    @Formula("(SELECT AVG(f.rating) FROM feedback f WHERE f.teacher_id = id)")
     private Double averageRatingScore;
 
     /**
