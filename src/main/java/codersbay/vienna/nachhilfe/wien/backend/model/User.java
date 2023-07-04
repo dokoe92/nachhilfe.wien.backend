@@ -20,9 +20,11 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -39,6 +41,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "application_user")
 @Getter
+@SuperBuilder
 public abstract class User implements UserDetails {
 
     public User(UserType userType) {
@@ -76,6 +79,7 @@ public abstract class User implements UserDetails {
 
     @Setter
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private Set<Coaching> coachings = new HashSet<>();
 
 
@@ -98,6 +102,7 @@ public abstract class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "conversation_id"))
     @JsonIgnore
+    @Builder.Default
     private Set<Conversation> conversations = new HashSet<>();
 
 

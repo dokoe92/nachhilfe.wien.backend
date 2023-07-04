@@ -2,7 +2,20 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -16,6 +29,8 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Builder
+@AllArgsConstructor
 public class Coaching {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +42,7 @@ public class Coaching {
     private Subject subject;
 
     @Setter
-    @Column(name="level")
+    @Column(name = "level")
     private String level;
 
     @Setter
@@ -35,15 +50,16 @@ public class Coaching {
     private Double rate;
 
     @Setter
-    @Column(name="active")
+    @Column(name = "active")
     private boolean active;
 
     @OneToMany(mappedBy = "coaching")
     @Setter
+    @Builder.Default
     Set<Appointment> appointments = new HashSet<>();
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name="fk_user_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_user_id")
     @Setter
     private User user;
 }

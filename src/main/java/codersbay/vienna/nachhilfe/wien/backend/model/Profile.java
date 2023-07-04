@@ -2,14 +2,14 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name="profile")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Profile {
 
     @Id
