@@ -7,6 +7,7 @@ import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.AdminUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.StudentUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import codersbay.vienna.nachhilfe.wien.backend.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.LogManager;
@@ -44,6 +45,12 @@ public class AdminController {
                         request.isActive());
 
         return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
+    }
+
+    @PostMapping("/findUser")
+    public ResponseEntity<User> findUser(@RequestBody UserSearch userSearch) {
+        User user = adminService.findUser(userSearch);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteAdmin/{adminId}")
