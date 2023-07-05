@@ -1,10 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
-import codersbay.vienna.nachhilfe.wien.backend.Application;
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
-import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
@@ -13,21 +10,12 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.MethodOrderer;
-import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -36,8 +24,8 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 
+import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_STUDENT;
 import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_TEACHER;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -73,23 +61,59 @@ class AppointmentControllerTest extends AbstractControllerTest {
     @Test
     public void ping() throws Exception {
 
-        final Profile profile = Profile.builder().password("secret").email("profile@gmail.com").build();
-        profileRepository.save(profile);
-
-        final Teacher teacher = Teacher.builder().profile(profile).firstName("Max").lastName("Mustermann").role(ROLE_TEACHER).build();
-        teacherRepository.save(teacher);
+        final Profile profile = createProfile("secret", "profile@gmail.com");
+        final Teacher teacher = (Teacher) createUser(UserType.TEACHER, profile, "Max", "Mustermann");
 
         assertEquals(1L, profileRepository.count());
         assertEquals(1L, teacherRepository.count());
 
         final String URL = "/appointment/ping";
-        /*
+
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + getToken(teacher));*/
+        headers.set("Authorization", "Bearer " + getToken(teacher));
 
-        final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.GET, new URI(URL)));
+        final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.GET, new URI(URL)).headers(headers));
         resultActions.andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()));
+    }
+
+    @Test
+    public void testCreateAppointment() throws Exception {
+
+        final Profile teacherProfile = createProfile("secret", "profile@gmail.com");
+        final Profile studentProfile = createProfile("secret", "profile@gmail.com");
+
+        final Teacher teacher = (Teacher) createUser(UserType.TEACHER, teacherProfile, "Max", "Mustermann");
+        final Student student = (Student) createUser(UserType.STUDENT, studentProfile, "Ilse", "Mustermann");
+
+        assertEquals(1L, profileRepository.count());
+        assertEquals(1L, teacherRepository.count());
+
+        final String URL = "/appointment/ping";
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + getToken(teacher));
+
+        final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.GET, new URI(URL)).headers(headers));
+        resultActions.andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()));
+    }
+
+    private Profile createProfile(String password, String email) {
+        final Profile profile = Profile.builder().password(password).email(email).build();
+        return profileRepository.save(profile);
+    }
+
+    private User createUser(UserType userType, Profile profile, String firstName, String lastName) {
+        final User user;
+        if (userType == UserType.STUDENT) {
+            user = Student.builder().profile(profile).firstName(firstName).lastName(lastName).role(ROLE_STUDENT).build();
+        } else if (userType == UserType.TEACHER) {
+            user = Teacher.builder().profile(profile).firstName(firstName).lastName(lastName).role(ROLE_TEACHER).build();
+        } else {
+            throw new IllegalStateException();
+        }
+        return userRepository.save(user);
     }
 
     /*

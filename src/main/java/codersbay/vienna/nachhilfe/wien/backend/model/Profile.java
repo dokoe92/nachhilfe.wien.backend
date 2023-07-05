@@ -48,6 +48,7 @@ public class Profile {
      *
      * The @JsonBackReference annotation is used to manage the serialization and deserialization of this relationship from the non-owning side.
      */
+    @Setter
     @OneToOne(mappedBy = "profile")
     @JsonBackReference(value="user-profile-reference")
     private User user;
