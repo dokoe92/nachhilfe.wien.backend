@@ -39,16 +39,28 @@ public class AdminService {
             Admin existingAdmin = adminOptional.get();
 
             User user = existingAdmin.getProfile().getUser();
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
+
+            if (firstName != null) {
+                user.setFirstName(firstName);
+            }
+            if (lastName != null) {
+                user.setLastName(lastName);
+            }
 
             Profile profile = existingAdmin.getProfile();
 
             //Update the properties of the existing teacher with the updated values
-            profile.setActive(active);
-            profile.setDescription(description);
-            profile.setPassword(password);
-            profile.setEmail(email);
+            if (active) {
+                profile.setActive(true);
+            }
+
+            if (description != null) {
+                profile.setDescription(description);
+            }
+
+            if (password != null) {
+                profile.setPassword(password);
+            }
 
             adminRepository.save(existingAdmin);
 
