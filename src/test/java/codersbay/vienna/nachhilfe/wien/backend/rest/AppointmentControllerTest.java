@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
@@ -24,6 +25,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_STUDENT;
 import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_TEACHER;
@@ -80,23 +84,57 @@ class AppointmentControllerTest extends AbstractControllerTest {
     @Test
     public void testCreateAppointment() throws Exception {
 
-        final Profile teacherProfile = createProfile("secret", "profile@gmail.com");
-        final Profile studentProfile = createProfile("secret", "profile@gmail.com");
+        final Profile teacherProfile = createProfile("secret1", "profile1@gmail.com");
+        final Profile studentProfile = createProfile("secret2", "profile2@gmail.com");
 
         final Teacher teacher = (Teacher) createUser(UserType.TEACHER, teacherProfile, "Max", "Mustermann");
         final Student student = (Student) createUser(UserType.STUDENT, studentProfile, "Ilse", "Mustermann");
 
-        assertEquals(1L, profileRepository.count());
-        assertEquals(1L, teacherRepository.count());
+        // create conversation
+        final Conversation conversation = new Conversation();
+        conversation.setUsers(new HashSet<>(Arrays.asList(teacher, student)));
+        conversationRepository.save(conversation);
+        teacher.getConversations().add(conversation);
+        student.getConversations().add(conversation);
 
-        final String URL = "/appointment/ping";
+        // update users
+        userRepository.saveAll(Arrays.asList(teacher, student));
+
+        // create coaching
+        final Coaching coaching = new Coaching();
+        coaching.setUser(teacher);
+        coaching.setRate(0.01);
+        coaching.setLevel("1");
+        coaching.setActive(true);
+        coaching.setSubject(Subject.MATHEMATIK);
+        coachingRepository.save(coaching);
+        flush();
+
+        assertEquals(2L, profileRepository.count());
+        assertEquals(2L, userRepository.count());
+        assertEquals(1L, coachingRepository.count());
+
+        final String URL = "/appointment/send-appointment/" + conversation.getId() + "/" + coaching.getId();
 
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.set("Authorization", "Bearer " + getToken(teacher));
+        headers.set("Authorization", "Bearer " + getToken(student));
 
-        final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders.request(HttpMethod.GET, new URI(URL)).headers(headers));
-        resultActions.andExpect(MockMvcResultMatchers.status().is(HttpStatus.OK.value()));
+        final AppointmentDTO appointmentDTO = new AppointmentDTO();
+        appointmentDTO.setContent("Test appointment");
+        System.out.println(objectMapper.writeValueAsString(appointmentDTO));
+
+        final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post(URL)
+                .headers(headers)
+                .content(objectMapper.writeValueAsString(appointmentDTO))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+        resultActions.andExpect(MockMvcResultMatchers.status().is(HttpStatus.CREATED.value()));
+        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.content").value(appointmentDTO.getContent()));
+
+        assertEquals(1L, appointmentRepository.count());
+        assertEquals(appointmentDTO.getContent(), appointmentRepository.findAll().get(0).getContent());
     }
 
     private Profile createProfile(String password, String email) {
