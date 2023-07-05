@@ -47,7 +47,7 @@ public class AdminController {
         return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
     }
 
-    @PostMapping("/findUser")
+    @PostMapping("/find-user")
     public ResponseEntity<User> findUser(@RequestBody UserSearch userSearch) {
         User user = adminService.findUser(userSearch);
         return new ResponseEntity<>(user, HttpStatus.OK);

@@ -73,12 +73,12 @@ public class AdminService {
     }
 
     public User findUser(UserSearch search) {
-        if (search.getId() != null) {
+        if (search.getId() != null && search.getUserEmail() == null) {
             return userRepository.findById(search.getId())
                     .orElseThrow(() ->  new ResourceNotFoundException("User not found!"));
 
         }
-        if (search.getUserEmail() != null) {
+        if (search.getUserEmail() != null && search.getId() == null) {
             return userRepository.findByEmail(search.getUserEmail())
                     .orElseThrow(() -> new ResourceNotFoundException("User cannot be edited!"));
         }
