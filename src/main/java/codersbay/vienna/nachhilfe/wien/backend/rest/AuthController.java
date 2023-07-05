@@ -1,10 +1,12 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.AdminDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
 import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper.AdminMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
@@ -35,6 +37,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
+    private final AdminMapper adminMapper;
 
     /**
      * Creates a new student with a profile.
@@ -64,6 +67,15 @@ public class AuthController {
     )
     public ResponseEntity<AuthResponse> createTeacher(@RequestBody TeacherCreationDTO teacherDTO) {
         AuthResponse auth = authService.createTeacherWithProfile(teacherMapper.toEntity(teacherDTO));
+        return new ResponseEntity<>(auth, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/create-admin")
+    @Operation(
+            description = "Create an admin and link a profile"
+    )
+    public ResponseEntity<AuthResponse> createAdmin(@RequestBody AdminDTO adminDTO) {
+        AuthResponse auth = authService.createAdminWithProfile(adminMapper.toEntity(adminDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }
 
