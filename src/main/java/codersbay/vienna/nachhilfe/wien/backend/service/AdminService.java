@@ -3,7 +3,9 @@ package codersbay.vienna.nachhilfe.wien.backend.service;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AdminRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.MissingIdException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import jakarta.transaction.Transactional;
@@ -74,15 +76,25 @@ public class AdminService {
 
     public User findUser(UserSearch search) {
         if (search.getId() != null && search.getUserEmail() == null) {
-            return userRepository.findById(search.getId())
+            User user = userRepository.findById(search.getId())
                     .orElseThrow(() ->  new ResourceNotFoundException("User not found!"));
+            if (user instanceof Admin) {
+                throw new UserNotAuthorizedException("Admins not authorized to edit other admins!");
+            } else {
+                return user;
+            }
 
         }
         if (search.getUserEmail() != null && search.getId() == null) {
-            return userRepository.findByEmail(search.getUserEmail())
+            User user = userRepository.findByEmail(search.getUserEmail())
                     .orElseThrow(() -> new ResourceNotFoundException("User cannot be edited!"));
+            if (user instanceof Admin) {
+                throw new UserNotAuthorizedException("Admins not authorized to edit other admins!");
+            } else {
+                return user;
+            }
         }
-        throw new IllegalArgumentException("SearchObject not found!");
+        throw new MissingIdException("Please search for id or email!");
     }
 
     public boolean deleteAdmin(Long adminId) {

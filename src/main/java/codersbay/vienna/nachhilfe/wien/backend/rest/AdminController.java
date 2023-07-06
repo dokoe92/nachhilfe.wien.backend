@@ -1,5 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.FindUserDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.FindUserMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
@@ -23,6 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
+    private final FindUserMapper findUserMapper;
 
     @GetMapping
     public ResponseEntity<List<Admin>> findAllAdmins() {
@@ -48,9 +51,10 @@ public class AdminController {
     }
 
     @PostMapping("/find-user")
-    public ResponseEntity<User> findUser(@RequestBody UserSearch userSearch) {
+    public ResponseEntity<FindUserDTO> findUser(@RequestBody UserSearch userSearch) {
         User user = adminService.findUser(userSearch);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        FindUserDTO userDTO = findUserMapper.toDTO(user);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteAdmin/{adminId}")
