@@ -26,7 +26,7 @@ public class FindUserMapper {
         findUserDTO.setFirstName(user.getFirstName());
         findUserDTO.setLastName(user.getLastName());
         findUserDTO.setBirthdate(user.getBirthdate());
-        findUserDTO.setProfileDTO(profileMapper.toDTO(user.getProfile()));
+        findUserDTO.setProfile(profileMapper.toDTO(user.getProfile()));
         if (user instanceof Student) {
             findUserDTO.setFeedbacks(((Student) user).getFeedbacks().stream().
                     map(feedbackMapper::toDTO)
