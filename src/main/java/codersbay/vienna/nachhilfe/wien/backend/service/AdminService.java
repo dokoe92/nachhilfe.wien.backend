@@ -8,10 +8,7 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundE
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.misc.LogManager;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -75,7 +72,7 @@ public class AdminService {
     }
 
     public User findUser(UserSearch search) {
-        if (search.getId() != null && search.getUserEmail() == null) {
+        if (search.getId() != null && search.getEmail() == null) {
             User user = userRepository.findById(search.getId())
                     .orElseThrow(() ->  new ResourceNotFoundException("User not found!"));
             if (user instanceof Admin) {
@@ -83,11 +80,10 @@ public class AdminService {
             } else {
                 return user;
             }
-
         }
-        if (search.getUserEmail() != null && search.getId() == null) {
-            User user = userRepository.findByEmail(search.getUserEmail())
-                    .orElseThrow(() -> new ResourceNotFoundException("User cannot be edited!"));
+        if (search.getEmail() != null && search.getId() == null) {
+            User user = userRepository.findByEmail(search.getEmail())
+                    .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
             if (user instanceof Admin) {
                 throw new UserNotAuthorizedException("Admins not authorized to edit other admins!");
             } else {

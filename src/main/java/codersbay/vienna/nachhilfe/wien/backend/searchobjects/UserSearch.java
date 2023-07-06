@@ -8,5 +8,5 @@ import lombok.Setter;
 public class UserSearch {
 
     Long id;
-    String userEmail;
+    String email;
 }
