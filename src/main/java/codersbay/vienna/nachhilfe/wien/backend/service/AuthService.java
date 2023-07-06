@@ -2,6 +2,7 @@ package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingsMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.EnumSet;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -32,7 +34,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
-    private final CoachingsMapper coachingsMapper;
+    private final CoachingMapper coachingMapper;
     private final ConversationMapper conversationMapper;
     private final TeacherRepository teacherRepository;
     private final StudentRepository studentRepository;
@@ -52,7 +54,9 @@ public class AuthService {
         auth.setImage(user.getProfile().getImageBase64());
         auth.setActive(user.getProfile().isActive());
         auth.setAverageRatingScore(user.getProfile().getAverageRatingScore());
-        auth.setCoachings(coachingsMapper.toDTO(user).getCoachings());
+        for (Coaching coaching : user.getCoachings()) {
+            auth.getCoachings().add(coachingMapper.toDTO(coaching));
+        }
 
 
         if(user instanceof Teacher) {
@@ -61,11 +65,12 @@ public class AuthService {
             auth.setDistricts(teacher.getDistricts());
         }
 
-
-        Set<ConversationDTO> conversationDtos = user.getConversations().stream()
-                .map(conversationMapper::toDTO)
-                .collect(Collectors.toSet());
-        auth.setConversations(conversationDtos);
+        if (user.getConversations() != null) {
+            Set<ConversationDTO> conversationDtos = user.getConversations().stream()
+                    .map(conversationMapper::toDTO)
+                    .collect(Collectors.toSet());
+            auth.setConversations(conversationDtos);
+        }
 
         auth.setAvailableSubjects(EnumSet.allOf(Subject.class));
 

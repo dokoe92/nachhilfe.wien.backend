@@ -79,7 +79,6 @@ public abstract class User implements UserDetails {
 
     @Setter
     @OneToMany(mappedBy = "user")
-    @Builder.Default
     private Set<Coaching> coachings = new HashSet<>();
 
 
