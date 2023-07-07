@@ -1,13 +1,16 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.UserDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
-import codersbay.vienna.nachhilfe.wien.backend.respository.AdminRepository;
-import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
+import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.UserUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.respository.*;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.MissingIdException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +23,10 @@ public class AdminService {
 
     private final AdminRepository adminRepository;
     private final UserRepository userRepository;
+    private final ProfileRepository profileRepository;
+    private final FeedbackRepository feedbackRepository;
+    private final TeacherRepository teacherRepository;
+    private final StudentRepository studentRepository;
 
     public List<Admin> findAllAdmins() {
         return adminRepository.findAll();
@@ -93,6 +100,67 @@ public class AdminService {
         throw new MissingIdException("Please search for id or email!");
     }
 
+    public User editUser(UserUpdateRequest request, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        if (request.getFirstName() != null) {
+            user.setFirstName(request.getFirstName());
+        }
+        if (request.getLastName() != null) {
+            user.setLastName(request.getLastName());
+        }
+        if (request.getBirthdate() != null) {
+            user.setBirthdate(request.getBirthdate());
+        }
+        if (request.getDescription() != null) {
+            user.getProfile().setDescription(request.getDescription());
+            profileRepository.save(user.getProfile());
+        }
+        userRepository.save(user);
+        return user;
+    }
+
+    public Boolean editActiveStatus(Boolean activeStatus, Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        if (activeStatus) {
+            user.getProfile().setActive(true);
+            profileRepository.save(user.getProfile());
+            return true;
+        } else {
+            user.getProfile().setActive(false);
+            profileRepository.save(user.getProfile());
+            return false;
+        }
+    }
+
+    public Boolean deleteImage(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        if (user.getProfile().getImageBase64() != null) {
+            user.getProfile().setImageBase64(null);
+            profileRepository.save(user.getProfile());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Transactional
+    public Boolean deleteFeedback(Long feedbackId) {
+        Feedback feedback = feedbackRepository.findById(feedbackId)
+                .orElseThrow(() -> new ResourceNotFoundException("Feedback not found!"));
+        feedback.getTeacher().getFeedbacks().remove(feedback);
+        feedback.getStudent().getFeedbacks().remove(feedback);
+        teacherRepository.save(feedback.getTeacher());
+        studentRepository.save(feedback.getStudent());
+        feedbackRepository.delete(feedback);
+        return true;
+    }
+
+
+
+
     public boolean deleteAdmin(Long adminId) {
         Optional<Admin> adminOptional = adminRepository.findById(adminId);
         if (adminOptional.isPresent()) {
@@ -126,6 +194,4 @@ public class AdminService {
         }
         return false;
     }
-
-
 }

@@ -1,6 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.FindUserDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.UserDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
@@ -12,14 +12,14 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-public class FindUserMapper {
+public class UserMapper {
 
     private final FeedbackMapper feedbackMapper;
     private final CoachingMapper coachingMapper;
     private final ProfileMapper profileMapper;
 
-    public FindUserDTO toDTO(User user) {
-        FindUserDTO findUserDTO = new FindUserDTO();
+    public UserDTO toDTO(User user) {
+        UserDTO findUserDTO = new UserDTO();
         findUserDTO.setUserId(user.getId());
         findUserDTO.setProfileId(user.getProfile().getId());
         findUserDTO.setUserType(user.getUserType());

@@ -1,31 +1,30 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.FindUserDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.FindUserMapper;
+import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.UserDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
-import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.AdminUpdateRequest;
-import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.StudentUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.UserUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import codersbay.vienna.nachhilfe.wien.backend.service.AdminService;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
-    private final FindUserMapper findUserMapper;
+    private final UserMapper userMapper;
+    private final JwtService jwtService;
 
     @GetMapping
     public ResponseEntity<List<Admin>> findAllAdmins() {
@@ -51,11 +50,42 @@ public class AdminController {
     }
 
     @PostMapping("/find-user")
-    public ResponseEntity<FindUserDTO> findUser(@RequestBody UserSearch userSearch) {
+    public ResponseEntity<UserDTO> findUser(@RequestBody UserSearch userSearch) {
         User user = adminService.findUser(userSearch);
-        FindUserDTO userDTO = findUserMapper.toDTO(user);
+        UserDTO userDTO = userMapper.toDTO(user);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
+
+    @PutMapping("/edit-user/{userId}")
+    public ResponseEntity<UserDTO> editUser (@RequestBody UserUpdateRequest updateRequest,
+                                             @PathVariable Long userId) {
+        UserDTO userDTO = userMapper.toDTO(adminService.editUser(updateRequest, userId));
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/active-inactive/{userId}")
+    public ResponseEntity<Boolean> changeActiveStatus (@PathVariable Long userId,
+                                                      @RequestParam Boolean activeStatus) {
+
+        Boolean activeStatusAfterEdit = adminService.editActiveStatus(activeStatus, userId);
+        return new ResponseEntity<>(activeStatusAfterEdit, HttpStatus.OK);
+    }
+
+    @PutMapping("/delete-image/{userId}")
+    public ResponseEntity<Boolean> deleteUserImage (@PathVariable Long userId) {
+        Boolean imageDeleted = adminService.deleteImage(userId);
+        return new ResponseEntity<>(imageDeleted, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-feedback/{feedbackId}")
+    public ResponseEntity<Boolean> deleteFeedback(@PathVariable Long feedbackId) {
+        Boolean feedbackDeleted = adminService.deleteFeedback(feedbackId);
+        return new ResponseEntity<>(feedbackDeleted, HttpStatus.NO_CONTENT);
+    }
+
+
+
+
 
     @DeleteMapping("/deleteAdmin/{adminId}")
     public ResponseEntity<String> deleteAdmin(@PathVariable Long adminId) {
