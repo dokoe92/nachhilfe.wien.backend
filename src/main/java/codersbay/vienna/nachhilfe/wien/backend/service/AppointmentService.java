@@ -93,4 +93,29 @@ public class AppointmentService {
 
         return appointmentDTOS;
     }
+
+    public AppointmentDTO updateStatus(Long appointmentId, Long teacherId, String action) {
+        Appointment appointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
+
+        if (!appointment.getCoaching().getUser().getId().equals(teacherId)) {
+            throw new UserNotFoundException("Teacher not authorized");
+        }
+
+        if (action.equalsIgnoreCase("confirm")) {
+            appointment.setStatus(Status.CONFIRMED);
+            appointment.setConfirmed(true);
+        } else if (action.equalsIgnoreCase("reject")) {
+            appointment.setStatus(Status.REJECTED);
+            appointment.setConfirmed(false);
+        } else {
+            throw new IllegalArgumentException("Invalid action: " + action);
+        }
+
+        appointmentRepository.save(appointment);
+
+        AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
+
+        return appointmentDTO;
+    }
 }

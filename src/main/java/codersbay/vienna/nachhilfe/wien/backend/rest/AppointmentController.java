@@ -39,4 +39,16 @@ public class AppointmentController {
         Set<AppointmentDTO> appointments = appointmentService.getAllAppointments(userId);
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
+
+    @PutMapping("/update-status/{appointmentId}")
+    public ResponseEntity<AppointmentDTO> updateStatus(@PathVariable Long appointmentId,
+                                                       @RequestParam String action,
+                                                       HttpServletRequest request) {
+
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long teacherId = jwtService.extractUserId(token);
+
+        AppointmentDTO updatedStatus = appointmentService.updateStatus(appointmentId, teacherId, action);
+        return ResponseEntity.ok(updatedStatus);
+    }
 }
