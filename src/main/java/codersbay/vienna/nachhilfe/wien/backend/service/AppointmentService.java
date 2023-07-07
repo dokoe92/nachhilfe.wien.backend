@@ -44,7 +44,7 @@ public class AppointmentService {
         Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
         appointment.setSender(user);
         appointment.setStudent((Student) user);
-        appointment.setStatus(Status.SCHEDULED);
+        appointment.setStatus(Status.PENDING);
         appointment.setCoaching(coaching);
         appointment.setConversation(conversation);
         appointment.setConfirmed(false);
@@ -67,7 +67,7 @@ public class AppointmentService {
         // Set all DTO fields
         AppointmentDTO appointmentDTOCreated = appointmentMapper.toDTO(appointment);
         appointmentDTOCreated.setStudentId(studentId);
-        appointmentDTOCreated.setStatus(Status.SCHEDULED);
+        appointmentDTOCreated.setStatus(Status.PENDING);
         appointmentDTOCreated.setMessageType(MessageType.APPOINTMENT);
         appointmentDTOCreated.setConfirmed(false);
         return appointmentDTOCreated;
@@ -94,6 +94,7 @@ public class AppointmentService {
         return appointmentDTOS;
     }
 
+    @Transactional
     public AppointmentDTO updateStatus(Long appointmentId, Long teacherId, String action) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
