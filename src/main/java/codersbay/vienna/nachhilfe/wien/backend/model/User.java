@@ -77,6 +77,7 @@ public abstract class User implements UserDetails {
      * **************************************************************************************************
      */
     @ManyToMany
+    @Setter
     @JoinTable(
             name = "user_conversations",
             joinColumns = @JoinColumn(name = "user_id"),

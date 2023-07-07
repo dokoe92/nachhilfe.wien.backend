@@ -267,7 +267,7 @@ class AppointmentServiceTest {
         //then
         assertEquals(4, result.size());
     }
-*/
+
     @Test
     public void testSendAppointment() {
         // when
