@@ -1,5 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.FindUserDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.FindUserMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
@@ -7,6 +9,7 @@ import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.AdminUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.StudentUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import codersbay.vienna.nachhilfe.wien.backend.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.antlr.v4.runtime.misc.LogManager;
@@ -22,6 +25,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
+    private final FindUserMapper findUserMapper;
 
     @GetMapping
     public ResponseEntity<List<Admin>> findAllAdmins() {
@@ -44,6 +48,13 @@ public class AdminController {
                         request.isActive());
 
         return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
+    }
+
+    @PostMapping("/find-user")
+    public ResponseEntity<FindUserDTO> findUser(@RequestBody UserSearch userSearch) {
+        User user = adminService.findUser(userSearch);
+        FindUserDTO userDTO = findUserMapper.toDTO(user);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteAdmin/{adminId}")

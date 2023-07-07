@@ -1,9 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
-
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.service.AppointmentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,8 +29,8 @@ public class AppointmentController {
                                                           @PathVariable Long coachingId,
                                                           HttpServletRequest request) {
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-        Long userId = jwtService.extractUserId(token);
-        AppointmentDTO appointment = appointmentService.sendAppointment(appointmentDTO, conversationId, coachingId, userId);
+        Long studentId = jwtService.extractUserId(token);
+        AppointmentDTO appointment = appointmentService.sendAppointment(appointmentDTO, conversationId, coachingId, studentId);
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
@@ -41,94 +39,4 @@ public class AppointmentController {
         Set<AppointmentDTO> appointments = appointmentService.getAllAppointments(userId);
         return new ResponseEntity<>(appointments, HttpStatus.OK);
     }
-
-    @PutMapping("/update-status/{appointmentId}")
-    public ResponseEntity<AppointmentDTO> updateStatus(@PathVariable Long appointmentId,
-                                                             @RequestParam String action,
-                                                             HttpServletRequest request) {
-
-        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-        Long teacherId = jwtService.extractUserId(token);
-
-        AppointmentDTO updatedStatus = appointmentService.updateStatus(appointmentId, teacherId, action);
-        return ResponseEntity.ok(updatedStatus);
-    }
-
-
-//    @PutMapping("/reject/{appointmentId}")
-//    public ResponseEntity<AppointmentDTO> rejectAppointment(@PathVariable Long appointmentId,
-//                                                            HttpServletRequest request) {
-//
-//        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-//        Long teacherId = jwtService.extractUserId(token);
-//
-//        AppointmentDTO rejectedAppointment = appointmentService.rejectAppointment(appointmentId, teacherId);
-//        return new ResponseEntity<>(rejectedAppointment, HttpStatus.OK);
-//    }
 }
-//}
-//
-////    @PostMapping("/create/{studentId}/{teacherId}")
-////    public ResponseEntity<AppointmentDTO> createAppointment(@RequestBody AppointmentDTO appointmentDTO,
-////                                                            @PathVariable Long studentId,
-////                                                            @PathVariable Long teacherId,
-////                                                            HttpServletRequest request) {
-////
-////        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-////        Long userId = jwtService.extractUserId(token);
-////
-////        AppointmentDTO savedAppointment = appointmentService.createAppointment(appointmentDTO, studentId , userId);
-////        return new ResponseEntity<>(savedAppointment, HttpStatus.CREATED);
-////    }
-//
-//    @PutMapping("/confirm/{appointmentId}/{teacherId}")
-//    public ResponseEntity<AppointmentDTO> confirmAppointment(@PathVariable Long appointmentId,
-//                                                             @PathVariable Long teacherId,
-//                                                             HttpServletRequest request) {
-//
-//        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-//        Long userId = jwtService.extractUserId(token);
-//        String role = jwtService.extractUserRole(token);  // You need to implement this method
-//
-//        if (!userId.equals(teacherId) && !role.equals("ROLE_TEACHER")) {
-//            throw new UserNotAuthorizedException("User not authorized!");
-//        }
-//
-//        AppointmentDTO confirmedAppointment = appointmentService.confirmAppointment(appointmentId);
-//        return new ResponseEntity<>(confirmedAppointment, HttpStatus.OK);
-//    }
-//
-//    @PutMapping("/reject/{appointmentId}/{teacherId}")
-//    public ResponseEntity<AppointmentDTO> rejectAppointment(@PathVariable Long appointmentId,
-//                                                            @PathVariable Long teacherId,
-//                                                            HttpServletRequest request) {
-//
-//        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-//        Long userId = jwtService.extractUserId(token);
-//        String role = jwtService.extractUserRole(token);  // You need to implement this method
-//
-//        if (!userId.equals(teacherId) && !role.equals("ROLE_TEACHER")) {
-//            throw new UserNotAuthorizedException("User not authorized!");
-//        }
-//
-//        AppointmentDTO rejectedAppointment = appointmentService.rejectAppointment(appointmentId);
-//        return new ResponseEntity<>(rejectedAppointment, HttpStatus.OK);
-//    }
-//
-//    @PutMapping("/reschedule/{appointmentId}/{teacherId}")
-//    public ResponseEntity<AppointmentDTO> rescheduleAppointment(@PathVariable Long appointmentId,
-//                                                                @PathVariable Long teacherId,
-//                                                                @RequestBody AppointmentDTO appointmentDTO,
-//                                                                HttpServletRequest request) {
-//
-//        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
-//        Long userId = jwtService.extractUserId(token);
-//        String role = jwtService.extractUserRole(token);  // You need to implement this method
-//
-//        if (!userId.equals(teacherId) && !role.equals("ROLE_TEACHER")) {
-//            throw new UserNotAuthorizedException("User not authorized!");
-//        }
-//
-//        AppointmentDTO rescheduledAppointment = appointmentService.rescheduleAppointment(appointmentId, appointmentDTO);
-//        return new ResponseEntity<>(rescheduledAppointment, HttpStatus.OK);
-//    }

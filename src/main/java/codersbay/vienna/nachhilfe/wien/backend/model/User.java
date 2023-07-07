@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,7 +23,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "application_user")
 @Getter
-public class User implements UserDetails {
+@SuperBuilder
+public abstract class User implements UserDetails {
 
     public User(UserType userType) {
         this.userType = userType;

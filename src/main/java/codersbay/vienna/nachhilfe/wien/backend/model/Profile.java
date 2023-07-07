@@ -2,14 +2,15 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name="profile")
 @Getter
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Profile {
 
     @Id
@@ -26,7 +27,7 @@ public class Profile {
     private String email;
 
     @Setter
-    @Column(name = "picture")
+    @Column(name = "picture", columnDefinition = "TEXT")
     private String imageBase64;
 
     @Setter
@@ -39,6 +40,7 @@ public class Profile {
 
     @Setter
     @Column(name="average_rating")
+    @Formula("(SELECT AVG(f.rating) FROM feedback f WHERE f.teacher_id = id)")
     private Double averageRatingScore;
 
     /**
@@ -46,8 +48,9 @@ public class Profile {
      *
      * The @JsonBackReference annotation is used to manage the serialization and deserialization of this relationship from the non-owning side.
      */
+    @Setter
     @OneToOne(mappedBy = "profile")
-    @JsonBackReference
+    @JsonBackReference(value="user-profile-reference")
     private User user;
 
 

@@ -10,6 +10,7 @@ public class ProfileDTO {
     String password;
     String email;
     String description;
+    String imageBase64;
     Boolean active;
     Double averageRatingScore;
 }

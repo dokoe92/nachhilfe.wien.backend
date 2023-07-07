@@ -4,7 +4,6 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.Conver
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserConversationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserConversationMapper;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserTypeMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Conversation;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
@@ -16,6 +15,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -62,4 +62,23 @@ public class ConversationService {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
         return userConversationMapper.toDTO(user);
     }
+
+
+    /**
+     * Finds a conversation between two users identified by their IDs.
+     *
+     * @param id1 Id of the first user.
+     * @param id2 Id of the second user.
+     * @return An Optional containing the Conversation if one exists between the two users. If no such conversation exists, an empty Optional is returned.
+     * @throws IllegalArgumentException if either of the users is not present.
+     */
+    public Optional<Conversation> findConversationOfUsers(Long id1, Long id2) throws IllegalArgumentException {
+        User user1 = userRepository.findById(id1).orElseThrow(() -> new IllegalArgumentException("User with id " + id1 + " not found"));
+        User user2 = userRepository.findById(id2).orElseThrow(() -> new IllegalArgumentException("User with id " + id2 + " not found"));
+        return user1.getConversations().stream()
+                .filter(conversation -> conversation.getUsers().contains(user2))
+                .findFirst();
+    }
+
+
 }

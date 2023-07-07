@@ -10,7 +10,9 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagere
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,7 +27,7 @@ public class AppointmentService {
     private final AppointmentMapper appointmentMapper;
     private final AppointmentRepository appointmentRepository;
 
-
+    @Transactional
     public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId, Long studentId) {
         Conversation conversation = conversationRepository.findById(conversationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
@@ -71,15 +73,7 @@ public class AppointmentService {
         return appointmentDTOCreated;
     }
 
-//    public Status changeAppointmentStatus(Status status, Long appointmentId) {
-//        Appointment appointment = appointmentRepository.findById(appointmentId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Appointment not found!"));
-//
-//        appointment.setStatus(status);
-//        appointmentRepository.save(appointment);
-//        return appointment.getStatus();
-//    }
-
+    @Transactional(readOnly = true)
     public Set<AppointmentDTO> getAllAppointments(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
@@ -99,47 +93,4 @@ public class AppointmentService {
 
         return appointmentDTOS;
     }
-
-    public AppointmentDTO updateStatus(Long appointmentId, Long teacherId, String action) {
-        Appointment appointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
-
-        if(!appointment.getCoaching().getUser().getId().equals(teacherId)){
-            throw new UserNotFoundException("Teacher not authorized");
-        }
-
-        if(action.equalsIgnoreCase("confirm")){
-            appointment.setStatus(Status.CONFIRMED);
-            appointment.setConfirmed(true);
-        } else if (action.equalsIgnoreCase("reject")){
-            appointment.setStatus(Status.REJECTED);
-            appointment.setConfirmed(false);
-        } else {
-            throw new IllegalArgumentException("Invalid action: " + action);
-        }
-
-        appointmentRepository.save(appointment);
-
-        AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
-
-        return appointmentDTO;
-    }
-
-
-//    public AppointmentDTO rejectAppointment (Long appointmentId, Long teacherId) {
-//        Appointment appointment = appointmentRepository.findById(appointmentId)
-//                .orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
-//
-//
-//        appointment.setStatus(Status.REJECTED);
-//        appointment.setConfirmed(false);
-//        if(!appointment.getCoaching().getUser().getId().equals(teacherId)){
-//            throw new UserNotFoundException("Teacher not authorized");
-//        }
-//
-//        AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
-//
-//        return appointmentDTO;
-//    }
 }
-

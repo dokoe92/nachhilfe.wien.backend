@@ -45,8 +45,13 @@ public class StartUpRunner implements CommandLineRunner {
         studentRequest.setEmail("student01@example.com");
         studentRequest.setPassword("password");
 
+        AuthRequest adminRequest = new AuthRequest();
+        adminRequest.setEmail("admin01@example.com");
+        adminRequest.setPassword("password");
+
         log.trace("Teacher Token: " + generateToken(teacherRequest));
         log.trace("Student Token: " + generateToken(studentRequest));
+        log.trace("Admin Token: " + generateToken(adminRequest));
 
     }
 

@@ -1,38 +1,20 @@
 package codersbay.vienna.nachhilfe.wien.backend.config.security;
 
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.AuthenticationProvider;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.NoOpPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.server.SecurityWebFilterChain;
-import org.springframework.security.web.server.header.XFrameOptionsServerHttpHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console; // !
-
 
 import java.util.Arrays;
 
+import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
@@ -45,8 +27,10 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         return http
-                .cors(withDefaults())
+                // csrf and headers need to be disabled in order the H2 console works
+                //.headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.disable())
                 .csrf(csrf -> csrf.disable())
+                .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs").permitAll()
@@ -60,9 +44,12 @@ public class SecurityConfig{
                         .requestMatchers("/auth/create-teacher").permitAll()
                         .requestMatchers("/auth/create-student").permitAll()
 
+                        .requestMatchers("/user/picture/**").permitAll()
+
                         .requestMatchers("/teacher/update-districts/**").hasRole("TEACHER")
                         .requestMatchers("/teacher/allTeachers").hasAnyRole("STUDENT", "ADMIN")
                         .requestMatchers("/teacher/teacher-profiles").permitAll()
+                        .requestMatchers("/teacher/filter-teachers").hasAnyRole("STUDENT", "ADMIN")
 
                         .requestMatchers("/coaching/offer-coaching/**").hasRole("TEACHER")
 
@@ -80,6 +67,7 @@ public class SecurityConfig{
                 )
                 .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .headers((header) -> header.frameOptions().sameOrigin())
                 .build();
     }
 

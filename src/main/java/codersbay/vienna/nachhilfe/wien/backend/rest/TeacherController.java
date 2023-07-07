@@ -6,6 +6,7 @@ import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.TeacherUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.searchobjects.TeacherSearchObject;
 import codersbay.vienna.nachhilfe.wien.backend.service.TeacherService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -78,7 +79,6 @@ public class TeacherController {
                         request.getLastName(),
                         request.getDescription(),
                         request.getPassword(),
-                        request.getEmail(),
                         request.isActive());
         return new ResponseEntity<>(updatedTeacher, HttpStatus.OK);
 
@@ -93,5 +93,13 @@ public class TeacherController {
         } else {
             throw new UserNotFoundException("Teacher with ID " + teacherId + " was not found.");
         }
+    }
+
+    @PostMapping("/filter-teachers")
+    public ResponseEntity<List<TeacherPublicDTO>> filterTeachers(@RequestBody TeacherSearchObject so) {
+        List<TeacherPublicDTO> teachersFiltered = teacherService.filterTeacher(so).stream()
+                .map(teacherPublicMapper::toDTO).toList();
+        return new ResponseEntity<>(teachersFiltered, HttpStatus.OK);
+
     }
 }
