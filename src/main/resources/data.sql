@@ -161,3 +161,14 @@ INSERT  into message(content, sender_id, conversation_id, message_type, fk_coach
     values ('New Appointment', 11, 1, 'appointment', 1, 11);
 
 
+-- Insert some feedbacks ---
+INSERT INTO feedback(fk_teacher_id, fk_student_id, content, title, rating, date)
+values (1, 11, 'Super duper teacher', 'Nice', 4.3, '2023-07-07');
+
+INSERT INTO feedback(fk_teacher_id, fk_student_id, content, title, rating, date)
+values (1, 12, 'Best teacher', 'Yeah', 4.3, '2023-07-06');
+
+INSERT INTO feedback(fk_teacher_id, fk_student_id, content, title, rating, date)
+values (1, 13, 'Shit teacher', 'Shit', 1.0, '2023-07-07');
+
+
