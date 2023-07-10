@@ -112,7 +112,7 @@ public class AdminService {
         if (request.getBirthdate() != null) {
             user.setBirthdate(request.getBirthdate());
         }
-        if (request.getDescription() != null) {
+        if (request.getDescription() != null && user instanceof Teacher) {
             user.getProfile().setDescription(request.getDescription());
             profileRepository.save(user.getProfile());
         }
