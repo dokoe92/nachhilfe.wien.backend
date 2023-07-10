@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 @Getter
@@ -34,6 +35,11 @@ public enum Districts {
     Districts(String postCode, String name) {
         this.postCode = postCode;
         this.name = name;
+    }
+
+    @JsonValue
+    public String toValue() {
+        return postCode + ", " + name;
     }
 
 

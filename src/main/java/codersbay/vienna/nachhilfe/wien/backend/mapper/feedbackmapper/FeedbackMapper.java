@@ -28,7 +28,7 @@ public class FeedbackMapper {
         feedbackDTO.setStudentFirstName(feedback.getStudent().getFirstName());
         feedbackDTO.setStudentLastName(feedback.getStudent().getLastName());
         feedbackDTO.setTeacherFirstName(feedback.getTeacher().getFirstName());
-        feedbackDTO.setTeacherFirstName(feedback.getTeacher().getLastName());
+        feedbackDTO.setTeacherLastName(feedback.getTeacher().getLastName());
         feedbackDTO.setTitle(feedback.getTitle());
         feedbackDTO.setContent(feedback.getContent());
         feedbackDTO.setRating(feedback.getRating());
