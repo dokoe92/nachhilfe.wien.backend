@@ -54,10 +54,11 @@ public class AuthService {
         auth.setImage(user.getProfile().getImageBase64());
         auth.setActive(user.getProfile().isActive());
         auth.setAverageRatingScore(user.getProfile().getAverageRatingScore());
-        for (Coaching coaching : user.getCoachings()) {
-            auth.getCoachings().add(coachingMapper.toDTO(coaching));
+        if (user.getCoachings() != null) {
+            for (Coaching coaching : user.getCoachings()) {
+                auth.getCoachings().add(coachingMapper.toDTO(coaching));
+            }
         }
-
 
         if(user instanceof Teacher) {
             Teacher teacher = (Teacher) user;
