@@ -17,6 +17,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "where (:#{#so.districtSet} = false or d in (:#{#so.districts})) " +
             "and (:#{#so.subjectSet} = false or c.subject = :#{#so.subject}) " +
             "and (:#{#so.minRateSet} = false or c.rate >= :#{#so.minRate}) " +
-            "and (:#{#so.maxRateSet} = false or c.rate <= :#{#so.maxRate})")
+            "and (:#{#so.maxRateSet} = false or c.rate <= :#{#so.maxRate})" +
+            "and t.profile.active = true")
     List<Teacher> filterTeachers(@Param("so") TeacherSearchObject so);
 }

@@ -39,7 +39,7 @@ public class TeacherService {
     public TeacherDistricts updateTeacherDistricts(TeacherDistricts teacherDistricts, Long teacherId) {
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         if (teacher.isEmpty()) {
-            throw new ResourceNotFoundException("Teacher with id " + teacherDistricts.getTeacherId() + " not found");
+            throw new ResourceNotFoundException("Teacher with id " + teacherDistricts.getTeacherId() + " not found or inactive");
         }
         teacher.get().getDistricts().clear();
         teacher.get().getDistricts().addAll(teacherDistricts.getDistricts());
