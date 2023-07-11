@@ -7,6 +7,7 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -38,6 +39,9 @@ public class AppointmentService {
         User user = userRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
+        if (appointmentRepository.existsByStudentIdAndCoachingId(studentId, coachingId)) {
+            throw new DuplicatedException("User already has an appointment for this coaching!");
+        }
 
         // Make an appointment from the DTO and set the fields
         // Sender and student fields are handled in the mapper

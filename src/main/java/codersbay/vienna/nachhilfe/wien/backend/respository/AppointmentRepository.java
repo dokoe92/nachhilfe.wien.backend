@@ -9,4 +9,6 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface AppointmentRepository extends JpaRepository<Appointment, Long> {
+    boolean existsByStudentIdAndCoachingId(Long studentId, Long coachingId);
+
 }

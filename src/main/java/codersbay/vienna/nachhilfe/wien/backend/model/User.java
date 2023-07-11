@@ -3,6 +3,7 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -61,6 +62,7 @@ public abstract class User implements UserDetails {
 
     @Setter
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private Set<Coaching> coachings = new HashSet<>();
 
 
@@ -83,6 +85,7 @@ public abstract class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "conversation_id"))
     @JsonIgnore
+    @Builder.Default
     private Set<Conversation> conversations = new HashSet<>();
 
 
