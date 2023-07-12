@@ -2,6 +2,8 @@ package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.model.Appointment;
 import codersbay.vienna.nachhilfe.wien.backend.service.AppointmentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -50,5 +52,11 @@ public class AppointmentController {
 
         AppointmentDTO updatedStatus = appointmentService.updateStatus(appointmentId, teacherId, action);
         return ResponseEntity.ok(updatedStatus);
+    }
+
+    @GetMapping("/get-appointments/{appointmentId}")
+    public ResponseEntity<AppointmentDTO> findAppointmentById(@PathVariable Long appointmentId) {
+        AppointmentDTO appointmentDTO = appointmentService.findAppointmentById(appointmentId);
+        return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
     }
 }

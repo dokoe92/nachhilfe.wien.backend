@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @RequiredArgsConstructor
@@ -122,5 +123,16 @@ public class AppointmentService {
         AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
 
         return appointmentDTO;
+    }
+
+    public AppointmentDTO findAppointmentById(Long appointmentId) {
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+        if (optionalAppointment.isPresent()) {
+            Appointment appointment = optionalAppointment.get();
+            return appointmentMapper.toDTO(appointment);
+        }
+        // Handle the case when the appointment is not found
+        // You can throw an exception or return null, depending on your use case
+        return null;
     }
 }
