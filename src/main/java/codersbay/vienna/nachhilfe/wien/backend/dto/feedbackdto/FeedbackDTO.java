@@ -7,7 +7,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class FeedbackDTO {
+public class FeedbackDTO implements Comparable<FeedbackDTO>{
     private Long feedbackId;
     private Long teacherId;
     private Long studentId;
@@ -19,4 +19,9 @@ public class FeedbackDTO {
     private String content;
     private Integer rating;
     private LocalDate date;
+
+    @Override
+    public int compareTo(FeedbackDTO o) {
+        return Long.compare(this.getFeedbackId(), o.getFeedbackId());
+    }
 }

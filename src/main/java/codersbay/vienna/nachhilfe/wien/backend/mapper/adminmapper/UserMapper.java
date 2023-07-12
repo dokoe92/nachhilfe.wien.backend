@@ -1,13 +1,16 @@
-package codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper;
+package codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.UserDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbackDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.ProfileMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
+import java.util.*;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 @Component
@@ -35,7 +38,7 @@ public class UserMapper {
         if (user instanceof Teacher) {
             findUserDTO.setFeedbacks(((Teacher) user).getFeedbacks().stream().
                     map(feedbackMapper::toDTO)
-                    .collect(Collectors.toSet()));
+                    .collect(Collectors.toCollection(TreeSet::new)));
             findUserDTO.setDistricts(new HashSet<>(((Teacher) user).getDistricts()));
         }
         findUserDTO.setCoachings(user.getCoachings().stream().map(coachingMapper::toDTO).collect(Collectors.toSet()));

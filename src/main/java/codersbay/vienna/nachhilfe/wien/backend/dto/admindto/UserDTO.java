@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Getter
 @Setter
@@ -22,7 +23,7 @@ public class UserDTO {
     String lastName;
     LocalDate birthdate;
     ProfileDTO profile;
-    Set<FeedbackDTO> feedbacks = new HashSet<>();
+    Set<FeedbackDTO> feedbacks = new TreeSet<>();
     Set<CoachingDTO> coachings = new HashSet<>();
     Set<Districts> districts = new HashSet<>();
 }

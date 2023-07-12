@@ -2,7 +2,7 @@ package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.UserDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper.UserMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.AdminUpdateRequest;
@@ -10,7 +10,6 @@ import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.UserUpdateReq
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import codersbay.vienna.nachhilfe.wien.backend.service.AdminService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

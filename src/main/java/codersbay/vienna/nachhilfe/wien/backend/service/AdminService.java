@@ -1,7 +1,5 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.UserDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.UserUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.respository.*;
