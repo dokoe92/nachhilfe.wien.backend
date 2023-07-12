@@ -27,12 +27,10 @@ public class Appointment extends Message{
 
     @Setter
     @Column(name = "start_coaching")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime start;
 
     @Setter
     @Column(name = "end_coaching")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime end;
 
     @Setter

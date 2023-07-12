@@ -15,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -64,10 +66,15 @@ public class AppointmentService {
         // Add the coaching to the users coachings
         Set<User> conversationPartners = conversation.getUsers();
         for (User conversationPartner : conversationPartners) {
-            Set<Coaching> coachings = conversationPartner.getCoachings();
-            coachings.add(coaching);
-            conversationPartner.setCoachings(coachings);
-            userRepository.save(conversationPartner);
+            if (conversationPartner instanceof Student) {
+                ((Student) conversationPartner).getAppointments().add(appointment);
+            }
+            if (conversationPartner instanceof Teacher) {
+                Set<Coaching> coachings = conversationPartner.getCoachings();
+                coachings.add(coaching);
+                conversationPartner.setCoachings(coachings);
+                userRepository.save(conversationPartner);
+            }
         }
         // Set all DTO fields
         AppointmentDTO appointmentDTOCreated = appointmentMapper.toDTO(appointment);
@@ -84,11 +91,19 @@ public class AppointmentService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
         Set<AppointmentDTO> userAppointments = new HashSet<>();
 
-        Set<Coaching> coachings = user.getCoachings();
         Set<Appointment> appointments = new HashSet<>();
-        for (Coaching coaching : coachings) {
-            appointments.addAll((coaching.getAppointments()));
+        if (user instanceof Teacher) {
+            Set<Coaching> coachings = user.getCoachings();
+            if (coachings != null) {
+                for (Coaching coaching : coachings) {
+                    appointments.addAll((coaching.getAppointments()));
+                }
+            }
         }
+        if (user instanceof Student) {
+            appointments.addAll(((Student) user).getAppointments());
+        }
+
 
         Set<AppointmentDTO> appointmentDTOS = new HashSet<>();
         for (Appointment appointment : appointments) {
@@ -134,5 +149,13 @@ public class AppointmentService {
         // Handle the case when the appointment is not found
         // You can throw an exception or return null, depending on your use case
         return null;
+    }
+
+    public List<AppointmentDTO> findAppointmentsByDate (LocalDateTime startDate) {
+        List<Appointment> appointments = appointmentRepository.findByStart(startDate);
+        List<AppointmentDTO> appointmentDTOS = appointments.stream()
+                .map(appointmentMapper::toDTO).toList();
+        return appointmentDTOS;
+
     }
 }

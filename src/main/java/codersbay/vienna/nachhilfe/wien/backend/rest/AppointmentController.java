@@ -13,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -36,7 +38,7 @@ public class AppointmentController {
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
-    @PostMapping("/get-appointments/{userId}")
+    @GetMapping("/get-appointments/{userId}")
     public ResponseEntity<Set<AppointmentDTO>> getAllAppointments(@PathVariable Long userId) {
         Set<AppointmentDTO> appointments = appointmentService.getAllAppointments(userId);
         return new ResponseEntity<>(appointments, HttpStatus.OK);
@@ -54,9 +56,9 @@ public class AppointmentController {
         return ResponseEntity.ok(updatedStatus);
     }
 
-    @GetMapping("/get-appointments/{appointmentId}")
-    public ResponseEntity<AppointmentDTO> findAppointmentById(@PathVariable Long appointmentId) {
-        AppointmentDTO appointmentDTO = appointmentService.findAppointmentById(appointmentId);
-        return new ResponseEntity<>(appointmentDTO, HttpStatus.OK);
+    @GetMapping("/get-appointments-date/{start}")
+    public ResponseEntity<List<AppointmentDTO>> findAppointmentsByDate (@PathVariable LocalDateTime start) {
+        List<AppointmentDTO> appointmentDTOS = appointmentService.findAppointmentsByDate(start);
+        return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
     }
 }
