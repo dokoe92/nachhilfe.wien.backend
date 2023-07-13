@@ -37,10 +37,10 @@ public enum Districts {
         this.name = name;
     }
 
-    @JsonValue
+    /*@JsonValue
     public String toValue() {
         return postCode + ", " + name;
-    }
+    }*/
 
 
 }
