@@ -22,8 +22,16 @@ public class AppointmentDTO extends MessageDTO {
     private Status status;
     private Boolean confirmed;
 
-
-    public boolean isConfirmed() {
-        return confirmed;
+    @Override
+    public int compareTo(MessageDTO other) {
+        if (other instanceof AppointmentDTO otherAppointment) {
+            return this.getStart().compareTo(otherAppointment.getStart());
+        } else {
+            // If the other object is not an AppointmentDTO, consider it "greater" for consistent ordering
+            return 1;
+        }
     }
+
+
+
 }

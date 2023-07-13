@@ -89,7 +89,6 @@ public class AppointmentService {
     public Set<AppointmentDTO> getAllAppointments(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
-        Set<AppointmentDTO> userAppointments = new HashSet<>();
 
         Set<Appointment> appointments = new HashSet<>();
         if (user instanceof Teacher) {

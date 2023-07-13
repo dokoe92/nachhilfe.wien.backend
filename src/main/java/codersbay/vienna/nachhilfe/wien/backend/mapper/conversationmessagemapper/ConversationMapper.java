@@ -32,13 +32,15 @@ public class ConversationMapper {
 
         Set <Message> messages = conversation.getMessages();
         Set<MessageDTO> messageDTOS = new HashSet<>();
-        for (Message message : messages) {
-            if (message.getMessageType() == MessageType.APPOINTMENT) {
-                AppointmentDTO appointmentDTO = appointmentMapper.toDTO((Appointment) message);
-                messageDTOS.add(appointmentDTO);
-            } else {
-                MessageDTO messageDTO = messageMapper.toDTO(message);
-                messageDTOS.add(messageDTO);
+        if (messages != null) {
+            for (Message message : messages) {
+                if (message.getMessageType() == MessageType.APPOINTMENT) {
+                    AppointmentDTO appointmentDTO = appointmentMapper.toDTO((Appointment) message);
+                    messageDTOS.add(appointmentDTO);
+                } else {
+                    MessageDTO messageDTO = messageMapper.toDTO(message);
+                    messageDTOS.add(messageDTO);
+                }
             }
         }
 

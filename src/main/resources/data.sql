@@ -168,8 +168,13 @@ values (1, 13, 'Shit teacher', 'Shit', 1.0, '2023-07-07');
 
 
 INSERT INTO message(start_coaching, end_coaching, status, fk_coaching_id, content, sender_id, fk_student_id, conversation_id, message_type)
-VALUES ('2023-07-16T12:00','2023-07-16T13:00', 'CONFIRMED', 1, 'New Appointment', 11, 11, 1, 'appointment'); -- Assuming user 1 is sending these messages
+VALUES ('2023-07-16T12:00','2023-07-16T13:00', 'CONFIRMED', 1, 'First Appointment', 11, 11, 1, 'appointment'); -- Assuming user 1 is sending these messages
 
 INSERT INTO conversation_messages (conversation_id, messages_id)
 VALUES (1,7);
 
+INSERT INTO message(start_coaching, end_coaching, status, fk_coaching_id, content, sender_id, fk_student_id, conversation_id, message_type)
+VALUES ('2023-07-16T14:00','2023-07-16T15:00', 'CONFIRMED', 1, 'Second Appointment', 12, 12, 1, 'appointment'); -- Assuming user 1 is sending these messages
+
+INSERT INTO conversation_messages (conversation_id, messages_id)
+VALUES (1,8);
