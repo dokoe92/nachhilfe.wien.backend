@@ -185,3 +185,8 @@ VALUES ('2023-07-16T11:00','2023-07-16T12:13', 'CONFIRMED', 1, 'Third Appointmen
 INSERT INTO conversation_messages (conversation_id, messages_id)
 VALUES (1,9);
 
+INSERT INTO message(start_coaching, end_coaching, status, fk_coaching_id, content, sender_id, fk_student_id, conversation_id, message_type)
+VALUES ('2023-07-17T11:00','2023-07-17T12:13', 'CONFIRMED', 1, 'Fourth Appointment', 13, 13, 1, 'appointment'); -- Assuming user 1 is sending these messages
+
+INSERT INTO conversation_messages (conversation_id, messages_id)
+VALUES (1,10);

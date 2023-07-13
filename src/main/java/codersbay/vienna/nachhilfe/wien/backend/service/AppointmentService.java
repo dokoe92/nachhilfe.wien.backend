@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -103,8 +100,12 @@ public class AppointmentService {
             appointments.addAll(((Student) user).getAppointments());
         }
 
+        List<Appointment> sortedAppointments = new ArrayList<>(appointments);
+        Collections.sort(sortedAppointments);
+        appointments = new LinkedHashSet<>(sortedAppointments);
 
-        Set<AppointmentDTO> appointmentDTOS = new HashSet<>();
+
+        Set<AppointmentDTO> appointmentDTOS = new LinkedHashSet<>();
         for (Appointment appointment : appointments) {
             AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
             appointmentDTOS.add(appointmentDTO);
