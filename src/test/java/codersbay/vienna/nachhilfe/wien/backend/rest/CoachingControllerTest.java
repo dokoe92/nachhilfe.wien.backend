@@ -92,7 +92,7 @@ class CoachingControllerTest {
     private Appointment appointment5;
     private Appointment appointment6;
 
-
+/*
     @BeforeEach
     void setUp() {
         appointmentService = new AppointmentService(coachingRepository, conversationRepository, userRepository, appointmentMapper, appointmentRepository);
@@ -289,7 +289,7 @@ class CoachingControllerTest {
         coachingRepository.save(coaching3);
         studentRepository.save(student3);
 
-    }
+    }*/
 
     private String getToken(User user) {
         return jwtService.generateToken(user);

@@ -5,6 +5,7 @@ import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
+import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
@@ -27,6 +28,7 @@ public class AppointmentService {
     private final UserRepository userRepository;
     private final AppointmentMapper appointmentMapper;
     private final AppointmentRepository appointmentRepository;
+    private final StudentRepository studentRepository;
 
     @Transactional
     public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId, Long studentId) {
@@ -65,7 +67,7 @@ public class AppointmentService {
         for (User conversationPartner : conversationPartners) {
             if (conversationPartner instanceof Student) {
                 ((Student) conversationPartner).getAppointments().add(appointment);
-                userRepository.save(conversationPartner);
+                studentRepository.save((Student) conversationPartner);
             }
             if (conversationPartner instanceof Teacher) {
                 coaching.getAppointments().add(appointment);

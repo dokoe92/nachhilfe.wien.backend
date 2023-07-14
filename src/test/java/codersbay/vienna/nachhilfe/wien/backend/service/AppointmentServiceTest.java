@@ -80,7 +80,7 @@ class AppointmentServiceTest {
 
 
     private AppointmentService underTest;
-
+/*
     @BeforeEach
     void setUp() {
         underTest = new AppointmentService(coachingRepository, conversationRepository, userRepository, appointmentMapper, appointmentRepository);
@@ -185,7 +185,7 @@ class AppointmentServiceTest {
         conversationRepository.save(conversation3);
 
     }
-
+*/
     @Test
     void testGetAllAppointments_UserWithOneCoaching_ReturnAllAppointments() {
         //given

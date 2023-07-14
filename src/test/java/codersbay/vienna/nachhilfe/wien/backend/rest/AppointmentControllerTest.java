@@ -273,11 +273,12 @@ class AppointmentControllerTest extends AbstractControllerTest {
         assertEquals(1L, appointmentRepository.count());
         assertEquals(appointmentDTO.getContent(), appointmentRepository.findAll().get(0).getContent());
 
-        Optional<Student> studentOptional = studentRepository.findById(1L);
+        Optional<Student> studentOptional = studentRepository.findById(2L);
+        Student studentPersisted = new Student();
         if (studentOptional.isPresent()) {
-            Student studentPersisted = studentOptional.get();
-            assertEquals(1L, studentPersisted.getAppointments().size());
+            studentPersisted = studentOptional.get();
         }
+        assertEquals(1L, studentPersisted.getAppointments().size());
     }
 
     @Test
