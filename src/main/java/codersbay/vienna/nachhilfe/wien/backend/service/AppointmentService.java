@@ -41,9 +41,10 @@ public class AppointmentService {
         User user = userRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
+        /*
         if (appointmentRepository.existsByStudentIdAndCoachingId(studentId, coachingId)) {
             throw new DuplicatedException("User already has an appointment for this coaching!");
-        }
+        }*/
 
         // Make an appointment from the DTO and set the fields
         // Sender and student fields are handled in the mapper
