@@ -278,8 +278,8 @@ class AppointmentServiceTest {
 
 
         appointment = appointmentMapper.toEntity(appointmentDTO);
-
-
     }
+
+
 
 }

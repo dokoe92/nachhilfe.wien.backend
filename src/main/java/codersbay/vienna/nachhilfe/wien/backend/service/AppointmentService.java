@@ -60,17 +60,16 @@ public class AppointmentService {
         conversation.setMessages(messages);
         conversationRepository.save(conversation);
 
-        // Add the coaching to the users coachings
+        // If student add appointment to appointment field, if teacher add appointment to coaching
         Set<User> conversationPartners = conversation.getUsers();
         for (User conversationPartner : conversationPartners) {
             if (conversationPartner instanceof Student) {
                 ((Student) conversationPartner).getAppointments().add(appointment);
+                userRepository.save(conversationPartner);
             }
             if (conversationPartner instanceof Teacher) {
-                Set<Coaching> coachings = conversationPartner.getCoachings();
-                coachings.add(coaching);
-                conversationPartner.setCoachings(coachings);
-                userRepository.save(conversationPartner);
+                coaching.getAppointments().add(appointment);
+                coachingRepository.save(coaching);
             }
         }
         // Set all DTO fields

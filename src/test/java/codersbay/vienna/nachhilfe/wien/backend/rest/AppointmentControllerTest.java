@@ -28,9 +28,9 @@ import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import java.net.URI;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.*;
 
 import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_STUDENT;
 import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_TEACHER;
@@ -131,6 +131,7 @@ class AppointmentControllerTest extends AbstractControllerTest {
 
         final AppointmentDTO appointmentDTO = new AppointmentDTO();
         appointmentDTO.setContent("Test appointment");
+        appointmentDTO.setStart(LocalDateTime.now());
         System.out.println(objectMapper.writeValueAsString(appointmentDTO));
 
         final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
@@ -144,6 +145,139 @@ class AppointmentControllerTest extends AbstractControllerTest {
 
         assertEquals(1L, appointmentRepository.count());
         assertEquals(appointmentDTO.getContent(), appointmentRepository.findAll().get(0).getContent());
+    }
+
+    @Test
+    public void testCreateAppointment_SavedAsTeacher() throws Exception {
+
+        final Profile teacherProfile = createProfile("secret1", "profile1@gmail.com");
+        final Profile studentProfile = createProfile("secret2", "profile2@gmail.com");
+
+        final Teacher teacher = (Teacher) createUser(UserType.TEACHER, teacherProfile, "Max", "Mustermann");
+        final Student student = (Student) createUser(UserType.STUDENT, studentProfile, "Ilse", "Mustermann");
+
+        // create conversation
+        final Conversation conversation = new Conversation();
+        conversation.setUsers(new HashSet<>(Arrays.asList(teacher, student)));
+        conversationRepository.save(conversation);
+        teacher.getConversations().add(conversation);
+        student.getConversations().add(conversation);
+
+        // update users
+        userRepository.saveAll(Arrays.asList(teacher, student));
+
+        // create coaching
+        final Coaching coaching = new Coaching();
+        coaching.setUser(teacher);
+        coaching.setRate(0.01);
+        coaching.setLevel("1");
+        coaching.setActive(true);
+        coaching.setSubject(Subject.MATHEMATIK);
+        coachingRepository.save(coaching);
+
+        teacher.getCoachings().add(coaching);
+        userRepository.save(teacher);
+        flush();
+
+        assertEquals(2L, profileRepository.count());
+        assertEquals(2L, userRepository.count());
+        assertEquals(1L, coachingRepository.count());
+
+        final String URL = "/appointment/send-appointment/" + conversation.getId() + "/" + coaching.getId();
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + getToken(student));
+
+        final AppointmentDTO appointmentDTO = new AppointmentDTO();
+        appointmentDTO.setContent("Test appointment");
+        appointmentDTO.setStart(LocalDateTime.now());
+        System.out.println(objectMapper.writeValueAsString(appointmentDTO));
+
+        final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post(URL)
+                .headers(headers)
+                .content(objectMapper.writeValueAsString(appointmentDTO))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+        resultActions.andExpect(MockMvcResultMatchers.status().is(HttpStatus.CREATED.value()));
+        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.content").value(appointmentDTO.getContent()));
+
+        assertEquals(1L, appointmentRepository.count());
+        assertEquals(appointmentDTO.getContent(), appointmentRepository.findAll().get(0).getContent());
+
+        Optional<Teacher> teacherOptional = teacherRepository.findById(1L);
+        if (teacherOptional.isPresent()) {
+            Teacher teacherPersisted = teacherOptional.get();
+            List<Coaching> coachings = new ArrayList<>(teacherPersisted.getCoachings());
+            assertEquals(1L, coachings.get(0).getAppointments().size());
+        }
+    }
+
+    @Test
+    public void testCreateAppointment_SavedAsStudent() throws Exception {
+
+        final Profile teacherProfile = createProfile("secret1", "profile1@gmail.com");
+        final Profile studentProfile = createProfile("secret2", "profile2@gmail.com");
+
+        final Teacher teacher = (Teacher) createUser(UserType.TEACHER, teacherProfile, "Max", "Mustermann");
+        final Student student = (Student) createUser(UserType.STUDENT, studentProfile, "Ilse", "Mustermann");
+
+        // create conversation
+        final Conversation conversation = new Conversation();
+        conversation.setUsers(new HashSet<>(Arrays.asList(teacher, student)));
+        conversationRepository.save(conversation);
+        teacher.getConversations().add(conversation);
+        student.getConversations().add(conversation);
+
+        // update users
+        userRepository.saveAll(Arrays.asList(teacher, student));
+
+        // create coaching
+        final Coaching coaching = new Coaching();
+        coaching.setUser(teacher);
+        coaching.setRate(0.01);
+        coaching.setLevel("1");
+        coaching.setActive(true);
+        coaching.setSubject(Subject.MATHEMATIK);
+        coachingRepository.save(coaching);
+
+        teacher.getCoachings().add(coaching);
+        userRepository.save(teacher);
+        flush();
+
+        assertEquals(2L, profileRepository.count());
+        assertEquals(2L, userRepository.count());
+        assertEquals(1L, coachingRepository.count());
+
+        final String URL = "/appointment/send-appointment/" + conversation.getId() + "/" + coaching.getId();
+
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("Authorization", "Bearer " + getToken(student));
+
+        final AppointmentDTO appointmentDTO = new AppointmentDTO();
+        appointmentDTO.setContent("Test appointment");
+        appointmentDTO.setStart(LocalDateTime.now());
+        System.out.println(objectMapper.writeValueAsString(appointmentDTO));
+
+        final ResultActions resultActions = mockMvc.perform(MockMvcRequestBuilders
+                .post(URL)
+                .headers(headers)
+                .content(objectMapper.writeValueAsString(appointmentDTO))
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON));
+        resultActions.andExpect(MockMvcResultMatchers.status().is(HttpStatus.CREATED.value()));
+        resultActions.andExpect(MockMvcResultMatchers.jsonPath("$.content").value(appointmentDTO.getContent()));
+
+        assertEquals(1L, appointmentRepository.count());
+        assertEquals(appointmentDTO.getContent(), appointmentRepository.findAll().get(0).getContent());
+
+        Optional<Student> studentOptional = studentRepository.findById(1L);
+        if (studentOptional.isPresent()) {
+            Student studentPersisted = studentOptional.get();
+            assertEquals(1L, studentPersisted.getAppointments().size());
+        }
     }
 
     @Test
@@ -213,7 +347,6 @@ class AppointmentControllerTest extends AbstractControllerTest {
         assertEquals(1L, appointmentRepository.count());
         assertNotEquals(2L, appointmentRepository.count());
         System.out.println("Length of appointmentRepositry: " + appointmentRepository.count());
-
     }
 
 
