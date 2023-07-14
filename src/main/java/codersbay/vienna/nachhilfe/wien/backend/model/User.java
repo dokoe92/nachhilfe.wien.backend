@@ -57,7 +57,7 @@ public abstract class User implements UserDetails {
     @Setter
     @OneToOne
     @JoinColumn(name="fk_profile_id", nullable = false)
-    @JsonManagedReference
+    @JsonManagedReference(value="user-profile-reference")
     private Profile profile;
 
     @Setter
