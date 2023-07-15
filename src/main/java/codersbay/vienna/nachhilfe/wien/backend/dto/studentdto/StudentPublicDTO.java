@@ -3,6 +3,7 @@ package codersbay.vienna.nachhilfe.wien.backend.dto.studentdto;
 import codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto.CoachingDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Districts;
 import codersbay.vienna.nachhilfe.wien.backend.model.Feedback;
+import codersbay.vienna.nachhilfe.wien.backend.model.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,5 +17,6 @@ public class StudentPublicDTO {
     String firstName;
     String lastName;
     String image;
-    Set<CoachingDTO> coachings = new HashSet<>();
+    String description;
+    UserType userType = UserType.STUDENT;
 }

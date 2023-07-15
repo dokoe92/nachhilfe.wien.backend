@@ -53,5 +53,4 @@ public class Profile {
     @JsonBackReference(value="user-profile-reference")
     private User user;
 
-
 }
