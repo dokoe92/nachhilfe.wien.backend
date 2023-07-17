@@ -5,6 +5,7 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbackDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbacksDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Districts;
 import codersbay.vienna.nachhilfe.wien.backend.model.Feedback;
+import codersbay.vienna.nachhilfe.wien.backend.model.UserType;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,5 +25,6 @@ public class TeacherPublicDTO {
     Set<FeedbackDTO> feedbacks = new HashSet<>();
     Set<CoachingDTO> coachings = new HashSet<>();
     Set<Districts> districts = new HashSet<>();
+    UserType userType = UserType.TEACHER;
 
 }
