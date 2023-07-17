@@ -9,6 +9,7 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -41,6 +42,41 @@ public class AppointmentService {
 
         if (appointmentRepository.existsByStudentIdAndCoachingId(studentId, coachingId)) {
             throw new DuplicatedException("User already has an appointment for this coaching!");
+        }
+
+        if (user.getConversations() == null) {
+            throw new ResourceNotFoundException("User dont have a conversation");
+        }
+
+        boolean found = false;
+        for (Conversation conv : user.getConversations()) {
+            if (conv.getId().equals(conversationId)) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            throw  new UserNotAuthorizedException("User cant send to this conversation");
+        }
+
+        boolean teacherHasCoaching = false;
+        if (conversation.getUsers() != null) {
+            for (User checkUser : conversation.getUsers()) {
+                if (checkUser instanceof Teacher) {
+                    if (checkUser.getCoachings() == null) {
+                        throw new UserNotAuthorizedException("This teacher doesnt own the appointment");
+                    } else {
+                        for (Coaching checkCoaching : checkUser.getCoachings()) {
+                            if (checkCoaching.getId().equals(coachingId)) {
+                                teacherHasCoaching = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (!teacherHasCoaching) {
+            throw new UserNotFoundException("The teacher of the mentioned conversation doesnt own this coaching!");
         }
 
         // Make an appointment from the DTO and set the fields
@@ -102,6 +138,13 @@ public class AppointmentService {
     public AppointmentDTO updateStatus(Long appointmentId, Long teacherId, String action) {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new ResourceNotFoundException("Appointment is not existing"));
+
+        if (appointment.getCoaching() == null) {
+            return null;
+        }
+        if (appointment.getCoaching().getUser() == null) {
+            return null;
+        }
 
         if (!appointment.getCoaching().getUser().getId().equals(teacherId)) {
             throw new UserNotFoundException("Teacher not authorized");

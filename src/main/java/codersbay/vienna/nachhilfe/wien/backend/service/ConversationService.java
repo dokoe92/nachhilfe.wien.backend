@@ -75,6 +75,9 @@ public class ConversationService {
     public Optional<Conversation> findConversationOfUsers(Long id1, Long id2) throws IllegalArgumentException {
         User user1 = userRepository.findById(id1).orElseThrow(() -> new IllegalArgumentException("User with id " + id1 + " not found"));
         User user2 = userRepository.findById(id2).orElseThrow(() -> new IllegalArgumentException("User with id " + id2 + " not found"));
+        if (user1.getConversations() == null) {
+            return Optional.empty();
+        }
         return user1.getConversations().stream()
                 .filter(conversation -> conversation.getUsers().contains(user2))
                 .findFirst();

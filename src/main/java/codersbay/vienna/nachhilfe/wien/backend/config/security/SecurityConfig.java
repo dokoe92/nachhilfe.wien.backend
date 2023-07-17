@@ -52,6 +52,7 @@ public class SecurityConfig{
                         .requestMatchers("/teacher/filter-teachers").hasAnyRole("STUDENT", "ADMIN")
 
                         .requestMatchers("/coaching/offer-coaching/**").hasRole("TEACHER")
+                        .requestMatchers("/coaching/update-coaching/**").hasRole("TEACHER")
 
                         .requestMatchers("/create-conversation/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
 
@@ -59,8 +60,20 @@ public class SecurityConfig{
 
                         .requestMatchers("/appointment/send-appointment/**").hasRole("STUDENT")
                         .requestMatchers("/appointment/update-status/**").hasRole("TEACHER")
+                        .requestMatchers("/appointment/get-appointments/**").hasAnyRole("STUDENT, TEACHER")
 
                         .requestMatchers("/feedback").hasAnyRole("STUDENT")
+
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/admin/updateAdmin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/find-user").hasRole("ADMIN")
+                        .requestMatchers("/admin/edit-user/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/active-inactive/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/delete-image/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/delete-feedback/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/deleteAdmin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/deleteTeacher/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/deleteStudent/**").hasRole("ADMIN")
 
 
                         .anyRequest().authenticated()
