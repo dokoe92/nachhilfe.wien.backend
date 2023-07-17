@@ -26,9 +26,7 @@ public class ConversationMapper {
 
 
     public ConversationDTO toDTO(Conversation conversation) {
-       /* Set<MessageDTO> messageDTOS = conversation.getMessages().stream()
-                .map(messageMapper::toDTO)
-                .collect(Collectors.toSet());*/
+        ConversationDTO conversationDTO = new ConversationDTO();
 
         if (conversation.getMessages() != null) {
             Set <Message> messages = conversation.getMessages();
@@ -42,12 +40,16 @@ public class ConversationMapper {
                     messageDTOS.add(messageDTO);
                 }
             }
+            conversationDTO.setMessages(messageDTOS);
         }
 
+        if (conversation.getUsers() != null) {
+            Set<UserTypeDTO> userTypeDTOS = conversation.getUsers().stream()
+                    .map(userTypeMapper::toDTO)
+                    .collect(Collectors.toSet());
+            conversationDTO.setUsers(userTypeDTOS);
+        }
 
-        Set<UserTypeDTO> userTypeDTOS = conversation.getUsers().stream()
-                .map(userTypeMapper::toDTO)
-                .collect(Collectors.toSet());
-        return new ConversationDTO(conversation.getId(),  userTypeDTOS, messageDTOS );
+        return conversationDTO;
     }
 }
