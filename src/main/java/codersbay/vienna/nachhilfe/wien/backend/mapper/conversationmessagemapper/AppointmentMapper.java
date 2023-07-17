@@ -23,7 +23,7 @@ public class AppointmentMapper {
 
 
 
-    public AppointmentDTO toDTO (Appointment appointment) {
+    public AppointmentDTO toDTO(Appointment appointment) {
         if (appointment == null) {
             return null;
         }
@@ -31,20 +31,47 @@ public class AppointmentMapper {
         AppointmentDTO appointmentDTO = new AppointmentDTO();
         appointmentDTO.setId(appointment.getId());
         appointmentDTO.setTimeStamp(appointment.getTimestamp());
-        appointmentDTO.setConversationId(appointment.getConversation().getId());
+
+        if (appointment.getConversation() != null) {
+            appointmentDTO.setConversationId(appointment.getConversation().getId());
+        }
+
         appointmentDTO.setTitle(appointment.getTitle());
         appointmentDTO.setContent(appointment.getContent());
-        appointmentDTO.setStudentId(appointment.getStudent().getId());
-        appointmentDTO.setStart(appointment.getStart());
-        appointmentDTO.setEnd(appointment.getEnd());
+
+        if (appointment.getStudent() != null) {
+            appointmentDTO.setStudentId(appointment.getStudent().getId());
+            appointmentDTO.setStudentName(appointment.getStudent().getFirstName() + " " + appointment.getStudent().getLastName());
+        }
+
+        if (appointment.getStart() != null) {
+            appointmentDTO.setStart(appointment.getStart());
+        }
+
+        if (appointment.getEnd() != null) {
+            appointmentDTO.setEnd(appointment.getEnd());
+        }
+
         appointmentDTO.setStatus(appointment.getStatus());
-        appointmentDTO.setCoachingId(appointment.getCoaching().getId());
-        appointmentDTO.setTeacherId(appointment.getCoaching().getUser().getId());
-        appointmentDTO.setSenderId(appointment.getSender().getId());
+
+        if (appointment.getCoaching() != null) {
+            appointmentDTO.setCoachingId(appointment.getCoaching().getId());
+
+            if (appointment.getCoaching().getUser() != null) {
+                appointmentDTO.setTeacherId(appointment.getCoaching().getUser().getId());
+                appointmentDTO.setTeacherName(appointment.getCoaching().getUser().getFirstName() + " " + appointment.getCoaching().getUser().getLastName());
+            }
+
+            if (appointment.getCoaching().getSubject() != null) {
+                appointmentDTO.setCoachingName(String.valueOf(appointment.getCoaching().getSubject()));
+            }
+        }
+
+        if (appointment.getSender() != null) {
+            appointmentDTO.setSenderId(appointment.getSender().getId());
+        }
+
         appointmentDTO.setMessageType(appointment.getMessageType());
-        appointmentDTO.setCoachingName(String.valueOf(appointment.getCoaching().getSubject()));
-        appointmentDTO.setStudentName(appointment.getStudent().getFirstName() + " " + appointment.getStudent().getLastName());
-        appointmentDTO.setTeacherName(appointment.getCoaching().getUser().getFirstName() + " " + appointment.getCoaching().getUser().getLastName());
 
         return appointmentDTO;
     }

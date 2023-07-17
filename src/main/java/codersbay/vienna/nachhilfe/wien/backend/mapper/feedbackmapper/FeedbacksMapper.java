@@ -19,7 +19,9 @@ public class FeedbacksMapper {
         FeedbacksDTO feedbacksDTO = new FeedbacksDTO();
         HashSet<FeedbackDTO> feedbackSet = new HashSet<>();
         for (Feedback feedback : feedbacks) {
-            feedbackSet.add(feedbackMapper.toDTO(feedback));
+            if (feedback != null) {
+                feedbackSet.add(feedbackMapper.toDTO(feedback));
+            }
         }
         feedbacksDTO.setFeedbacks(feedbackSet);
         return feedbacksDTO;

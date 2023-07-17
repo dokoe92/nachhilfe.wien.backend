@@ -19,6 +19,10 @@ public class UserMapper {
     private final ProfileMapper profileMapper;
 
     public UserDTO toDTO(User user) {
+        if (user == null) {
+            return null;
+        }
+
         UserDTO findUserDTO = new UserDTO();
         findUserDTO.setUserId(user.getId());
         findUserDTO.setProfileId(user.getProfile().getId());
@@ -26,19 +30,28 @@ public class UserMapper {
         findUserDTO.setFirstName(user.getFirstName());
         findUserDTO.setLastName(user.getLastName());
         findUserDTO.setBirthdate(user.getBirthdate());
-        findUserDTO.setProfile(profileMapper.toDTO(user.getProfile()));
+        if (user.getProfile() != null) {
+            findUserDTO.setProfile(profileMapper.toDTO(user.getProfile()));
+        }
+
         if (user instanceof Student) {
-            findUserDTO.setFeedbacks(((Student) user).getFeedbacks().stream().
-                    map(feedbackMapper::toDTO)
-                    .collect(Collectors.toSet()));
+            if (((Student) user).getFeedbacks() != null) {
+                findUserDTO.setFeedbacks(((Student) user).getFeedbacks().stream().
+                        map(feedbackMapper::toDTO)
+                        .collect(Collectors.toSet()));
+            }
         }
         if (user instanceof Teacher) {
-            findUserDTO.setFeedbacks(((Teacher) user).getFeedbacks().stream().
-                    map(feedbackMapper::toDTO)
-                    .collect(Collectors.toSet()));
-            findUserDTO.setDistricts(new HashSet<>(((Teacher) user).getDistricts()));
+            if (((Teacher) user).getFeedbacks() != null) {
+                findUserDTO.setFeedbacks(((Teacher) user).getFeedbacks().stream().
+                        map(feedbackMapper::toDTO)
+                        .collect(Collectors.toSet()));
+                findUserDTO.setDistricts(new HashSet<>(((Teacher) user).getDistricts()));
+            }
         }
-        findUserDTO.setCoachings(user.getCoachings().stream().map(coachingMapper::toDTO).collect(Collectors.toSet()));
+        if (user.getCoachings() != null) {
+            findUserDTO.setCoachings(user.getCoachings().stream().map(coachingMapper::toDTO).collect(Collectors.toSet()));
+        }
 
 
         return findUserDTO;

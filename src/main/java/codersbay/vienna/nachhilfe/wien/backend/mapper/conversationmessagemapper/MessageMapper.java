@@ -29,8 +29,12 @@ public class MessageMapper {
         messageDTO.setId(message.getId());
         messageDTO.setTitle(message.getTitle());
         messageDTO.setContent(message.getContent());
-        messageDTO.setSenderId(message.getSender().getId());
-        messageDTO.setConversationId(message.getConversation().getId());
+        if (message.getSender() != null) {
+            messageDTO.setSenderId(message.getSender().getId());
+        }
+        if (message.getConversation() != null) {
+            messageDTO.setConversationId(message.getConversation().getId());
+        }
         messageDTO.setMessageType(message.getMessageType());
 
         return messageDTO;

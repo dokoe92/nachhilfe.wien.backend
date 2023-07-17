@@ -12,6 +12,21 @@ public class TeacherMapper {
 
     private final ProfileMapper profileMapper;
 
+    public TeacherCreationDTO toDTO(Teacher teacher) {
+        if (teacher == null) {
+            return null;
+        }
+
+        TeacherCreationDTO teacherDTO = new TeacherCreationDTO();
+        teacherDTO.setFirstName(teacher.getFirstName());
+        teacherDTO.setLastName(teacher.getLastName());
+        if (teacher.getProfile() != null) {
+            teacherDTO.setProfile(profileMapper.toDTO(teacher.getProfile()));
+        }
+
+        return teacherDTO;
+    }
+
     public Teacher toEntity(TeacherCreationDTO teacherDTO) {
         if (teacherDTO == null) {
             return null;
@@ -21,21 +36,12 @@ public class TeacherMapper {
         teacher.setFirstName(teacherDTO.getFirstName());
         teacher.setLastName(teacherDTO.getLastName());
         teacher.setBirthdate(teacherDTO.getBirthdate());
-        teacher.setProfile(profileMapper.toEntity(teacherDTO.getProfile()));
+        if (teacherDTO.getProfile() != null) {
+            teacher.setProfile(profileMapper.toEntity(teacherDTO.getProfile()));
+        }
 
         return teacher;
     }
 
-    public TeacherCreationDTO toDTO(Teacher teacher) {
-        if (teacher == null) {
-            return null;
-        }
 
-        TeacherCreationDTO teacherDTO = new TeacherCreationDTO();
-        teacherDTO.setFirstName(teacher.getFirstName());
-        teacherDTO.setLastName(teacher.getLastName());
-        teacherDTO.setProfile(profileMapper.toDTO(teacher.getProfile()));
-
-        return teacherDTO;
-    }
 }

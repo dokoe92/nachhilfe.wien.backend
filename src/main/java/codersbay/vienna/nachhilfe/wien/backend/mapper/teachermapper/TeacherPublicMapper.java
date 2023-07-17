@@ -19,22 +19,35 @@ public class TeacherPublicMapper {
     private final CoachingMapper coachingMapper;
 
     public TeacherPublicDTO toDTO(Teacher teacher) {
+        if (teacher == null) {
+            return null;
+        }
+
         TeacherPublicDTO teacherPublicDTO = new TeacherPublicDTO();
         teacherPublicDTO.setTeacherId(teacher.getId());
         teacherPublicDTO.setFirstName(teacher.getFirstName());
         teacherPublicDTO.setLastName(teacher.getLastName());
-        teacherPublicDTO.setDescription(teacher.getProfile().getDescription());
-        teacherPublicDTO.setImage(teacher.getProfile().getImageBase64());
-        teacherPublicDTO.setActive(teacher.getProfile().isActive());
-        teacherPublicDTO.setAverageRatingScore(teacher.getProfile().getAverageRatingScore());
-        teacherPublicDTO.setFeedbacks(teacher.getFeedbacks()
-                .stream()
-                .map(feedbackMapper::toDTO)
-                .collect(Collectors.toSet()));
+        if (teacher.getProfile() != null) {
+            teacherPublicDTO.setDescription(teacher.getProfile().getDescription());
+            teacherPublicDTO.setImage(teacher.getProfile().getImageBase64());
+            teacherPublicDTO.setActive(teacher.getProfile().isActive());
+            teacherPublicDTO.setAverageRatingScore(teacher.getProfile().getAverageRatingScore());
+
+            if (teacher.getFeedbacks() != null) {
+                teacherPublicDTO.setFeedbacks(teacher.getFeedbacks()
+                        .stream()
+                        .map(feedbackMapper::toDTO)
+                        .collect(Collectors.toSet()));
+            }
+        }
+
         teacherPublicDTO.setDistricts(teacher.getDistricts());
-        teacherPublicDTO.setCoachings(teacher.getCoachings()
-                .stream().map(coachingMapper::toDTO)
-                .collect(Collectors.toSet()));
+
+        if (teacher.getCoachings() != null) {
+            teacherPublicDTO.setCoachings(teacher.getCoachings()
+                    .stream().map(coachingMapper::toDTO)
+                    .collect(Collectors.toSet()));
+        }
 
         return teacherPublicDTO;
     }
