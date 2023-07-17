@@ -10,7 +10,6 @@ import codersbay.vienna.nachhilfe.wien.backend.model.Conversation;
 import codersbay.vienna.nachhilfe.wien.backend.model.Message;
 import codersbay.vienna.nachhilfe.wien.backend.model.MessageType;
 import lombok.RequiredArgsConstructor;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
@@ -27,7 +26,9 @@ public class ConversationMapper {
 
 
     public ConversationDTO toDTO(Conversation conversation) {
-        ConversationDTO conversationDTO = new ConversationDTO();
+       /* Set<MessageDTO> messageDTOS = conversation.getMessages().stream()
+                .map(messageMapper::toDTO)
+                .collect(Collectors.toSet());*/
 
         if (conversation.getMessages() != null) {
             Set <Message> messages = conversation.getMessages();
@@ -41,16 +42,12 @@ public class ConversationMapper {
                     messageDTOS.add(messageDTO);
                 }
             }
-            conversationDTO.setMessages(messageDTOS);
         }
 
-        if (conversation.getUsers() != null) {
-            Set<UserTypeDTO> userTypeDTOS = conversation.getUsers().stream()
-                    .map(userTypeMapper::toDTO)
-                    .collect(Collectors.toSet());
-            conversationDTO.setUsers(userTypeDTOS);
-        }
 
-        return conversationDTO;
+        Set<UserTypeDTO> userTypeDTOS = conversation.getUsers().stream()
+                .map(userTypeMapper::toDTO)
+                .collect(Collectors.toSet());
+        return new ConversationDTO(conversation.getId(),  userTypeDTOS, messageDTOS );
     }
 }

@@ -40,7 +40,7 @@ public class Profile {
 
     @Setter
     @Column(name="average_rating")
-    @Formula("(SELECT AVG(f.rating) FROM feedback f WHERE f.teacher_id = id)")
+    @Formula("(SELECT AVG(f.rating) FROM feedback f WHERE f.teacher.id = id)")
     private Double averageRatingScore;
 
     /**
@@ -52,6 +52,5 @@ public class Profile {
     @OneToOne(mappedBy = "profile")
     @JsonBackReference(value="user-profile-reference")
     private User user;
-
 
 }

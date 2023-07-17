@@ -8,14 +8,17 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentPublicMapper {
 
-    public StudentPublicDTO toDTO(Student student) {
+    public codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentPublicDTO toDTO(Student student) {
         StudentPublicDTO studentPublicDTO = new StudentPublicDTO();
         studentPublicDTO.setStudentId(student.getId());
         studentPublicDTO.setFirstName(student.getFirstName());
         studentPublicDTO.setLastName(student.getLastName());
         if (student.getProfile() != null) {
             studentPublicDTO.setImage(student.getProfile().getImageBase64());
+            studentPublicDTO.setDescription(student.getProfile().getDescription());
         }
+
+
         return studentPublicDTO;
     }
 }

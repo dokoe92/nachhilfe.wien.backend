@@ -2,6 +2,8 @@ package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.model.Appointment;
 import codersbay.vienna.nachhilfe.wien.backend.service.AppointmentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -11,6 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -34,7 +38,7 @@ public class AppointmentController {
         return new ResponseEntity<>(appointment, HttpStatus.CREATED);
     }
 
-    @PostMapping("/get-appointments/{userId}")
+    @GetMapping("/get-appointments/{userId}")
     public ResponseEntity<Set<AppointmentDTO>> getAllAppointments(@PathVariable Long userId) {
         Set<AppointmentDTO> appointments = appointmentService.getAllAppointments(userId);
         return new ResponseEntity<>(appointments, HttpStatus.OK);
@@ -50,5 +54,11 @@ public class AppointmentController {
 
         AppointmentDTO updatedStatus = appointmentService.updateStatus(appointmentId, teacherId, action);
         return ResponseEntity.ok(updatedStatus);
+    }
+
+    @GetMapping("/get-appointments-date/{start}")
+    public ResponseEntity<List<AppointmentDTO>> findAppointmentsByDate (@PathVariable LocalDateTime start) {
+        List<AppointmentDTO> appointmentDTOS = appointmentService.findAppointmentsByDate(start);
+        return new ResponseEntity<>(appointmentDTOS, HttpStatus.OK);
     }
 }
