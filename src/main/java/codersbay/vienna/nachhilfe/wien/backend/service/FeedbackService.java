@@ -37,6 +37,7 @@ public class FeedbackService {
             throw new ResourceNotFoundException("Student with ID " + feedbackDTO.getStudentId() + " not found");
         }
 
+
         for (Feedback feedback : student.getFeedbacks()) {
             if (feedback.getTeacher().equals(teacher)) {
                 throw new DuplicatedException("User already sent feedback for this teacher");

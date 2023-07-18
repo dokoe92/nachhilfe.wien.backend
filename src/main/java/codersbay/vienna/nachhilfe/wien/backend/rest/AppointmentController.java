@@ -44,7 +44,7 @@ public class AppointmentController {
 
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long studentId = jwtService.extractUserId(token);
-        if (studentId.equals(userId)) {
+        if (!studentId.equals(userId)) {
             throw new UserNotAuthorizedException("User not authorized!");
         }
         Set<AppointmentDTO> appointments = appointmentService.getAllAppointments(userId);

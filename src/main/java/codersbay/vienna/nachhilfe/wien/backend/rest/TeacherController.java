@@ -12,6 +12,7 @@ import codersbay.vienna.nachhilfe.wien.backend.searchobjects.TeacherSearchObject
 import codersbay.vienna.nachhilfe.wien.backend.service.TeacherService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -45,7 +46,7 @@ public class TeacherController {
     @Operation(
             description = "Update the districts of a teacher via teacherId - the new array will replace all old districts"
     )
-    public ResponseEntity<TeacherDistricts> updateTeacherDistricts(@RequestBody TeacherDistricts districts, @PathVariable Long teacherId, HttpServletRequest request){
+    public ResponseEntity<TeacherDistricts> updateTeacherDistricts(@Valid @RequestBody TeacherDistricts districts, @PathVariable Long teacherId, HttpServletRequest request){
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long userId = jwtService.extractUserId(token);
 
@@ -82,7 +83,7 @@ public class TeacherController {
     @PutMapping("/updateTeacher/{teacherId}")
     public ResponseEntity<TeacherPublicDTO> updateTeacher(
             @PathVariable Long teacherId,
-            @RequestBody TeacherUpdateRequest request,
+            @Valid @RequestBody TeacherUpdateRequest request,
             HttpServletRequest httpServletRequest
     ) {
 

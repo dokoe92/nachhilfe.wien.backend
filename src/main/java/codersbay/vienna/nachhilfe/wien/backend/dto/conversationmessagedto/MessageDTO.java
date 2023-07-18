@@ -3,6 +3,10 @@ package codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto;
 import codersbay.vienna.nachhilfe.wien.backend.model.MessageType;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,8 +20,11 @@ public class MessageDTO implements Comparable<MessageDTO>{
     private LocalDateTime timeStamp;
     private Long conversationId;
     private String title;
+    @NotBlank
     private String content;
+    @NotNull
     private Long senderId;
+    @NotNull
     @Enumerated(EnumType.STRING)
     private MessageType messageType;
 
