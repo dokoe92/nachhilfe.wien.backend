@@ -6,10 +6,12 @@ import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.service.FeedbackService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,12 +34,18 @@ public class FeedbackController {
 
     @PostMapping
     @Operation(description = "Post a feedback to a teacher")
-    public ResponseEntity<FeedbackDTO> postFeedback(@RequestHeader("Authorization") String authHeader, @RequestBody FeedbackDTO feedbackDTO) {
+    public ResponseEntity<FeedbackDTO> postFeedback(@RequestHeader("Authorization") String authHeader, @RequestBody FeedbackDTO feedbackDTO, HttpServletRequest request) {
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+
         Optional<Student> student = studentRepository.findById(feedbackDTO.getStudentId());
         Optional<Teacher> teacher = teacherRepository.findById(feedbackDTO.getTeacherId());
 
         if (student.isEmpty()) {
             throw new NoSuchElementException("Student not found");
+        }
+        if (!student.get().getId().equals(userId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
         }
 
         if (teacher.isEmpty()) {
