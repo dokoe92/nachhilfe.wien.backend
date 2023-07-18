@@ -7,6 +7,7 @@ import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.AdminUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.UserUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import codersbay.vienna.nachhilfe.wien.backend.service.AdminService;
@@ -33,10 +34,19 @@ public class AdminController {
     }
 
     @PutMapping("/updateAdmin/{adminId}")
-    public ResponseEntity<Admin> updateAdmin(
+    public ResponseEntity<AdminUpdateRequest> updateAdmin(
             @PathVariable Long adminId,
-            @RequestBody AdminUpdateRequest request
+            @RequestBody AdminUpdateRequest request,
+            HttpServletRequest httpServletRequest
     ) {
+
+
+        String token = jwtService.getTokenFromHeader(httpServletRequest.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+        if (!userId.equals(adminId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
+
         Admin updatedAdmin =
                 adminService.updateAdmin(adminId,
                         request.getFirstName(),
@@ -46,7 +56,14 @@ public class AdminController {
                         request.getEmail(),
                         request.isActive());
 
-        return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
+        AdminUpdateRequest asDto = new AdminUpdateRequest();
+        asDto.setFirstName(updatedAdmin.getFirstName());
+        asDto.setLastName(updatedAdmin.getLastName());
+        asDto.setDescription(updatedAdmin.getProfile().getDescription());
+        asDto.setActive(updatedAdmin.getProfile().isActive());
+        asDto.setEmail(updatedAdmin.getProfile().getEmail());
+
+        return new ResponseEntity<>(asDto, HttpStatus.OK);
     }
 
     @PostMapping("/find-user")

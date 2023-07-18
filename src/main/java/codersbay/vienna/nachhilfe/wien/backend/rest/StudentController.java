@@ -43,9 +43,15 @@ public class StudentController {
     @PutMapping("/updateStudent/{studentId}")
     public ResponseEntity<StudentPublicDTO> updateStudent(
             @PathVariable Long studentId,
-            @RequestBody StudentUpdateRequest request
+            @RequestBody StudentUpdateRequest request,
+            HttpServletRequest httpServletRequest
     ) {
 
+        String token = jwtService.getTokenFromHeader(httpServletRequest.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+        if (!userId.equals(studentId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
 
         Student updatedStudent =
                 studentService.updateStudent(studentId,

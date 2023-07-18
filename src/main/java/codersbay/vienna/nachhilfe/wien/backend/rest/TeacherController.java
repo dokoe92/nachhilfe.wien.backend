@@ -82,8 +82,16 @@ public class TeacherController {
     @PutMapping("/updateTeacher/{teacherId}")
     public ResponseEntity<TeacherPublicDTO> updateTeacher(
             @PathVariable Long teacherId,
-            @RequestBody TeacherUpdateRequest request
+            @RequestBody TeacherUpdateRequest request,
+            HttpServletRequest httpServletRequest
     ) {
+
+
+        String token = jwtService.getTokenFromHeader(httpServletRequest.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+        if (!userId.equals(teacherId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
 
 
         Teacher updatedTeacher =
