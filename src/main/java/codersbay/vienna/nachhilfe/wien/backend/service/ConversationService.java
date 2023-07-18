@@ -54,6 +54,7 @@ public class ConversationService {
         return conversation;
     }
 
+    // DELETE ???
     public ConversationDTO findConversationById(Long id) {
         Conversation conversation = conversationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
