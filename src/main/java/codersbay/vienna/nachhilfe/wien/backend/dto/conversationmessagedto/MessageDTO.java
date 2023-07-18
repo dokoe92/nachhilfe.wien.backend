@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-public class MessageDTO {
+public class MessageDTO implements Comparable<MessageDTO>{
 
     private Long id;
     private LocalDateTime timeStamp;
@@ -20,4 +20,10 @@ public class MessageDTO {
     private Long senderId;
     @Enumerated(EnumType.STRING)
     private MessageType messageType;
+
+    @Override
+    public int compareTo(MessageDTO other) {
+        return this.id.compareTo(other.id);
+    }
+
 }

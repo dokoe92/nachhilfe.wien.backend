@@ -2,13 +2,10 @@ package codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Appointment;
-import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
-import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.MessageRepository;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

@@ -5,6 +5,7 @@ import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
+import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
@@ -15,8 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -27,6 +28,7 @@ public class AppointmentService {
     private final UserRepository userRepository;
     private final AppointmentMapper appointmentMapper;
     private final AppointmentRepository appointmentRepository;
+    private final StudentRepository studentRepository;
 
     @Transactional
     public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId, Long studentId) {
@@ -39,9 +41,10 @@ public class AppointmentService {
         User user = userRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
+        /*
         if (appointmentRepository.existsByStudentIdAndCoachingId(studentId, coachingId)) {
             throw new DuplicatedException("User already has an appointment for this coaching!");
-        }
+        }*/
 
         // Make an appointment from the DTO and set the fields
         // Sender and student fields are handled in the mapper
@@ -60,13 +63,17 @@ public class AppointmentService {
         conversation.setMessages(messages);
         conversationRepository.save(conversation);
 
-        // Add the coaching to the users coachings
+        // If student add appointment to appointment field, if teacher add appointment to coaching
         Set<User> conversationPartners = conversation.getUsers();
         for (User conversationPartner : conversationPartners) {
-            Set<Coaching> coachings = conversationPartner.getCoachings();
-            coachings.add(coaching);
-            conversationPartner.setCoachings(coachings);
-            userRepository.save(conversationPartner);
+            if (conversationPartner instanceof Student) {
+                ((Student) conversationPartner).getAppointments().add(appointment);
+                studentRepository.save((Student) conversationPartner);
+            }
+            if (conversationPartner instanceof Teacher) {
+                coaching.getAppointments().add(appointment);
+                coachingRepository.save(coaching);
+            }
         }
         // Set all DTO fields
         AppointmentDTO appointmentDTOCreated = appointmentMapper.toDTO(appointment);
@@ -81,15 +88,26 @@ public class AppointmentService {
     public Set<AppointmentDTO> getAllAppointments(Long userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
-        Set<AppointmentDTO> userAppointments = new HashSet<>();
 
-        Set<Coaching> coachings = user.getCoachings();
         Set<Appointment> appointments = new HashSet<>();
-        for (Coaching coaching : coachings) {
-            appointments.addAll((coaching.getAppointments()));
+        if (user instanceof Teacher) {
+            Set<Coaching> coachings = user.getCoachings();
+            if (coachings != null) {
+                for (Coaching coaching : coachings) {
+                    appointments.addAll((coaching.getAppointments()));
+                }
+            }
+        }
+        if (user instanceof Student) {
+            appointments.addAll(((Student) user).getAppointments());
         }
 
-        Set<AppointmentDTO> appointmentDTOS = new HashSet<>();
+        List<Appointment> sortedAppointments = new ArrayList<>(appointments);
+        Collections.sort(sortedAppointments);
+        appointments = new LinkedHashSet<>(sortedAppointments);
+
+
+        Set<AppointmentDTO> appointmentDTOS = new LinkedHashSet<>();
         for (Appointment appointment : appointments) {
             AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
             appointmentDTOS.add(appointmentDTO);
@@ -122,5 +140,24 @@ public class AppointmentService {
         AppointmentDTO appointmentDTO = appointmentMapper.toDTO(appointment);
 
         return appointmentDTO;
+    }
+
+    public AppointmentDTO findAppointmentById(Long appointmentId) {
+        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
+        if (optionalAppointment.isPresent()) {
+            Appointment appointment = optionalAppointment.get();
+            return appointmentMapper.toDTO(appointment);
+        }
+        // Handle the case when the appointment is not found
+        // You can throw an exception or return null, depending on your use case
+        return null;
+    }
+
+    public List<AppointmentDTO> findAppointmentsByDate (LocalDateTime startDate) {
+        List<Appointment> appointments = appointmentRepository.findByStart(startDate);
+        List<AppointmentDTO> appointmentDTOS = appointments.stream()
+                .map(appointmentMapper::toDTO).toList();
+        return appointmentDTOS;
+
     }
 }

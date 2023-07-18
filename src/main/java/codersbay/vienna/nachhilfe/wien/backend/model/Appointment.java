@@ -1,5 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.MessageDTO;
 import com.fasterxml.jackson.annotation.JacksonInject;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
@@ -27,12 +29,10 @@ public class Appointment extends Message{
 
     @Setter
     @Column(name = "start_coaching")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime start;
 
     @Setter
     @Column(name = "end_coaching")
-    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm")
     private LocalDateTime end;
 
     @Setter
@@ -54,6 +54,14 @@ public class Appointment extends Message{
     @Column(name="confirmed")
     private Boolean confirmed;
 
-
+    @Override
+    public int compareTo(Message other) {
+        if (other instanceof Appointment otherAppointment) {
+            return this.getStart().compareTo(otherAppointment.getStart());
+        } else {
+            // If the other object is not an AppointmentDTO, consider it "greater" for consistent ordering
+            return 1;
+        }
+    }
 
 }
