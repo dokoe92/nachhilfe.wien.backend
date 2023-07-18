@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TeacherPublicMapper {
 
-    private final FeedbacksMapper feedbacksMapper;
+
     private final FeedbackMapper feedbackMapper;
     private final CoachingMapper coachingMapper;
 

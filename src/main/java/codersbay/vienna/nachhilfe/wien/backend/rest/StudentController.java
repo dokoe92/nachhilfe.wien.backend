@@ -41,7 +41,7 @@ public class StudentController {
 
 
     @PutMapping("/updateStudent/{studentId}")
-    public ResponseEntity<Student> updateStudent(
+    public ResponseEntity<StudentPublicDTO> updateStudent(
             @PathVariable Long studentId,
             @RequestBody StudentUpdateRequest request
     ) {
@@ -54,7 +54,9 @@ public class StudentController {
                         request.getDescription(),
                         request.getPassword(),
                         request.isActive());
-        return new ResponseEntity<>(updatedStudent, HttpStatus.OK);
+
+        StudentPublicDTO dto = studentPublicMapper.toDTO(updatedStudent);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
     @DeleteMapping("/deleteStudent/{studentId}")

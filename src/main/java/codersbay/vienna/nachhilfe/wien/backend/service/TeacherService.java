@@ -1,5 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherPublicMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
@@ -23,6 +25,7 @@ import java.util.Set;
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
+    
 
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
@@ -65,8 +68,10 @@ public class TeacherService {
     public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, boolean active) {
         //find existing teacher by ID
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
+
         if (teacher.isPresent()) {
             Teacher existingTeacher = teacher.get();
+
 
             User user = existingTeacher.getProfile().getUser();
             if (firstName != null) {

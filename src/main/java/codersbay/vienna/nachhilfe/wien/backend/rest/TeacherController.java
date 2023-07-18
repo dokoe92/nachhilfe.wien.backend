@@ -80,7 +80,7 @@ public class TeacherController {
     }
 
     @PutMapping("/updateTeacher/{teacherId}")
-    public ResponseEntity<Teacher> updateTeacher(
+    public ResponseEntity<TeacherPublicDTO> updateTeacher(
             @PathVariable Long teacherId,
             @RequestBody TeacherUpdateRequest request
     ) {
@@ -93,7 +93,8 @@ public class TeacherController {
                         request.getDescription(),
                         request.getPassword(),
                         request.isActive());
-        return new ResponseEntity<>(updatedTeacher, HttpStatus.OK);
+        TeacherPublicDTO dto = teacherPublicMapper.toDTO(updatedTeacher);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
 
     }
 
