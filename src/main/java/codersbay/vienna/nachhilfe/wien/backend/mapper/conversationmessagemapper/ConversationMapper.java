@@ -27,6 +27,7 @@ public class ConversationMapper {
 
     public ConversationDTO toDTO(Conversation conversation) {
         ConversationDTO conversationDTO = new ConversationDTO();
+        conversationDTO.setConversationId(conversation.getId());
 
         if (conversation.getMessages() != null) {
             Set <Message> messages = conversation.getMessages();

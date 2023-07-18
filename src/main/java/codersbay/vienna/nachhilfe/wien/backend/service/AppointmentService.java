@@ -72,6 +72,7 @@ public class AppointmentService {
                         for (Coaching checkCoaching : checkUser.getCoachings()) {
                             if (checkCoaching.getId().equals(coachingId)) {
                                 teacherHasCoaching = true;
+                                break;
                             }
                         }
                     }
