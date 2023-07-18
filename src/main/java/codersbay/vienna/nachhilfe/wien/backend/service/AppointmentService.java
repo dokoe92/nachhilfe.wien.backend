@@ -190,16 +190,6 @@ public class AppointmentService {
         return appointmentDTO;
     }
 
-    public AppointmentDTO findAppointmentById(Long appointmentId) {
-        Optional<Appointment> optionalAppointment = appointmentRepository.findById(appointmentId);
-        if (optionalAppointment.isPresent()) {
-            Appointment appointment = optionalAppointment.get();
-            return appointmentMapper.toDTO(appointment);
-        }
-        // Handle the case when the appointment is not found
-        // You can throw an exception or return null, depending on your use case
-        return null;
-    }
 
     public List<AppointmentDTO> findAppointmentsByDate (LocalDateTime startDate) {
         List<Appointment> appointments = appointmentRepository.findByStart(startDate);
