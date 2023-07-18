@@ -9,6 +9,7 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.TeacherSearchObject;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -59,6 +60,8 @@ public class TeacherService {
         return teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher not found!"));
     }
+
+    @Transactional
     public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, boolean active) {
         //find existing teacher by ID
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);

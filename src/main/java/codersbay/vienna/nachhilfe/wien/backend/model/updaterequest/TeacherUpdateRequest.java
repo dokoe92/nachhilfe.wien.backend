@@ -18,5 +18,4 @@ public class TeacherUpdateRequest {
     private boolean active;
     private String password;
     private String email;
-    private Set<Coaching> coachings;
 }

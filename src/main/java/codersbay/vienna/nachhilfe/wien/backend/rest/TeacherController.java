@@ -49,7 +49,7 @@ public class TeacherController {
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long userId = jwtService.extractUserId(token);
 
-        if (teacherId.equals(userId)) {
+        if (!teacherId.equals(userId)) {
             throw new UserNotAuthorizedException("User not authorized!");
         }
 
@@ -82,15 +82,9 @@ public class TeacherController {
     @PutMapping("/updateTeacher/{teacherId}")
     public ResponseEntity<Teacher> updateTeacher(
             @PathVariable Long teacherId,
-            @RequestBody TeacherUpdateRequest request,
-            HttpServletRequest httpServletRequest
+            @RequestBody TeacherUpdateRequest request
     ) {
-        String token = jwtService.getTokenFromHeader(httpServletRequest.getHeader("Authorization"));
-        Long userId = jwtService.extractUserId(token);
 
-        if (teacherId.equals(userId)) {
-            throw new UserNotAuthorizedException("User not authorized!");
-        }
 
         Teacher updatedTeacher =
                 teacherService.updateTeacher(teacherId,
@@ -109,7 +103,7 @@ public class TeacherController {
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long userId = jwtService.extractUserId(token);
 
-        if (teacherId.equals(userId)) {
+        if (!teacherId.equals(userId)) {
             throw new UserNotAuthorizedException("User not authorized!");
         }
 
