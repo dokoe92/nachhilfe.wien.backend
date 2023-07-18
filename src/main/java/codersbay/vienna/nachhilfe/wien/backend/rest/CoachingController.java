@@ -68,14 +68,6 @@ public class CoachingController {
         }
         Set<CoachingDTO> savedCoachingDTO = coachingService.createCoachings(coachingsDTO, teacherId);
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String savedCoachingJson = objectMapper.writeValueAsString(savedCoachingDTO);
-            log.info("Response: " + savedCoachingJson);
-        } catch (JsonProcessingException ex) {
-            log.error("Error while converting savedCoachingDTO to JSON " +ex );
-        }
-
         return new ResponseEntity<>(savedCoachingDTO, HttpStatus.CREATED);
     }
 
