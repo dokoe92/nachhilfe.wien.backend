@@ -10,6 +10,7 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,7 @@ public class ConversationService {
      * @return the created Conversation object
      * @throws UserNotFoundException if at least one user is not found
      */
+    @Transactional
     public Conversation createConversation(Set<Long> userIds) {
         Set<User> users = new HashSet<>(userRepository.findAllById(userIds));;
         if (users.size() < 2) {

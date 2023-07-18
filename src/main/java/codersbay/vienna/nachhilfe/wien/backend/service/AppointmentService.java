@@ -33,8 +33,10 @@ public class AppointmentService {
 
     @Transactional
     public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId, Long studentId) {
-        Conversation conversation = conversationRepository.findById(conversationId)
+        Conversation conversation = conversationRepository.findByIdWithUsers(conversationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
+
+
 
         Coaching coaching = coachingRepository.findById(coachingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Coaching not found!"));
@@ -62,9 +64,11 @@ public class AppointmentService {
             throw  new UserNotAuthorizedException("User cant send to this conversation");
         }
 
+        Set<User> conversationUsers = conversation.getUsers();
+
         boolean teacherHasCoaching = false;
         if (conversation.getUsers() != null) {
-            for (User checkUser : conversation.getUsers()) {
+            for (User checkUser : conversationUsers) {
                 if (checkUser instanceof Teacher) {
                     if (checkUser.getCoachings() == null) {
                         throw new UserNotAuthorizedException("This teacher doesnt own the appointment");

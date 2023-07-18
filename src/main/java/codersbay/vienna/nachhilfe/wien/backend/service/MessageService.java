@@ -12,6 +12,7 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagere
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.MessageRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
@@ -42,6 +43,7 @@ public class MessageService {
      * @return the MessageDTO object with the sent message details
      * @throws ResourceNotFoundException if the conversation or the message is not found
      */
+    @Transactional
     public MessageDTO sendMessage(MessageDTO messageDTO, Long conversationId) {
         Optional<Conversation> conversation = conversationRepository.findById(conversationId);
         if (conversation.isEmpty()) {
