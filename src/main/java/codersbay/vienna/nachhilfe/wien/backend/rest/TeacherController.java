@@ -1,14 +1,17 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherPublicMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.TeacherUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.TeacherSearchObject;
 import codersbay.vienna.nachhilfe.wien.backend.service.TeacherService;
 import io.swagger.v3.oas.annotations.Operation;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,7 @@ import java.util.List;
 public class TeacherController {
     private final TeacherService teacherService;
     private final TeacherPublicMapper teacherPublicMapper;
+    private final JwtService jwtService;
 
     @GetMapping
     public ResponseEntity<List<Teacher>> findAllTeachers() {
@@ -41,7 +45,14 @@ public class TeacherController {
     @Operation(
             description = "Update the districts of a teacher via teacherId - the new array will replace all old districts"
     )
-    public ResponseEntity<TeacherDistricts> updateTeacherDistricts(@RequestBody TeacherDistricts districts, @PathVariable Long teacherId){
+    public ResponseEntity<TeacherDistricts> updateTeacherDistricts(@RequestBody TeacherDistricts districts, @PathVariable Long teacherId, HttpServletRequest request){
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+
+        if (teacherId.equals(userId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
+
         TeacherDistricts teacherDistricts = teacherService.updateTeacherDistricts(districts, teacherId);
         return new ResponseEntity<>(teacherDistricts, HttpStatus.OK);
     }
@@ -71,8 +82,16 @@ public class TeacherController {
     @PutMapping("/updateTeacher/{teacherId}")
     public ResponseEntity<Teacher> updateTeacher(
             @PathVariable Long teacherId,
-            @RequestBody TeacherUpdateRequest request
+            @RequestBody TeacherUpdateRequest request,
+            HttpServletRequest httpServletRequest
     ) {
+        String token = jwtService.getTokenFromHeader(httpServletRequest.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+
+        if (teacherId.equals(userId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
+
         Teacher updatedTeacher =
                 teacherService.updateTeacher(teacherId,
                         request.getFirstName(),
@@ -86,7 +105,14 @@ public class TeacherController {
 
 
     @DeleteMapping("/deleteTeacher/{teacherId}")
-    public ResponseEntity<String> deleteTeacher(@PathVariable Long teacherId) {
+    public ResponseEntity<String> deleteTeacher(@PathVariable Long teacherId, HttpServletRequest request) {
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+
+        if (teacherId.equals(userId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
+
         boolean deleted = teacherService.deleteAdmin(teacherId);
         if (deleted) {
             return ResponseEntity.ok("Teacher with ID " + teacherId + " deleted succesfully.");
