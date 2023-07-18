@@ -12,6 +12,7 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundExcep
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import codersbay.vienna.nachhilfe.wien.backend.service.AdminService;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class AdminController {
     @PutMapping("/updateAdmin/{adminId}")
     public ResponseEntity<AdminUpdateRequest> updateAdmin(
             @PathVariable Long adminId,
-            @RequestBody AdminUpdateRequest request,
+            @Valid @RequestBody AdminUpdateRequest request,
             HttpServletRequest httpServletRequest
     ) {
 
@@ -67,14 +68,14 @@ public class AdminController {
     }
 
     @PostMapping("/find-user")
-    public ResponseEntity<UserDTO> findUser(@RequestBody UserSearch userSearch) {
+    public ResponseEntity<UserDTO> findUser(@Valid @RequestBody UserSearch userSearch) {
         User user = adminService.findUser(userSearch);
         UserDTO userDTO = userMapper.toDTO(user);
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
     }
 
     @PutMapping("/edit-user/{userId}")
-    public ResponseEntity<UserDTO> editUser (@RequestBody UserUpdateRequest updateRequest,
+    public ResponseEntity<UserDTO> editUser (@Valid @RequestBody UserUpdateRequest updateRequest,
                                              @PathVariable Long userId) {
         UserDTO userDTO = userMapper.toDTO(adminService.editUser(updateRequest, userId));
         return new ResponseEntity<>(userDTO, HttpStatus.OK);
