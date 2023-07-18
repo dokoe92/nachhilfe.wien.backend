@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import org.hibernate.annotations.Formula;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,7 @@ public class Teacher extends User {
     @OneToMany(mappedBy = "teacher")
     @JsonManagedReference(value="teacher-feedbacks-reference")
     private Set<Feedback> feedbacks = new HashSet<>();
+
 
     @Getter
     @Setter

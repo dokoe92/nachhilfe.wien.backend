@@ -20,4 +20,7 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
             "and (:#{#so.maxRateSet} = false or c.rate <= :#{#so.maxRate})" +
             "and t.profile.active = true")
     List<Teacher> filterTeachers(@Param("so") TeacherSearchObject so);
+
+    @Query("SELECT AVG(f.rating) FROM Feedback f WHERE f.teacher.id = :teacherId")
+    Double findAverageRating(Long teacherId);
 }

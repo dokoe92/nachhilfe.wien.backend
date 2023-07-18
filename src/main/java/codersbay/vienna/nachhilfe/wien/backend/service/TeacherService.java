@@ -25,7 +25,7 @@ import java.util.Set;
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
-    
+
 
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
@@ -118,4 +118,5 @@ public class TeacherService {
         List<Teacher> teachersFiltered = teacherRepository.filterTeachers(so);
         return teachersFiltered;
     }
+
 }

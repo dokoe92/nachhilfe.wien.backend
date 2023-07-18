@@ -5,6 +5,8 @@ import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMap
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbacksMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
+import codersbay.vienna.nachhilfe.wien.backend.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +19,7 @@ public class TeacherPublicMapper {
 
     private final FeedbackMapper feedbackMapper;
     private final CoachingMapper coachingMapper;
+    private final TeacherRepository teacherRepository;
 
     public TeacherPublicDTO toDTO(Teacher teacher) {
         if (teacher == null) {
@@ -31,7 +34,7 @@ public class TeacherPublicMapper {
             teacherPublicDTO.setDescription(teacher.getProfile().getDescription());
             teacherPublicDTO.setImage(teacher.getProfile().getImageBase64());
             teacherPublicDTO.setActive(teacher.getProfile().isActive());
-            teacherPublicDTO.setAverageRatingScore(teacher.getProfile().getAverageRatingScore());
+            teacherPublicDTO.setAverageRatingScore(teacherRepository.findAverageRating(teacher.getId()));
 
             if (teacher.getFeedbacks() != null) {
                 teacherPublicDTO.setFeedbacks(teacher.getFeedbacks()

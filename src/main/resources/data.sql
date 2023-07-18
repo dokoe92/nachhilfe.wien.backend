@@ -1,6 +1,6 @@
 -- Insert 10 Teachers
 INSERT INTO profile(password, email, picture, description, active, average_rating)
-VALUES ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'john01@example.com', '1234', 'I love studying!', true, 4.5),
+VALUES ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'john01@example.com', '1234', 'I love studying!', true, null),
        ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'jane02@example.com', null, 'Experienced teacher!', true, 4.7),
        ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'mark03@example.com', null, 'I love teaching!', true, 4.6),
        ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'susan04@example.com', null, 'Committed to excellence in teaching!', true, 4.8),

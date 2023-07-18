@@ -40,8 +40,7 @@ public class Profile {
 
     @Setter
     @Column(name="average_rating")
-    @Formula("(SELECT AVG(f.rating) FROM feedback f WHERE f.teacher.id = id)")
-    private Double averageRatingScore;
+    private Double averageRatingScore = 0.00;
 
     /**
      * Represents the User associated with this profile.
