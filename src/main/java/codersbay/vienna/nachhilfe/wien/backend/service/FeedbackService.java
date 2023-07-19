@@ -2,9 +2,7 @@ package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbackDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Feedback;
-import codersbay.vienna.nachhilfe.wien.backend.model.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.FeedbackRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
@@ -13,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,10 +36,30 @@ public class FeedbackService {
             throw new ResourceNotFoundException("Student with ID " + feedbackDTO.getStudentId() + " not found");
         }
 
+        boolean hadAppointment = false;
+        if (student.getAppointments() == null) {
+            throw new ResourceNotFoundException("No appointments found!");
+        } else {
+            for (Appointment appointment : student.getAppointments()) {
+                if (appointment.getCoaching().getUser().equals(teacher)) {
+                    if (appointment.getStatus() == Status.CONFIRMED) {
+                        if (appointment.getEnd().isBefore(LocalDateTime.now())) {
+                            hadAppointment = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        if (!hadAppointment) {
+            throw new IllegalArgumentException("User had no appointments with the teacher or appointment was not confirmed.");
+        }
 
-        for (Feedback feedback : student.getFeedbacks()) {
-            if (feedback.getTeacher().equals(teacher)) {
-                throw new DuplicatedException("User already sent feedback for this teacher");
+        if (student.getFeedbacks() != null) {
+            for (Feedback feedback : student.getFeedbacks()) {
+                if (feedback.getTeacher().equals(teacher)) {
+                    throw new DuplicatedException("User already sent feedback for this teacher");
+                }
             }
         }
 

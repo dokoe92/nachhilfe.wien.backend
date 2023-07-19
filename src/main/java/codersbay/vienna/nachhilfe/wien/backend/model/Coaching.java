@@ -59,7 +59,7 @@ public class Coaching {
     @Builder.Default
     Set<Appointment> appointments = new TreeSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "fk_user_id")
     @Setter
     private User user;
