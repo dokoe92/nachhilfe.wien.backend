@@ -186,6 +186,15 @@ public class AppointmentService {
             throw new UserNotFoundException("Teacher not authorized");
         }
 
+        ZonedDateTime currentDateTime = ZonedDateTime.now(ZoneId.of("Europe/Vienna"));
+        ZonedDateTime viennaStartTime = appointment.getStart().withZoneSameInstant(ZoneId.of("Europe/Vienna"));
+
+
+
+        if (appointment.getStatus() == Status.REJECTED || viennaStartTime.isBefore(currentDateTime)) {
+            return null;
+        }
+
         if (action.equalsIgnoreCase("confirm")) {
             appointment.setStatus(Status.CONFIRMED);
             appointment.setConfirmed(true);
