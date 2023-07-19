@@ -21,9 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -92,6 +90,14 @@ public class AppointmentService {
         }
         if (!teacherHasCoaching) {
             throw new UserNotFoundException("The teacher of the mentioned conversation doesnt own this coaching!");
+        }
+
+        ZonedDateTime currentDateTime = ZonedDateTime.now(ZoneId.of("Europe/Vienna"));
+        if (appointmentDTO.getStart().withZoneSameInstant(ZoneId.of("Europe/Vienna")).isBefore(currentDateTime)) {
+            throw new IllegalArgumentException("Appointment start before current time");
+        }
+        if (appointmentDTO.getEnd().withZoneSameInstant(ZoneId.of("Europe/Vienna")).isBefore(currentDateTime)) {
+            throw new IllegalArgumentException("Appointmend end before current time");
         }
 
 

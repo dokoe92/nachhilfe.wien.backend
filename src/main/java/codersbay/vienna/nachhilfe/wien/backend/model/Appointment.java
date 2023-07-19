@@ -17,6 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -29,11 +30,11 @@ public class Appointment extends Message{
 
     @Setter
     @Column(name = "start_coaching")
-    private LocalDateTime start;
+    private ZonedDateTime start;
 
     @Setter
     @Column(name = "end_coaching")
-    private LocalDateTime end;
+    private ZonedDateTime end;
 
     @Setter
     @Column(name="status")

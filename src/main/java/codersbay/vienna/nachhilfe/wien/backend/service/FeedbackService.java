@@ -12,6 +12,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +45,9 @@ public class FeedbackService {
             for (Appointment appointment : student.getAppointments()) {
                 if (appointment.getCoaching().getUser().equals(teacher)) {
                     if (appointment.getStatus() == Status.CONFIRMED) {
-                        if (appointment.getEnd().isBefore(LocalDateTime.now())) {
+                        ZonedDateTime appointmentViennaTime = appointment.getEnd().withZoneSameInstant(ZoneId.of("Europe/Vienna"));
+                        ZonedDateTime currentDateTime = ZonedDateTime.now(ZoneId.of("Europe/Vienna"));
+                        if (appointmentViennaTime.isBefore(currentDateTime)) {
                             hadAppointment = true;
                             break;
                         }

@@ -9,6 +9,9 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagere
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
 @RequiredArgsConstructor
 @Component
 public class AppointmentMapper {
@@ -42,11 +45,13 @@ public class AppointmentMapper {
         }
 
         if (appointment.getStart() != null) {
-            appointmentDTO.setStart(appointment.getStart());
+            ZonedDateTime viennaStartTime = appointment.getStart().withZoneSameInstant(ZoneId.of("Europe/Vienna"));
+            appointmentDTO.setStart(viennaStartTime);
         }
 
         if (appointment.getEnd() != null) {
-            appointmentDTO.setEnd(appointment.getEnd());
+            ZonedDateTime viennaEndTime = appointment.getEnd().withZoneSameInstant(ZoneId.of("Europe/Vienna"));
+            appointmentDTO.setEnd(viennaEndTime);
         }
 
         appointmentDTO.setStatus(appointment.getStatus());
