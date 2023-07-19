@@ -12,12 +12,18 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedExcepti
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -30,6 +36,7 @@ public class AppointmentService {
     private final AppointmentMapper appointmentMapper;
     private final AppointmentRepository appointmentRepository;
     private final StudentRepository studentRepository;
+
 
     @Transactional
     public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId, Long studentId) {
@@ -87,7 +94,7 @@ public class AppointmentService {
             throw new UserNotFoundException("The teacher of the mentioned conversation doesnt own this coaching!");
         }
 
-        // Make an appointment from the DTO and set the fields
+
         // Sender and student fields are handled in the mapper
         Appointment appointment = appointmentMapper.toEntity(appointmentDTO);
         appointment.setSender(user);
