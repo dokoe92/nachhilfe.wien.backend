@@ -90,6 +90,7 @@ public abstract class User implements UserDetails {
     private Set<Conversation> conversations = new HashSet<>();
 
 
+
     // SPRING SECURITY
 
     @Setter

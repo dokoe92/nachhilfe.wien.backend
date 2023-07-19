@@ -4,6 +4,7 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.ProfileDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -43,5 +44,14 @@ public class UserService {
             throw new IllegalArgumentException("Couldn't set profile picture");
         }
     }
+
+    public boolean softDeleteUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        Profile userProfile = user.getProfile();
+        userProfile.setDeleted(true);
+        return true;
+    }
+
+
 
 }

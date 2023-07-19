@@ -42,6 +42,11 @@ public class Profile {
     @Column(name="average_rating")
     private Double averageRatingScore = 0.00;
 
+    @Setter
+    @Column(name="deleted")
+    private boolean deleted;
+
+
     /**
      * Represents the User associated with this profile.
      *

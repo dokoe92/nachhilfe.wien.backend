@@ -15,6 +15,7 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundE
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -138,6 +139,15 @@ public class AuthService {
         User user = profileRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"))
                 .getUser();
+
+        if (user.getProfile().isDeleted()) {
+            throw new AuthenticationException("User not found or deleted!") {
+                @Override
+                public String getMessage() {
+                    return super.getMessage();
+                }
+            };
+        }
 
         AuthResponse auth = createAuthResponse(user);
 

@@ -90,5 +90,17 @@ public class UserController {
         return new ResponseEntity<>(profileMapper.toDTO(user.getProfile()), HttpStatus.OK);
     }
 
+    @PutMapping("delete/{userId}")
+    public ResponseEntity<Boolean> softDeleteUser(@PathVariable Long userId, HttpServletRequest request) {
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long id = jwtService.extractUserId(token);
+        if (!userId.equals(id)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
+
+        boolean softDeleted = userService.softDeleteUser(userId);
+        return new ResponseEntity<>(softDeleted, HttpStatus.NO_CONTENT);
+    }
+
 
 }
