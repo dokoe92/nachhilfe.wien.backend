@@ -140,7 +140,7 @@ public class AuthService {
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"))
                 .getUser();
 
-        if (user.getProfile().isDeleted()) {
+        if (user.getProfile().getDeleted()) {
             throw new AuthenticationException("User not found or deleted!") {
                 @Override
                 public String getMessage() {

@@ -44,7 +44,7 @@ public class Profile {
 
     @Setter
     @Column(name="deleted")
-    private boolean deleted;
+    private Boolean deleted = false;
 
 
     /**

@@ -1,15 +1,15 @@
 -- Insert 10 Teachers
-INSERT INTO profile(password, email, picture, description, active, average_rating)
-VALUES ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'john01@example.com', '1234', 'I love studying!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'jane02@example.com', null, 'Experienced teacher!', true, 4.7),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'mark03@example.com', null, 'I love teaching!', true, 4.6),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'susan04@example.com', null, 'Committed to excellence in teaching!', true, 4.8),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'peter05@example.com', null, 'Teaching is my passion!', true, 4.7),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'lucy06@example.com', null, 'Inspiring young minds!', true, 4.6),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'jack07@example.com', null, 'Making complex concepts simple!', true, 4.9),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'alice08@example.com', null, 'Believe in lifelong learning!', true, 4.8),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'josh09@example.com', null, 'Creating an inclusive learning environment!', true, 4.7),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'emma10@example.com', null, 'Adaptive teaching style!', true, 4.6);
+INSERT INTO profile(password, email, picture, description, active, average_rating, deleted)
+VALUES ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'john01@example.com', '1234', 'I love studying!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'jane02@example.com', null, 'Experienced teacher!', true, 4.7, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'mark03@example.com', null, 'I love teaching!', true, 4.6, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'susan04@example.com', null, 'Committed to excellence in teaching!', true, 4.8, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'peter05@example.com', null, 'Teaching is my passion!', true, 4.7, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'lucy06@example.com', null, 'Inspiring young minds!', true, 4.6, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'jack07@example.com', null, 'Making complex concepts simple!', true, 4.9, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'alice08@example.com', null, 'Believe in lifelong learning!', true, 4.8, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'josh09@example.com', null, 'Creating an inclusive learning environment!', true, 4.7, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'emma10@example.com', null, 'Adaptive teaching style!', true, 4.6, false);
 
 INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id, role)
 VALUES ('teacher', 'John', 'Doe', '2000-01-01', 1, 'ROLE_TEACHER'),
@@ -29,17 +29,17 @@ INSERT INTO districts(teacher_id, districts) VALUES
 
 
 -- Insert 10 Student Profiles
-INSERT INTO profile(password, email, picture, description, active, average_rating)
-VALUES ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student01@example.com', null, 'Eager to learn!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student02@example.com', null, 'Learning is fun!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student03@example.com', null, 'I love studying!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student04@example.com', null, 'Strive to improve!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student05@example.com', null, 'Hardworking student!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student06@example.com', null, 'Learning never stops!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student07@example.com', null, 'Ready to learn!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student08@example.com', null, 'Believe in self-improvement!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student09@example.com', null, 'Passionate about learning!', true, null),
-       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student10@example.com', null, 'Always ready for a challenge!', true, null);
+INSERT INTO profile(password, email, picture, description, active, average_rating, deleted)
+VALUES ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student01@example.com', null, 'Eager to learn!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student02@example.com', null, 'Learning is fun!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student03@example.com', null, 'I love studying!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student04@example.com', null, 'Strive to improve!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student05@example.com', null, 'Hardworking student!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student06@example.com', null, 'Learning never stops!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student07@example.com', null, 'Ready to learn!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student08@example.com', null, 'Believe in self-improvement!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student09@example.com', null, 'Passionate about learning!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student10@example.com', null, 'Always ready for a challenge!', true, null, false);
 
 -- Insert 10 Students
 INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id, role)
