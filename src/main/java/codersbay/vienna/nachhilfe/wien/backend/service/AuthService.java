@@ -10,6 +10,7 @@ import codersbay.vienna.nachhilfe.wien.backend.model.*;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.respository.*;
+import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,9 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_TEACHER;
@@ -40,6 +39,7 @@ public class AuthService {
     private final StudentRepository studentRepository;
     private final FeedbackMapper feedbackMapper;
     private final AdminRepository adminRepository;
+    private final ConversationRepository conversationRepository;
 
 
     public AuthResponse createAuthResponse(User user) {
@@ -69,10 +69,8 @@ public class AuthService {
         }
 
         if (user.getConversations() != null) {
-            Set<ConversationDTO> conversationDtos = user.getConversations().stream()
-                    .map(conversationMapper::toDTO)
-                    .collect(Collectors.toSet());
-            auth.setConversations(conversationDtos);
+            List<Conversation> conversations = conversationRepository.findUserConversationsOrderByLatestMessage(user.getId());
+            auth.setConversations(conversations.stream().map(conversationMapper::toDTO).collect(Collectors.toCollection(LinkedHashSet::new)));
         }
 
         auth.setAvailableSubjects(EnumSet.allOf(Subject.class));
