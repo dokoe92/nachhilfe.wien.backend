@@ -46,6 +46,12 @@ public class GlobalExceptionHandler {
         RestError restError = new RestError(ex.getMessage(), HttpStatus.FORBIDDEN.value());
         return new ResponseEntity<>(restError, HttpStatus.FORBIDDEN);
     }
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<RestError> handleIllegalArgumentException (IllegalArgumentException ex) {
+        RestError restError = new RestError(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(restError, HttpStatus.BAD_REQUEST);
+
+    }
 
 
 }

@@ -23,12 +23,16 @@ public class FeedbackMapper {
 
         FeedbackDTO feedbackDTO = new FeedbackDTO();
         feedbackDTO.setFeedbackId(feedback.getId());
-        feedbackDTO.setStudentId(feedback.getStudent().getId());
-        feedbackDTO.setTeacherId(feedback.getTeacher().getId());
-        feedbackDTO.setStudentFirstName(feedback.getStudent().getFirstName());
-        feedbackDTO.setStudentLastName(feedback.getStudent().getLastName());
-        feedbackDTO.setTeacherFirstName(feedback.getTeacher().getFirstName());
-        feedbackDTO.setTeacherLastName(feedback.getTeacher().getLastName());
+        if (feedback.getStudent() != null) {
+            feedbackDTO.setStudentId(feedback.getStudent().getId());
+            feedbackDTO.setStudentFirstName(feedback.getStudent().getFirstName());
+            feedbackDTO.setStudentLastName(feedback.getStudent().getLastName());
+        }
+        if (feedback.getTeacher() != null) {
+            feedbackDTO.setTeacherId(feedback.getTeacher().getId());
+            feedbackDTO.setTeacherFirstName(feedback.getTeacher().getFirstName());
+            feedbackDTO.setTeacherLastName(feedback.getTeacher().getLastName());
+        }
         feedbackDTO.setTitle(feedback.getTitle());
         feedbackDTO.setContent(feedback.getContent());
         feedbackDTO.setRating(feedback.getRating());

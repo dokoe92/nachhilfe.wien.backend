@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 @Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name="message_type", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue(value = "message")
-public class Message {
+public class Message implements Comparable<Message>{
 
     public Message () {
         this.messageType = MessageType.MESSAGE;
@@ -56,5 +56,8 @@ public class Message {
     private Conversation conversation;
 
 
-
+    @Override
+    public int compareTo(Message o) {
+        return 0;
+    }
 }

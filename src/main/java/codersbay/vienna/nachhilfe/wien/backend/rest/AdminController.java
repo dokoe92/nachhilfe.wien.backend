@@ -7,9 +7,12 @@ import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.AdminUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.UserUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import codersbay.vienna.nachhilfe.wien.backend.service.AdminService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,10 +35,19 @@ public class AdminController {
     }
 
     @PutMapping("/updateAdmin/{adminId}")
-    public ResponseEntity<Admin> updateAdmin(
+    public ResponseEntity<AdminUpdateRequest> updateAdmin(
             @PathVariable Long adminId,
-            @RequestBody AdminUpdateRequest request
+            @Valid @RequestBody AdminUpdateRequest request,
+            HttpServletRequest httpServletRequest
     ) {
+
+
+        String token = jwtService.getTokenFromHeader(httpServletRequest.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+        if (!userId.equals(adminId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
+
         Admin updatedAdmin =
                 adminService.updateAdmin(adminId,
                         request.getFirstName(),
@@ -45,7 +57,14 @@ public class AdminController {
                         request.getEmail(),
                         request.isActive());
 
-        return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
+        AdminUpdateRequest asDto = new AdminUpdateRequest();
+        asDto.setFirstName(updatedAdmin.getFirstName());
+        asDto.setLastName(updatedAdmin.getLastName());
+        asDto.setDescription(updatedAdmin.getProfile().getDescription());
+        asDto.setActive(updatedAdmin.getProfile().isActive());
+        asDto.setEmail(updatedAdmin.getProfile().getEmail());
+
+        return new ResponseEntity<>(asDto, HttpStatus.OK);
     }
 
     @PostMapping("/find-user")
@@ -117,6 +136,20 @@ public class AdminController {
         } else {
             throw new UserNotFoundException("Student not found with ID " + studentId);
         }
+    }
+
+    @PutMapping("/delete-user/{userId}")
+    public ResponseEntity<Boolean> deleteUser(@PathVariable Long userId, HttpServletRequest request) {
+        boolean deleted = adminService.softDeleteUser(userId);
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long adminId = jwtService.extractUserId(token);
+        if (userId.equals(adminId)) {
+            throw new IllegalArgumentException ("Admin cannot delete himself!");
+        }
+        if (deleted) {
+            return new ResponseEntity<>(deleted, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(deleted, HttpStatus.BAD_REQUEST);
     }
 }
 

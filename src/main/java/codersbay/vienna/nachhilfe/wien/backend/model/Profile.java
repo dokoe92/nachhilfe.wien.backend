@@ -40,8 +40,12 @@ public class Profile {
 
     @Setter
     @Column(name="average_rating")
-    @Formula("(SELECT AVG(f.rating) FROM feedback f WHERE f.teacher_id = id)")
-    private Double averageRatingScore;
+    private Double averageRatingScore = 0.00;
+
+    @Setter
+    @Column(name="deleted")
+    private Boolean deleted = false;
+
 
     /**
      * Represents the User associated with this profile.
@@ -52,6 +56,5 @@ public class Profile {
     @OneToOne(mappedBy = "profile")
     @JsonBackReference(value="user-profile-reference")
     private User user;
-
 
 }

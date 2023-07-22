@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,6 +18,7 @@ public class FeedbackDTO implements Comparable<FeedbackDTO>{
     private String teacherLastName;
     private String title;
     private String content;
+    @NotNull
     private Integer rating;
     private LocalDate date;
 

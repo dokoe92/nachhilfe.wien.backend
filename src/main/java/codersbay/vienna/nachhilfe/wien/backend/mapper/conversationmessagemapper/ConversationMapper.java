@@ -26,26 +26,31 @@ public class ConversationMapper {
 
 
     public ConversationDTO toDTO(Conversation conversation) {
-       /* Set<MessageDTO> messageDTOS = conversation.getMessages().stream()
-                .map(messageMapper::toDTO)
-                .collect(Collectors.toSet());*/
+        ConversationDTO conversationDTO = new ConversationDTO();
+        conversationDTO.setConversationId(conversation.getId());
 
-        Set <Message> messages = conversation.getMessages();
-        Set<MessageDTO> messageDTOS = new HashSet<>();
-        for (Message message : messages) {
-            if (message.getMessageType() == MessageType.APPOINTMENT) {
-                AppointmentDTO appointmentDTO = appointmentMapper.toDTO((Appointment) message);
-                messageDTOS.add(appointmentDTO);
-            } else {
-                MessageDTO messageDTO = messageMapper.toDTO(message);
-                messageDTOS.add(messageDTO);
+        if (conversation.getMessages() != null) {
+            Set <Message> messages = conversation.getMessages();
+            Set<MessageDTO> messageDTOS = new HashSet<>();
+            for (Message message : messages) {
+                if (message.getMessageType() == MessageType.APPOINTMENT) {
+                    AppointmentDTO appointmentDTO = appointmentMapper.toDTO((Appointment) message);
+                    messageDTOS.add(appointmentDTO);
+                } else {
+                    MessageDTO messageDTO = messageMapper.toDTO(message);
+                    messageDTOS.add(messageDTO);
+                }
             }
+            conversationDTO.setMessages(messageDTOS);
         }
 
+        if (conversation.getUsers() != null) {
+            Set<UserTypeDTO> userTypeDTOS = conversation.getUsers().stream()
+                    .map(userTypeMapper::toDTO)
+                    .collect(Collectors.toSet());
+            conversationDTO.setUsers(userTypeDTOS);
+        }
 
-        Set<UserTypeDTO> userTypeDTOS = conversation.getUsers().stream()
-                .map(userTypeMapper::toDTO)
-                .collect(Collectors.toSet());
-        return new ConversationDTO(conversation.getId(),  userTypeDTOS, messageDTOS );
+        return conversationDTO;
     }
 }

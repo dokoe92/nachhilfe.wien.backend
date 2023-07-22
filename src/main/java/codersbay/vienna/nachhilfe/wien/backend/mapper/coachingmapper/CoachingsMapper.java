@@ -20,9 +20,11 @@ public class CoachingsMapper {
         }
 
         CoachingsDTO coachingsDTO = new CoachingsDTO();
-        coachingsDTO.setCoachings(user.getCoachings().stream()
-                .map(coachingMapper::toDTO)
-                .collect(Collectors.toSet()));
+        if (user.getCoachings() != null) {
+            coachingsDTO.setCoachings(user.getCoachings().stream()
+                    .map(coachingMapper::toDTO)
+                    .collect(Collectors.toSet()));
+        }
 
         return coachingsDTO;
     }

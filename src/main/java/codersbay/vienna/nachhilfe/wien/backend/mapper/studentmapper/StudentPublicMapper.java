@@ -13,7 +13,11 @@ public class StudentPublicMapper {
         studentPublicDTO.setStudentId(student.getId());
         studentPublicDTO.setFirstName(student.getFirstName());
         studentPublicDTO.setLastName(student.getLastName());
-        studentPublicDTO.setImage(student.getProfile().getImageBase64());
+        if (student.getProfile() != null) {
+            studentPublicDTO.setImage(student.getProfile().getImageBase64());
+            studentPublicDTO.setDescription(student.getProfile().getDescription());
+        }
+
 
         return studentPublicDTO;
     }

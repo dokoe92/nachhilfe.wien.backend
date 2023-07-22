@@ -1,5 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherPublicMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
@@ -9,6 +11,7 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.TeacherSearchObject;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -22,6 +25,7 @@ import java.util.Set;
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
+
 
     public List<Teacher> findAllTeachers() {
         return teacherRepository.findAll();
@@ -59,11 +63,15 @@ public class TeacherService {
         return teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher not found!"));
     }
+
+    @Transactional
     public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, boolean active) {
         //find existing teacher by ID
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
+
         if (teacher.isPresent()) {
             Teacher existingTeacher = teacher.get();
+
 
             User user = existingTeacher.getProfile().getUser();
             if (firstName != null) {
@@ -110,4 +118,5 @@ public class TeacherService {
         List<Teacher> teachersFiltered = teacherRepository.filterTeachers(so);
         return teachersFiltered;
     }
+
 }

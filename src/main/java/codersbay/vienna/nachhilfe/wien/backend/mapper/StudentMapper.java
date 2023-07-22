@@ -12,19 +12,6 @@ public class StudentMapper {
 
     private final ProfileMapper profileMapper;
 
-    public Student toEntity(StudentCreationDTO studentDTO) {
-        if (studentDTO == null) {
-            return null;
-        }
-        Student student = new Student();
-        student.setFirstName(studentDTO.getFirstName());
-        student.setLastName(studentDTO.getLastName());
-        student.setBirthdate(studentDTO.getBirthdate());
-        student.setProfile(profileMapper.toEntity(studentDTO.getProfile()));
-
-        return student;
-    }
-
     public StudentCreationDTO toDTO(Student student) {
         if (student == null) {
             return null;
@@ -34,9 +21,29 @@ public class StudentMapper {
         studentDTO.setFirstName(student.getFirstName());
         studentDTO.setLastName(student.getLastName());
         studentDTO.setBirthdate(student.getBirthdate());
-        studentDTO.setProfile(profileMapper.toDTO(student.getProfile()));
+        if (student.getProfile() != null) {
+            studentDTO.setProfile(profileMapper.toDTO(student.getProfile()));
+        }
 
         return studentDTO;
     }
+
+    public Student toEntity(StudentCreationDTO studentDTO) {
+        if (studentDTO == null) {
+            return null;
+        }
+        Student student = new Student();
+        student.setFirstName(studentDTO.getFirstName());
+        student.setLastName(studentDTO.getLastName());
+        student.setBirthdate(studentDTO.getBirthdate());
+
+        if (student.getProfile() != null) {
+            student.setProfile(profileMapper.toEntity(studentDTO.getProfile()));
+        }
+
+        return student;
+    }
+
+
 
 }

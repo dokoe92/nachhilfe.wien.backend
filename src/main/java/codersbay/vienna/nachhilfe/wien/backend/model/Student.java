@@ -11,6 +11,7 @@ import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @DiscriminatorValue(value = "student")
@@ -31,7 +32,7 @@ public class Student extends User {
     @Setter
     @OneToMany(mappedBy = "student")
     @Builder.Default
-    private Set<Appointment> appointments = new HashSet<>();
+    private Set<Appointment> appointments = new TreeSet<>();
 
     public void addFeedback(Feedback feedback) {
         if (feedback == null) {

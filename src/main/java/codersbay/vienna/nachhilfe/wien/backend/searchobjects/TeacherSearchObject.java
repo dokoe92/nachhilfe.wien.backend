@@ -1,6 +1,7 @@
 package codersbay.vienna.nachhilfe.wien.backend.searchobjects;
 
 import codersbay.vienna.nachhilfe.wien.backend.model.Districts;
+import codersbay.vienna.nachhilfe.wien.backend.model.Level;
 import codersbay.vienna.nachhilfe.wien.backend.model.Subject;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,12 @@ public class TeacherSearchObject {
     private Subject subject;
     private Long minRate;
     private Long maxRate;
+    private Level level;
+    private Double rating;
+
+    public boolean isLevelSet() {return this.level != null;}
+
+    public boolean isRatingSet() {return this.rating != null;}
 
     public boolean isMinRateSet() {
         return this.minRate != null;

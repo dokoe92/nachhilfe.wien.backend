@@ -17,6 +17,7 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundE
 import codersbay.vienna.nachhilfe.wien.backend.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,7 +51,7 @@ public class AuthController {
     @Operation(
             description = "Create a student and link a profile"
     )
-    public ResponseEntity<AuthResponse> createStudent(@RequestBody StudentCreationDTO studentDTO) {
+    public ResponseEntity<AuthResponse> createStudent(@Valid @RequestBody StudentCreationDTO studentDTO) {
         AuthResponse auth = authService.createStudentWithProfile(studentMapper.toEntity(studentDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }
@@ -65,7 +66,7 @@ public class AuthController {
     @Operation(
             description = "Create a teacher and link a profile"
     )
-    public ResponseEntity<AuthResponse> createTeacher(@RequestBody TeacherCreationDTO teacherDTO) {
+    public ResponseEntity<AuthResponse> createTeacher(@Valid @RequestBody TeacherCreationDTO teacherDTO) {
         AuthResponse auth = authService.createTeacherWithProfile(teacherMapper.toEntity(teacherDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }
@@ -74,7 +75,7 @@ public class AuthController {
     @Operation(
             description = "Create an admin and link a profile"
     )
-    public ResponseEntity<AuthResponse> createAdmin(@RequestBody AdminDTO adminDTO) {
+    public ResponseEntity<AuthResponse> createAdmin(@Valid @RequestBody AdminDTO adminDTO) {
         AuthResponse auth = authService.createAdminWithProfile(adminMapper.toEntity(adminDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }
@@ -83,7 +84,7 @@ public class AuthController {
     @Operation(
             description = "Login via email and password"
     )
-    public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<AuthResponse> authenticate(@Valid @RequestBody AuthRequest authRequest) {
         AuthResponse authResponse = authService.authenticate(authRequest);
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }

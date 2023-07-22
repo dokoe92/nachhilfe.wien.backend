@@ -44,14 +44,16 @@ public class SecurityConfig{
                         .requestMatchers("/auth/create-teacher").permitAll()
                         .requestMatchers("/auth/create-student").permitAll()
 
-                        .requestMatchers("/user/picture/**").permitAll()
-
                         .requestMatchers("/teacher/update-districts/**").hasRole("TEACHER")
-                        .requestMatchers("/teacher/allTeachers").hasAnyRole("STUDENT", "ADMIN")
-                        .requestMatchers("/teacher/teacher-profiles").permitAll()
-                        .requestMatchers("/teacher/filter-teachers").hasAnyRole("STUDENT", "ADMIN")
+                        .requestMatchers("/teacher/updateTeacher/**").hasRole("TEACHER")
+                        .requestMatchers("/teacher/deleteTeacher/**").hasRole("TEACHER")
+
+
+                        .requestMatchers("/student/updateStudent/**").hasRole("STUDENT")
+                        .requestMatchers("/student/deleteStudent/**").hasRole("STUDENT")
 
                         .requestMatchers("/coaching/offer-coaching/**").hasRole("TEACHER")
+                        .requestMatchers("/coaching/update-coaching/**").hasRole("TEACHER")
 
                         .requestMatchers("/create-conversation/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
 
@@ -59,8 +61,21 @@ public class SecurityConfig{
 
                         .requestMatchers("/appointment/send-appointment/**").hasRole("STUDENT")
                         .requestMatchers("/appointment/update-status/**").hasRole("TEACHER")
+                        .requestMatchers("/appointment/get-appointments/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
+                        .requestMatchers("/appointment/get-appointments-date/**").hasAnyRole("STUDENT", "TEACHER", "ADMIN")
 
                         .requestMatchers("/feedback").hasAnyRole("STUDENT")
+
+                        .requestMatchers("/admin").hasRole("ADMIN")
+                        .requestMatchers("/admin/updateAdmin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/find-user").hasRole("ADMIN")
+                        .requestMatchers("/admin/edit-user/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/active-inactive/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/delete-image/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/delete-feedback/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/deleteAdmin/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/deleteTeacher/**").hasRole("ADMIN")
+                        .requestMatchers("/admin/deleteStudent/**").hasRole("ADMIN")
 
 
                         .anyRequest().authenticated()
@@ -74,7 +89,7 @@ public class SecurityConfig{
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://127.0.0.1:5173"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);

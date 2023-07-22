@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Getter
 @Setter
@@ -17,13 +18,21 @@ public class AppointmentDTO extends MessageDTO {
     private String coachingName;
     private String teacherName;
     private String studentName;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private ZonedDateTime start;
+    private ZonedDateTime end;
     private Status status;
     private Boolean confirmed;
 
-
-    public boolean isConfirmed() {
-        return confirmed;
+    @Override
+    public int compareTo(MessageDTO other) {
+        if (other instanceof AppointmentDTO otherAppointment) {
+            return this.getStart().compareTo(otherAppointment.getStart());
+        } else {
+            // If the other object is not an AppointmentDTO, consider it "greater" for consistent ordering
+            return 1;
+        }
     }
+
+
+
 }

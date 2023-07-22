@@ -22,6 +22,7 @@ import lombok.Setter;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 @Entity
@@ -56,9 +57,9 @@ public class Coaching {
     @OneToMany(mappedBy = "coaching")
     @Setter
     @Builder.Default
-    Set<Appointment> appointments = new HashSet<>();
+    Set<Appointment> appointments = new TreeSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "fk_user_id")
     @Setter
     private User user;

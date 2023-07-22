@@ -20,11 +20,21 @@ public class UserConversationMapper {
     private final ConversationMapper conversationMapper;
     private final MessageMapper messageMapper;
     public UserConversationDTO toDTO(User user) {
+        if (user == null) {
+            return null;
+        }
+        UserConversationDTO userConversationDTO = new UserConversationDTO();
+
         UserTypeDTO userTypeDTO = userTypeMapper.toDTO(user);
-        Set<ConversationDTO> conversations = user.getConversations().stream()
-                .map(conversationMapper::toDTO)
-                .collect(Collectors.toSet());
-        return new UserConversationDTO(user.getId(),userTypeMapper.toDTO(user), conversations);
+        userConversationDTO.setUserType(userTypeDTO);
+        userConversationDTO.setUserId(user.getId());
+         if (user.getConversations() != null) {
+             Set<ConversationDTO> conversations = user.getConversations().stream()
+                     .map(conversationMapper::toDTO)
+                     .collect(Collectors.toSet());
+             userConversationDTO.setConversations(conversations);
+         }
+        return userConversationDTO;
     }
 
 }

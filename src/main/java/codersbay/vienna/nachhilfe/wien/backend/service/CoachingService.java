@@ -95,6 +95,10 @@ public class CoachingService {
         Coaching remainingCoaching = coachingRepository.findById(coachingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Coaching not found!"));
 
+        if (remainingCoaching.getUser() == null) {
+            return null;
+        }
+
         if (!remainingCoaching.getUser().getId().equals(teacherId)) {
             throw new UserNotAuthorizedException("Teacher doesnt own this coaching!");
         }
@@ -104,7 +108,7 @@ public class CoachingService {
         }
 
         if (!request.getActive()) {
-            remainingCoaching.setActive(request.getActive());
+            remainingCoaching.setActive(false);
             coachingRepository.save(remainingCoaching);
             return coachingMapper.toDTO(remainingCoaching);
         }

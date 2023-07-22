@@ -8,7 +8,7 @@ import lombok.Setter;
 import java.util.HashSet;
 import java.util.Set;
 
-@AllArgsConstructor
+
 @Getter
 @Setter
 public class UserConversationDTO {

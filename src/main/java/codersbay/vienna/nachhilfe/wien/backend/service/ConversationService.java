@@ -4,19 +4,20 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.Conver
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.UserConversationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserConversationMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.UserTypeMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Conversation;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +27,7 @@ public class ConversationService {
     private final UserRepository userRepository;
     private final ConversationMapper conversationMapper;
     private final UserConversationMapper userConversationMapper;
+    private final UserTypeMapper userTypeMapper;
 
     /**
      * Creates a conversation between two users.
@@ -34,6 +36,7 @@ public class ConversationService {
      * @return the created Conversation object
      * @throws UserNotFoundException if at least one user is not found
      */
+    @Transactional
     public Conversation createConversation(Set<Long> userIds) {
         Set<User> users = new HashSet<>(userRepository.findAllById(userIds));;
         if (users.size() < 2) {
@@ -52,17 +55,28 @@ public class ConversationService {
         return conversation;
     }
 
+    // DELETE ???
     public ConversationDTO findConversationById(Long id) {
         Conversation conversation = conversationRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
         return conversationMapper.toDTO(conversation);
     }
 
+    /*
     public UserConversationDTO findConversationsOfUser(Long id) {
         User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
         return userConversationMapper.toDTO(user);
-    }
+    }*/
 
+    public UserConversationDTO findConversationsOfUser(Long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found!"));
+        List<Conversation> conversations = conversationRepository.findUserConversationsOrderByLatestMessage(user.getId());
+        UserConversationDTO userConversationDTO = new UserConversationDTO();
+        userConversationDTO.setUserId(user.getId());
+        userConversationDTO.setConversations(conversations.stream().map(conversationMapper::toDTO).collect(Collectors.toCollection(LinkedHashSet::new)));
+        userConversationDTO.setUserType(userTypeMapper.toDTO(user));
+        return userConversationDTO;
+    }
 
     /**
      * Finds a conversation between two users identified by their IDs.
@@ -75,6 +89,9 @@ public class ConversationService {
     public Optional<Conversation> findConversationOfUsers(Long id1, Long id2) throws IllegalArgumentException {
         User user1 = userRepository.findById(id1).orElseThrow(() -> new IllegalArgumentException("User with id " + id1 + " not found"));
         User user2 = userRepository.findById(id2).orElseThrow(() -> new IllegalArgumentException("User with id " + id2 + " not found"));
+        if (user1.getConversations() == null) {
+            return Optional.empty();
+        }
         return user1.getConversations().stream()
                 .filter(conversation -> conversation.getUsers().contains(user2))
                 .findFirst();

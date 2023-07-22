@@ -13,6 +13,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Setter
@@ -32,7 +33,7 @@ public class AuthResponse {
     Double averageRatingScore;
     Set<FeedbackDTO> feedbacks = new HashSet<>();
     Set<CoachingDTO> coachings = new HashSet<>();
-    Set<ConversationDTO> conversations = new HashSet<>();
+    Set<ConversationDTO> conversations = new LinkedHashSet<>();
     Set<Districts> districts = new HashSet<>();
     Set<Subject> availableSubjects = new HashSet<>();
 }

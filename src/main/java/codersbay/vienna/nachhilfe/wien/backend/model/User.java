@@ -3,6 +3,7 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -57,7 +58,7 @@ public abstract class User implements UserDetails {
     @Setter
     @OneToOne
     @JoinColumn(name="fk_profile_id", nullable = false)
-    @JsonManagedReference
+    @JsonManagedReference(value="user-profile-reference")
     private Profile profile;
 
     @Setter
@@ -87,6 +88,7 @@ public abstract class User implements UserDetails {
     @JsonIgnore
     @Builder.Default
     private Set<Conversation> conversations = new HashSet<>();
+
 
 
     // SPRING SECURITY

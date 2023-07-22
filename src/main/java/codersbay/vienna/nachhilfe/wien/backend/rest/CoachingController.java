@@ -17,6 +17,7 @@ import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -56,25 +57,16 @@ public class CoachingController {
     @Operation(
             description = "Add a coaching which will be offered by a teacher"
     )
-    public ResponseEntity<Set<CoachingDTO>> createCoachings(@RequestBody CoachingsDTO coachingsDTO,
+    public ResponseEntity<Set<CoachingDTO>> createCoachings(@Valid @RequestBody CoachingsDTO coachingsDTO,
                                                             @PathVariable Long teacherId,
                                                             HttpServletRequest request
                                                          ) {
-
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long userId = jwtService.extractUserId(token);
         if (!userId.equals(teacherId)) {
             throw new UserNotAuthorizedException("User not authorized!");
         }
         Set<CoachingDTO> savedCoachingDTO = coachingService.createCoachings(coachingsDTO, teacherId);
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String savedCoachingJson = objectMapper.writeValueAsString(savedCoachingDTO);
-            log.info("Response: " + savedCoachingJson);
-        } catch (JsonProcessingException ex) {
-            log.error("Error while converting savedCoachingDTO to JSON " +ex );
-        }
 
         return new ResponseEntity<>(savedCoachingDTO, HttpStatus.CREATED);
     }
