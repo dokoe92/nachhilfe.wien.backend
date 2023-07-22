@@ -55,8 +55,8 @@ VALUES ('student', 'Alex', 'Turner', '2005-01-01', 11, 'ROLE_STUDENT'),
        ('student', 'Kurt', 'Cobain', '1996-10-01', 20, 'ROLE_STUDENT');
 
 
-INSERT into profile(password, email, picture, description, active, average_rating)
-    values ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'admin01@example.com', null, 'Control everything!', true, null);
+INSERT into profile(password, email, picture, description, active, average_rating, deleted)
+    values ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'admin01@example.com', null, 'Control everything!', true, null, false);
 
 INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id, role)
     values ('admin', 'Der', 'Administrator', null, '21', 'ROLE_ADMIN');
