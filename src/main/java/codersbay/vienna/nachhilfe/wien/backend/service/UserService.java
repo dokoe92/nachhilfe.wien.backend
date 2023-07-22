@@ -47,8 +47,12 @@ public class UserService {
 
     public boolean softDeleteUser(Long userId) {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        if (user instanceof Admin) {
+            throw new IllegalArgumentException("Admin not deletable!");
+        }
         Profile userProfile = user.getProfile();
         userProfile.setDeleted(true);
+        profileRepository.save(userProfile);
         return true;
     }
 

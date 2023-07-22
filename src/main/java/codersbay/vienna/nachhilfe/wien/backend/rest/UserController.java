@@ -91,7 +91,7 @@ public class UserController {
     }
 
     @PutMapping("delete/{userId}")
-    public ResponseEntity<Boolean> softDeleteUser(@PathVariable Long userId, HttpServletRequest request) {
+    public ResponseEntity<String> softDeleteUser(@PathVariable Long userId, HttpServletRequest request) {
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long id = jwtService.extractUserId(token);
         if (!userId.equals(id)) {
@@ -99,7 +99,7 @@ public class UserController {
         }
 
         boolean softDeleted = userService.softDeleteUser(userId);
-        return new ResponseEntity<>(softDeleted, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("User deleted", HttpStatus.NO_CONTENT);
     }
 
 

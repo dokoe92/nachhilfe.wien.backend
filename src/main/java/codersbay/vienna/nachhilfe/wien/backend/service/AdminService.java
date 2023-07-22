@@ -194,4 +194,12 @@ public class AdminService {
         }
         return false;
     }
+
+    public boolean softDeleteUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
+        Profile userProfile = user.getProfile();
+        userProfile.setDeleted(true);
+        profileRepository.save(userProfile);
+        return true;
+    }
 }

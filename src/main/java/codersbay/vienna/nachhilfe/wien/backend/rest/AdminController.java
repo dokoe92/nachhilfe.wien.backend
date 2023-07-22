@@ -135,6 +135,20 @@ public class AdminController {
             throw new UserNotFoundException("Student not found with ID " + studentId);
         }
     }
+
+    @PutMapping("/delete-user/{userId}")
+    public ResponseEntity<Boolean> deleteUser(@PathVariable Long userId, HttpServletRequest request) {
+        boolean deleted = adminService.softDeleteUser(userId);
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long adminId = jwtService.extractUserId(token);
+        if (userId.equals(adminId)) {
+            throw new IllegalArgumentException ("Admin cannot delete himself!");
+        }
+        if (deleted) {
+            return new ResponseEntity<>(deleted, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(deleted, HttpStatus.BAD_REQUEST);
+    }
 }
 
 
