@@ -43,7 +43,7 @@ public class UserMapper {
             if (((Student) user).getFeedbacks() != null) {
                 findUserDTO.setFeedbacks(((Student) user).getFeedbacks().stream().
                         map(feedbackMapper::toDTO)
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toCollection(TreeSet::new)));
             }
         }
         if (user instanceof Teacher) {
