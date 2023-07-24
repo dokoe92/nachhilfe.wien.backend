@@ -23,6 +23,7 @@ public class UserDTO {
     String lastName;
     LocalDate birthdate;
     ProfileDTO profile;
+    Boolean deleted;
     Set<FeedbackDTO> feedbacks = new TreeSet<>();
     Set<CoachingDTO> coachings = new HashSet<>();
     Set<Districts> districts = new HashSet<>();

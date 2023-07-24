@@ -80,6 +80,11 @@ public class AdminService {
         if (search.getId() != null && search.getEmail() == null) {
             User user = userRepository.findById(search.getId())
                     .orElseThrow(() ->  new ResourceNotFoundException("User not found!"));
+            if (user.getProfile() != null) {
+                if (user.getProfile().getDeleted()) {
+                    throw new UserNotFoundException("User not found or deleted!");
+                }
+            }
             if (user instanceof Admin) {
                 throw new UserNotAuthorizedException("Admins not authorized to edit other admins!");
             } else {
@@ -197,6 +202,7 @@ public class AdminService {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found!"));
         Profile userProfile = user.getProfile();
         userProfile.setDeleted(true);
+        userProfile.setActive(false);
         profileRepository.save(userProfile);
         return true;
     }

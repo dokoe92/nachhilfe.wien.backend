@@ -52,6 +52,7 @@ public class UserService {
         }
         Profile userProfile = user.getProfile();
         userProfile.setDeleted(true);
+        userProfile.setActive(false);
         profileRepository.save(userProfile);
         return true;
     }
