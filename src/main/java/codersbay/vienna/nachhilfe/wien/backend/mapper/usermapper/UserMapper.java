@@ -25,7 +25,9 @@ public class UserMapper {
 
         UserDTO findUserDTO = new UserDTO();
         findUserDTO.setUserId(user.getId());
-        findUserDTO.setProfileId(user.getProfile().getId());
+        if (user.getProfile() != null) {
+            findUserDTO.setProfileId(user.getProfile().getId());
+        }
         findUserDTO.setUserType(user.getUserType());
         findUserDTO.setFirstName(user.getFirstName());
         findUserDTO.setLastName(user.getLastName());

@@ -145,9 +145,9 @@ public class AdminController {
             throw new IllegalArgumentException ("Admin cannot delete himself!");
         }
         if (deleted) {
-            return new ResponseEntity<>(deleted, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(deleted, HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(deleted, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(deleted, HttpStatus.NOT_FOUND);
     }
 }
 
