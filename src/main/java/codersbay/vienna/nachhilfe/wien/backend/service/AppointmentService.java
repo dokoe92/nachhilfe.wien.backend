@@ -8,20 +8,16 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.DuplicatedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
-import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.server.ResponseStatusException;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.*;
 
 @RequiredArgsConstructor

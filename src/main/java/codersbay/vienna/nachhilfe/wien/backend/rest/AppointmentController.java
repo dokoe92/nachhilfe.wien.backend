@@ -2,8 +2,6 @@ package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
-import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
-import codersbay.vienna.nachhilfe.wien.backend.model.Appointment;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.service.AppointmentService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

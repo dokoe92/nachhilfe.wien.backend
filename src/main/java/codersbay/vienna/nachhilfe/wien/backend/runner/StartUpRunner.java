@@ -2,10 +2,8 @@ package codersbay.vienna.nachhilfe.wien.backend.runner;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
-import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
-import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.service.AuthService;
 import lombok.RequiredArgsConstructor;

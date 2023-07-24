@@ -17,9 +17,6 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundE
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;

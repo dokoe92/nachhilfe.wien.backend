@@ -1,14 +1,12 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
-import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
+import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
+import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingsMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.ConversationMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.*;
-import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
-import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.respository.*;
 import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
@@ -17,10 +15,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.EnumSet;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static codersbay.vienna.nachhilfe.wien.backend.model.Role.ROLE_TEACHER;

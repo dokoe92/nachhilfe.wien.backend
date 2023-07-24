@@ -1,10 +1,11 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.MessageDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.AppointmentMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.conversationmessagemapper.MessageMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.*;
+import codersbay.vienna.nachhilfe.wien.backend.model.Conversation;
+import codersbay.vienna.nachhilfe.wien.backend.model.Message;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.AppointmentRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.CoachingRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
@@ -14,11 +15,8 @@ import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundE
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.AuthenticationException;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 

@@ -1,7 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.userdto;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.ConversationDTO;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 

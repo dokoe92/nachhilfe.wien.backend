@@ -1,7 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto;
 
 import codersbay.vienna.nachhilfe.wien.backend.model.Subject;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.Getter;

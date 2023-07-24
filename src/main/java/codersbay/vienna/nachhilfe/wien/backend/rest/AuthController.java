@@ -3,14 +3,13 @@ package codersbay.vienna.nachhilfe.wien.backend.rest;
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
 import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.AdminDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
+import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper.AdminMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
-import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
@@ -23,8 +22,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.file.AccessDeniedException;
 
 @RestController
 @RequestMapping("/auth")

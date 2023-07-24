@@ -1,7 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
-import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.AppointmentDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.MessageDTO;
 import codersbay.vienna.nachhilfe.wien.backend.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;

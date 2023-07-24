@@ -1,14 +1,14 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.ProfileDTO;
-import codersbay.vienna.nachhilfe.wien.backend.model.*;
+import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
+import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

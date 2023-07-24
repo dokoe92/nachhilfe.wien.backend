@@ -2,7 +2,6 @@ package codersbay.vienna.nachhilfe.wien.backend.mapper.studentmapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentPublicDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
-import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import org.springframework.stereotype.Component;
 
 @Component

@@ -1,6 +1,5 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 @Getter

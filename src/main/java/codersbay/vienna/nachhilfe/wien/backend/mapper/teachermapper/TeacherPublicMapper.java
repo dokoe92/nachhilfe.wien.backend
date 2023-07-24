@@ -3,10 +3,8 @@ package codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbacksMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
-import codersbay.vienna.nachhilfe.wien.backend.service.TeacherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 

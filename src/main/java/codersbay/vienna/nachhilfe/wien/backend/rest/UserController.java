@@ -10,7 +10,6 @@ import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.ProfileMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
-import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.service.ImageService;

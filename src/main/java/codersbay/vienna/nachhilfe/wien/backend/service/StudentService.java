@@ -1,14 +1,14 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.*;
+import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
+import codersbay.vienna.nachhilfe.wien.backend.model.Student;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service

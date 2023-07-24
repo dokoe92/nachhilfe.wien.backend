@@ -3,7 +3,6 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Formula;
 
 @Entity
 @Table(name="profile")

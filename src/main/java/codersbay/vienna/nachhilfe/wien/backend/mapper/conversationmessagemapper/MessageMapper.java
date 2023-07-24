@@ -4,7 +4,6 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.Messag
 import codersbay.vienna.nachhilfe.wien.backend.model.Message;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
-import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;

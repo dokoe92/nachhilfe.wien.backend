@@ -1,10 +1,10 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherPublicMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.TeacherUpdateRequest;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;

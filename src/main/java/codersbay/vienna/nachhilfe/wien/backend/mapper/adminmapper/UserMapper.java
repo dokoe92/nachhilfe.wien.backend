@@ -1,16 +1,17 @@
 package codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.UserDTO;
-import codersbay.vienna.nachhilfe.wien.backend.dto.feedbackdto.FeedbackDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.coachingmapper.CoachingMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.feedbackmapper.FeedbackMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper.ProfileMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.*;
+import codersbay.vienna.nachhilfe.wien.backend.model.Student;
+import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collector;
+import java.util.HashSet;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Component

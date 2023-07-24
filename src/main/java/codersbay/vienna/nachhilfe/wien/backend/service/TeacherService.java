@@ -1,24 +1,19 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherPublicDTO;
-import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherPublicMapper;
-import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.searchobjects.TeacherSearchObject;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
