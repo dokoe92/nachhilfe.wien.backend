@@ -37,7 +37,7 @@ public class StudentMapper {
         student.setLastName(studentDTO.getLastName());
         student.setBirthdate(studentDTO.getBirthdate());
 
-        if (student.getProfile() != null) {
+        if (studentDTO.getProfile() != null) {
             student.setProfile(profileMapper.toEntity(studentDTO.getProfile()));
         }
 
