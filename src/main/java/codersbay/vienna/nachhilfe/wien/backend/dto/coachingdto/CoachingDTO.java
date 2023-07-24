@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class CoachingDTO {
+public class CoachingDTO implements Comparable<CoachingDTO>{
 
     private Long coachingId;
     private Long teacherId;
@@ -19,4 +19,9 @@ public class CoachingDTO {
     @Positive
     private Double rate;
     private Boolean active;
+
+    @Override
+    public int compareTo(CoachingDTO coachingDTO) {
+        return this.subject.name().compareToIgnoreCase(coachingDTO.subject.name());
+    }
 }

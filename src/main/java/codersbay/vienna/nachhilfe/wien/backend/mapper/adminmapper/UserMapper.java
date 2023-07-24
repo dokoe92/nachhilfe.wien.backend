@@ -56,7 +56,7 @@ public class UserMapper {
             }
         }
         if (user.getCoachings() != null) {
-            findUserDTO.setCoachings(user.getCoachings().stream().map(coachingMapper::toDTO).collect(Collectors.toSet()));
+            findUserDTO.setCoachings(user.getCoachings().stream().map(coachingMapper::toDTO).collect(Collectors.toCollection(TreeSet::new)));
         }
 
 

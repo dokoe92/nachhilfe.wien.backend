@@ -8,6 +8,7 @@ import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,7 +39,7 @@ public class TeacherPublicMapper {
                 teacherPublicDTO.setFeedbacks(teacher.getFeedbacks()
                         .stream()
                         .map(feedbackMapper::toDTO)
-                        .collect(Collectors.toSet()));
+                        .collect(Collectors.toCollection(TreeSet::new)));
             }
         }
 
@@ -47,7 +48,7 @@ public class TeacherPublicMapper {
         if (teacher.getCoachings() != null) {
             teacherPublicDTO.setCoachings(teacher.getCoachings()
                     .stream().map(coachingMapper::toDTO)
-                    .collect(Collectors.toSet()));
+                    .collect(Collectors.toCollection(TreeSet::new)));
         }
 
         return teacherPublicDTO;

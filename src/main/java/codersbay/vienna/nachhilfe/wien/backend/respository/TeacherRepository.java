@@ -25,4 +25,6 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long> {
 
     @Query("SELECT AVG(f.rating) FROM Feedback f WHERE f.teacher.id = :teacherId")
     Double findAverageRating(Long teacherId);
+
+
 }

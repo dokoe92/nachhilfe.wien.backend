@@ -25,6 +25,6 @@ public class UserDTO {
     ProfileDTO profile;
     Boolean deleted;
     Set<FeedbackDTO> feedbacks = new TreeSet<>();
-    Set<CoachingDTO> coachings = new HashSet<>();
+    Set<CoachingDTO> coachings = new TreeSet<>();
     Set<Districts> districts = new HashSet<>();
 }
