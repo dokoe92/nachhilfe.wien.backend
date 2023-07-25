@@ -23,6 +23,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
 
@@ -73,16 +74,19 @@ public class UserController {
                                                         @RequestBody Map<String, String> imageData,
                                                         HttpServletRequest request) {
 
-
-        String imageBase64 = imageData.get("image" );
-        imageService.checkBase64(imageBase64, 3000000);
-
         User user = userService.findById(id).orElseThrow(() -> new UserNotFoundException("User with the id " + id + " not found."));
 
         String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
         Long userId = jwtService.extractUserId(token);
         if (!userId.equals(id)) {
             throw new UserNotAuthorizedException("User not authorized!");
+        }
+
+        String imageBase64 = imageData.get("image");
+        try {
+            imageBase64 = imageService.checkBase64(imageBase64, 3000000);
+        } catch (IOException exception) {
+            throw new IllegalArgumentException("Image not suitable!");
         }
 
         userService.updateProfilePicture(userId, imageBase64);
