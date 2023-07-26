@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto;
 
+import codersbay.vienna.nachhilfe.wien.backend.model.Level;
 import codersbay.vienna.nachhilfe.wien.backend.model.Subject;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
@@ -14,7 +15,7 @@ public class CoachingDTO implements Comparable<CoachingDTO>{
     private Long teacherId;
     @NotNull
     private Subject subject;
-    private String level;
+    private Level level;
     @NotNull
     @Positive
     private Double rate;
