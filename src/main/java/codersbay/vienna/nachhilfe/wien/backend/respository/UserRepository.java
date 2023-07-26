@@ -13,4 +13,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
             "inner join u.profile p " +
             "where p.email = :email")
     Optional<User> findByEmail(@Param("email") String email);
+
+    Optional<User> findByIdAndProfile_ActiveTrue(Long id);
 }

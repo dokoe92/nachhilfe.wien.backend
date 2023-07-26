@@ -22,7 +22,7 @@ public class UserService {
 
 
     public Optional<User> findById(Long userId) {
-        Optional<User> user = userRepository.findById(userId);
+        Optional<User> user = userRepository.findByIdAndProfile_ActiveTrue(userId);
         if (user.isPresent()) {
             return user;
         } else {

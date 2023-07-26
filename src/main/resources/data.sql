@@ -137,22 +137,22 @@ VALUES (3,5),
 
 -- Insert Coaching
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('MATHEMATIK', 'Oberstufe', 20.00, true, 1);
+values ('Mathematik', 'Unterstufe', 20.00, true, 1);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('DEUTSCH', 'Mittelstufe', 25.00, true, 1);
+values ('Französisch', 'Berufsbildende_Mittlere_Schule', 25.00, true, 1);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('ENGLISCH', 'Oberstufe', 30.00, true, 1);
+values ('Rechnungswesen', 'Berufsbildende_Höhere_Schule', 30.00, true, 1);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('MATHEMATIK', 'Oberstufe', 10.00, true, 2);
+values ('Rechnungswesen', 'Berufsbildende_Höhere_Schule', 10.00, true, 2);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('DEUTSCH', 'Mittelstufe', 15.00, true, 2);
+values ('Rechnungswesen', 'Berufsreifeprüfung', 15.00, true, 2);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('ENGLISCH', 'Oberstufe', 30.00, true, 3);
+values ('Rechnungswesen', 'Allgemeine_Höhere_Schule', 30.00, true, 3);
 
 
 
