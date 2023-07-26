@@ -1,7 +1,11 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
 public enum Subject {
-    MATHEMATIK,
-    DEUTSCH,
-    ENGLISCH;
+    Deutsch,
+    Englisch,
+    Spanisch,
+    Französisch,
+    Chemie,
+    Mathematik,
+    Rechnungswesen
 }
