@@ -23,7 +23,7 @@ public class TeacherService {
 
 
     public List<Teacher> findAllTeachers() {
-        return teacherRepository.findAll();
+        return teacherRepository.findAllActive();
     }
 
 
@@ -51,7 +51,7 @@ public class TeacherService {
     }
 
     public List<Teacher> getAllTeachersPublic() {
-        return teacherRepository.findAll();
+        return teacherRepository.findAllActive();
     }
 
     public Teacher findTeacherById(Long id) {
