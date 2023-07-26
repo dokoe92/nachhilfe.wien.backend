@@ -1,0 +1,14 @@
+### Filter Teachers
+POST http://localhost:8080/teacher/filter-teachers
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjExLCJzdWIiOiJzdHVkZW50MDFAZXhhbXBsZS5jb20iLCJpYXQiOjE2ODg0NjI3NzgsImV4cCI6MTY4ODQ2NDIxOH0.11XayYR8-xja5An0TKhaNe9U5rGR610fmeZI2y4uSuI
+
+{
+  "districts": [
+    "DISTRICT_1010",
+    "DISTRICT_1040"
+  ],
+  "subject": "MATHEMATIK",
+  "minRate": 10.00,
+  "maxRate": 30.00
+}

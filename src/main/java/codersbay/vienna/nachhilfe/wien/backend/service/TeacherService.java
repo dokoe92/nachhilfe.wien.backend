@@ -1,29 +1,29 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.Coaching;
+import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
 import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
-import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherDistricts;
 import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.searchobjects.TeacherSearchObject;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class TeacherService {
 
     private final TeacherRepository teacherRepository;
-    private Set<Coaching> coachings;
+
 
     public List<Teacher> findAllTeachers() {
-        return teacherRepository.findAll();
+        return teacherRepository.findAllActive();
     }
 
 
@@ -38,7 +38,7 @@ public class TeacherService {
     public TeacherDistricts updateTeacherDistricts(TeacherDistricts teacherDistricts, Long teacherId) {
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
         if (teacher.isEmpty()) {
-            throw new ResourceNotFoundException("Teacher with id " + teacherDistricts.getTeacherId() + " not found");
+            throw new ResourceNotFoundException("Teacher with id " + teacherDistricts.getTeacherId() + " not found or inactive");
         }
         teacher.get().getDistricts().clear();
         teacher.get().getDistricts().addAll(teacherDistricts.getDistricts());
@@ -51,31 +51,44 @@ public class TeacherService {
     }
 
     public List<Teacher> getAllTeachersPublic() {
-        return teacherRepository.findAll();
+        return teacherRepository.findAllActive();
     }
 
     public Teacher findTeacherById(Long id) {
         return teacherRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Teacher not found!"));
     }
-    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, String email, boolean active) {
+
+    @Transactional
+    public Teacher updateTeacher(Long teacherId, String firstName, String lastName, String description, String password, boolean active) {
         //find existing teacher by ID
         Optional<Teacher> teacher = teacherRepository.findById(teacherId);
+
         if (teacher.isPresent()) {
             Teacher existingTeacher = teacher.get();
 
+
             User user = existingTeacher.getProfile().getUser();
+            if (firstName != null) {
             user.setFirstName(firstName);
-            user.setLastName(lastName);
-            user.setCoachings(coachings);
+            }
+
+            if (lastName != null) {
+                user.setLastName(lastName);
+            }
 
             Profile profile = existingTeacher.getProfile();
 
             //Update the properties of the existing teacher with the updated values
-            profile.setActive(active);
-            profile.setDescription(description);
-            profile.setPassword(password);
-            profile.setEmail(email);
+            if (active) {
+            profile.setActive(true);
+            }
+            if (description != null) {
+                profile.setDescription(description);
+            }
+            if (password != null) {
+                profile.setPassword(password);
+            }
 
             teacherRepository.save(existingTeacher);
 
@@ -95,4 +108,10 @@ public class TeacherService {
             return false;
         }
     }
+
+    public List<Teacher> filterTeacher(TeacherSearchObject so) {
+        List<Teacher> teachersFiltered = teacherRepository.filterTeachers(so);
+        return teachersFiltered;
+    }
+
 }

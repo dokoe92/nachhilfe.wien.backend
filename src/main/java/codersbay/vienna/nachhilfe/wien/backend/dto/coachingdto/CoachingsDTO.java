@@ -1,5 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.dto.coachingdto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,5 +11,6 @@ import java.util.Set;
 @Setter
 public class CoachingsDTO {
 
+    @NotNull
     Set<CoachingDTO> coachings = new HashSet<>();
 }

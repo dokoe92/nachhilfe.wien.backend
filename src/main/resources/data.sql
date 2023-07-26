@@ -1,27 +1,27 @@
 -- Insert 10 Teachers
-INSERT INTO profile(password, email, picture, description, active, average_rating)
-VALUES ('password', 'john01@example.com', null, 'I love studying!', true, 4.5),
-       ('password', 'jane02@example.com', null, 'Experienced teacher!', true, 4.7),
-       ('password', 'mark03@example.com', null, 'I love teaching!', true, 4.6),
-       ('password', 'susan04@example.com', null, 'Committed to excellence in teaching!', true, 4.8),
-       ('password', 'peter05@example.com', null, 'Teaching is my passion!', true, 4.7),
-       ('password', 'lucy06@example.com', null, 'Inspiring young minds!', true, 4.6),
-       ('password', 'jack07@example.com', null, 'Making complex concepts simple!', true, 4.9),
-       ('password', 'alice08@example.com', null, 'Believe in lifelong learning!', true, 4.8),
-       ('password', 'josh09@example.com', null, 'Creating an inclusive learning environment!', true, 4.7),
-       ('password', 'emma10@example.com', null, 'Adaptive teaching style!', true, 4.6);
+INSERT INTO profile(password, email, picture, description, active, average_rating, deleted)
+VALUES ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'john01@example.com', '1234', 'I love studying!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'jane02@example.com', null, 'Experienced teacher!', true, 4.7, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'mark03@example.com', null, 'I love teaching!', true, 4.6, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'susan04@example.com', null, 'Committed to excellence in teaching!', true, 4.8, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'peter05@example.com', null, 'Teaching is my passion!', true, 4.7, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'lucy06@example.com', null, 'Inspiring young minds!', true, 4.6, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'jack07@example.com', null, 'Making complex concepts simple!', true, 4.9, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'alice08@example.com', null, 'Believe in lifelong learning!', true, 4.8, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'josh09@example.com', null, 'Creating an inclusive learning environment!', true, 4.7, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'emma10@example.com', null, 'Adaptive teaching style!', true, 4.6, false);
 
-INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id)
-VALUES ('teacher', 'John', 'Doe', '2000-01-01', 1),
-       ('teacher', 'Jane', 'Smith', '1980-01-01', 2),
-       ('teacher', 'Mark', 'Johnson', '1981-02-01', 3),
-       ('teacher', 'Susan', 'Williams', '1982-03-01', 4),
-       ('teacher', 'Peter', 'Brown', '1983-04-01', 5),
-       ('teacher', 'Lucy', 'Jones', '1984-05-01', 6),
-       ('teacher', 'Jack', 'Miller', '1985-06-01', 7),
-       ('teacher', 'Alice', 'Davis', '1986-07-01', 8),
-       ('teacher', 'Josh', 'Garcia', '1987-08-01', 9),
-       ('teacher', 'Emma', 'Rodriguez', '1988-09-01', 10);
+INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id, role)
+VALUES ('teacher', 'John', 'Doe', '2000-01-01', 1, 'ROLE_TEACHER'),
+       ('teacher', 'Jane', 'Smith', '1980-01-01', 2, 'ROLE_TEACHER'),
+       ('teacher', 'Mark', 'Johnson', '1981-02-01', 3, 'ROLE_TEACHER'),
+       ('teacher', 'Susan', 'Williams', '1982-03-01', 4, 'ROLE_TEACHER'),
+       ('teacher', 'Peter', 'Brown', '1983-04-01', 5, 'ROLE_TEACHER'),
+       ('teacher', 'Lucy', 'Jones', '1984-05-01', 6, 'ROLE_TEACHER'),
+       ('teacher', 'Jack', 'Miller', '1985-06-01', 7, 'ROLE_TEACHER'),
+       ('teacher', 'Alice', 'Davis', '1986-07-01', 8, 'ROLE_TEACHER'),
+       ('teacher', 'Josh', 'Garcia', '1987-08-01', 9, 'ROLE_TEACHER'),
+       ('teacher', 'Emma', 'Rodriguez', '1988-09-01', 10, 'ROLE_TEACHER');
 
 -- Insert Districts to teachers
 INSERT INTO districts(teacher_id, districts) VALUES
@@ -29,31 +29,37 @@ INSERT INTO districts(teacher_id, districts) VALUES
 
 
 -- Insert 10 Student Profiles
-INSERT INTO profile(password, email, picture, description, active, average_rating)
-VALUES ('password', 'student01@example.com', null, 'Eager to learn!', true, null),
-       ('password', 'student02@example.com', null, 'Learning is fun!', true, null),
-       ('password', 'student03@example.com', null, 'I love studying!', true, null),
-       ('password', 'student04@example.com', null, 'Strive to improve!', true, null),
-       ('password', 'student05@example.com', null, 'Hardworking student!', true, null),
-       ('password', 'student06@example.com', null, 'Learning never stops!', true, null),
-       ('password', 'student07@example.com', null, 'Ready to learn!', true, null),
-       ('password', 'student08@example.com', null, 'Believe in self-improvement!', true, null),
-       ('password', 'student09@example.com', null, 'Passionate about learning!', true, null),
-       ('password', 'student10@example.com', null, 'Always ready for a challenge!', true, null);
+INSERT INTO profile(password, email, picture, description, active, average_rating, deleted)
+VALUES ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student01@example.com', null, 'Eager to learn!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student02@example.com', null, 'Learning is fun!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student03@example.com', null, 'I love studying!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student04@example.com', null, 'Strive to improve!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student05@example.com', null, 'Hardworking student!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student06@example.com', null, 'Learning never stops!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student07@example.com', null, 'Ready to learn!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student08@example.com', null, 'Believe in self-improvement!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student09@example.com', null, 'Passionate about learning!', true, null, false),
+       ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'student10@example.com', null, 'Always ready for a challenge!', true, null, false);
 
 -- Insert 10 Students
-INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id)
-VALUES ('student', 'Alex', 'Turner', '2005-01-01', 11),
-       ('student', 'Ben', 'Harper', '2004-02-01', 12),
-       ('student', 'Chris', 'Martin', '2003-03-01', 13),
-       ('student', 'Dave', 'Grohl', '2002-04-01', 14),
-       ('student', 'Eddie', 'Vedder', '2001-05-01', 15),
-       ('student', 'Freddie', 'Mercury', '2000-06-01', 16),
-       ('student', 'George', 'Harrison', '1999-07-01', 17),
-       ('student', 'Iggy', 'Pop', '1998-08-01', 18),
-       ('student', 'Jack', 'White', '1997-09-01', 19),
-       ('student', 'Kurt', 'Cobain', '1996-10-01', 20);
+INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id, role)
+VALUES ('student', 'Alex', 'Turner', '2005-01-01', 11, 'ROLE_STUDENT'),
+       ('student', 'Ben', 'Harper', '2004-02-01', 12, 'ROLE_STUDENT'),
+       ('student', 'Chris', 'Martin', '2003-03-01', 13, 'ROLE_STUDENT'),
+       ('student', 'Dave', 'Grohl', '2002-04-01', 14, 'ROLE_STUDENT'),
+       ('student', 'Eddie', 'Vedder', '2001-05-01', 15, 'ROLE_STUDENT'),
+       ('student', 'Freddie', 'Mercury', '2000-06-01', 16, 'ROLE_STUDENT'),
+       ('student', 'George', 'Harrison', '1999-07-01', 17, 'ROLE_STUDENT'),
+       ('student', 'Iggy', 'Pop', '1998-08-01', 18, 'ROLE_STUDENT'),
+       ('student', 'Jack', 'White', '1997-09-01', 19, 'ROLE_STUDENT'),
+       ('student', 'Kurt', 'Cobain', '1996-10-01', 20, 'ROLE_STUDENT');
 
+
+INSERT into profile(password, email, picture, description, active, average_rating, deleted)
+    values ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'admin01@example.com', null, 'Control everything!', true, null, false);
+
+INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id, role)
+    values ('admin', 'Der', 'Administrator', null, '21', 'ROLE_ADMIN');
 
 -- Insert Districts to teachers
 INSERT INTO districts(teacher_id, districts) VALUES
@@ -129,3 +135,58 @@ INSERT INTO conversation_messages (conversation_id, messages_id)
 VALUES (3,5),
        (3,6);
 
+-- Insert Coaching
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('Mathematik', 'Unterstufe', 20.00, true, 1);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('Französisch', 'Berufsbildende_Mittlere_Schule', 25.00, true, 1);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('Rechnungswesen', 'Berufsbildende_Höhere_Schule', 30.00, true, 1);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('Rechnungswesen', 'Berufsbildende_Höhere_Schule', 10.00, true, 2);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('Rechnungswesen', 'Berufsreifeprüfung', 15.00, true, 2);
+
+INSERT into coaching(subject, level, rate, active, fk_user_id)
+values ('Rechnungswesen', 'Allgemeine_Höhere_Schule', 30.00, true, 3);
+
+
+
+-- Insert some feedbacks ---
+INSERT INTO feedback(fk_teacher_id, fk_student_id, content, title, rating, date)
+values (1, 11, 'Super duper teacher', 'Nice', 4.3, '2023-07-07');
+
+INSERT INTO feedback(fk_teacher_id, fk_student_id, content, title, rating, date)
+values (1, 12, 'Best teacher', 'Yeah', 4.3, '2023-07-06');
+
+INSERT INTO feedback(fk_teacher_id, fk_student_id, content, title, rating, date)
+values (1, 13, 'Shit teacher', 'Shit', 1.0, '2023-07-07');
+
+
+INSERT INTO message(start_coaching, end_coaching, status, fk_coaching_id, content, sender_id, fk_student_id, conversation_id, message_type)
+VALUES ('2023-07-16T12:00','2023-07-16T13:00', 'CONFIRMED', 1, 'First Appointment', 11, 11, 1, 'appointment'); -- Assuming user 1 is sending these messages
+
+INSERT INTO conversation_messages (conversation_id, messages_id)
+VALUES (1,7);
+
+INSERT INTO message(start_coaching, end_coaching, status, fk_coaching_id, content, sender_id, fk_student_id, conversation_id, message_type)
+VALUES ('2023-07-16T14:00','2023-07-16T15:00', 'CONFIRMED', 1, 'Second Appointment', 12, 12, 1, 'appointment'); -- Assuming user 1 is sending these messages
+
+INSERT INTO conversation_messages (conversation_id, messages_id)
+VALUES (1,8);
+
+INSERT INTO message(start_coaching, end_coaching, status, fk_coaching_id, content, sender_id, fk_student_id, conversation_id, message_type)
+VALUES ('2023-07-16T11:00','2023-07-16T12:13', 'CONFIRMED', 1, 'Third Appointment', 13, 13, 1, 'appointment'); -- Assuming user 1 is sending these messages
+
+INSERT INTO conversation_messages (conversation_id, messages_id)
+VALUES (1,9);
+
+INSERT INTO message(start_coaching, end_coaching, status, fk_coaching_id, content, sender_id, fk_student_id, conversation_id, message_type)
+VALUES ('2023-07-17T11:00','2023-07-17T12:13', 'CONFIRMED', 1, 'Fourth Appointment', 13, 13, 1, 'appointment'); -- Assuming user 1 is sending these messages
+
+INSERT INTO conversation_messages (conversation_id, messages_id)
+VALUES (1,10);

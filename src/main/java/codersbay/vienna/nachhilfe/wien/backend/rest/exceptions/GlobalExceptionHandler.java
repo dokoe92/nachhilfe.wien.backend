@@ -5,9 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import javax.naming.AuthenticationException;
-import java.nio.file.AccessDeniedException;
-
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -45,6 +42,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<RestError> handleUserNotAuthorizedException(UserNotAuthorizedException ex) {
         RestError restError = new RestError(ex.getMessage(), HttpStatus.FORBIDDEN.value());
         return new ResponseEntity<>(restError, HttpStatus.FORBIDDEN);
+    }
+    @ExceptionHandler(value = IllegalArgumentException.class)
+    public ResponseEntity<RestError> handleIllegalArgumentException (IllegalArgumentException ex) {
+        RestError restError = new RestError(ex.getMessage(), HttpStatus.BAD_REQUEST.value());
+        return new ResponseEntity<>(restError, HttpStatus.BAD_REQUEST);
+
     }
 
 

@@ -2,11 +2,9 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 @Entity
 @Getter
@@ -19,11 +17,11 @@ public class Appointment extends Message{
 
     @Setter
     @Column(name = "start_coaching")
-    private LocalDateTime start;
+    private ZonedDateTime start;
 
     @Setter
-    @Column(name="end_coaching")
-    private LocalDateTime end;
+    @Column(name = "end_coaching")
+    private ZonedDateTime end;
 
     @Setter
     @Column(name="status")
@@ -40,6 +38,18 @@ public class Appointment extends Message{
     @JoinColumn(name="fk_student_id")
     private Student student;
 
+    @Setter
+    @Column(name="confirmed")
+    private Boolean confirmed;
 
+    @Override
+    public int compareTo(Message other) {
+        if (other instanceof Appointment otherAppointment) {
+            return this.getStart().compareTo(otherAppointment.getStart());
+        } else {
+            // If the other object is not an AppointmentDTO, consider it "greater" for consistent ordering
+            return 1;
+        }
+    }
 
 }

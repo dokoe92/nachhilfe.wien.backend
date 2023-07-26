@@ -3,9 +3,11 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -22,6 +24,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Table(name = "application_user")
 @Getter
+@SuperBuilder
 public abstract class User implements UserDetails {
 
     public User(UserType userType) {
@@ -47,10 +50,6 @@ public abstract class User implements UserDetails {
     @Column(name="birthdate")
     private LocalDate birthdate;
 
-    @Setter
-    @Column(name="description")
-    private String description;
-
     /**
      * Sets the Profile associated with the user.
      * The @JsonManagedReference annotation is used to manage the serialization and deserialization of this relationship.
@@ -58,11 +57,12 @@ public abstract class User implements UserDetails {
     @Setter
     @OneToOne
     @JoinColumn(name="fk_profile_id", nullable = false)
-    @JsonManagedReference
+    @JsonManagedReference(value="user-profile-reference")
     private Profile profile;
 
     @Setter
     @OneToMany(mappedBy = "user")
+    @Builder.Default
     private Set<Coaching> coachings = new HashSet<>();
 
 
@@ -79,18 +79,22 @@ public abstract class User implements UserDetails {
      * **************************************************************************************************
      */
     @ManyToMany
+    @Setter
     @JoinTable(
             name = "user_conversations",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "conversation_id"))
     @JsonIgnore
+    @Builder.Default
     private Set<Conversation> conversations = new HashSet<>();
+
 
 
     // SPRING SECURITY
 
     @Setter
     @Enumerated(EnumType.STRING)
+    @Column(name="role")
     private Role role;
 
     @Override

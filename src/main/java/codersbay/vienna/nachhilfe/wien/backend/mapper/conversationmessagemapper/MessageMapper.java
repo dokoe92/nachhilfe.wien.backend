@@ -4,7 +4,6 @@ import codersbay.vienna.nachhilfe.wien.backend.dto.conversationmessagedto.Messag
 import codersbay.vienna.nachhilfe.wien.backend.model.Message;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
-import codersbay.vienna.nachhilfe.wien.backend.respository.conversationmessagerepository.ConversationRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import jakarta.persistence.Table;
 import lombok.RequiredArgsConstructor;
@@ -26,11 +25,15 @@ public class MessageMapper {
 
         MessageDTO messageDTO = new MessageDTO();
         messageDTO.setTimeStamp(message.getTimestamp());
-        messageDTO.setMessageId(message.getId());
+        messageDTO.setId(message.getId());
         messageDTO.setTitle(message.getTitle());
         messageDTO.setContent(message.getContent());
-        messageDTO.setSenderId(message.getSender().getId());
-        messageDTO.setConversationId(message.getConversation().getId());
+        if (message.getSender() != null) {
+            messageDTO.setSenderId(message.getSender().getId());
+        }
+        if (message.getConversation() != null) {
+            messageDTO.setConversationId(message.getConversation().getId());
+        }
         messageDTO.setMessageType(message.getMessageType());
 
         return messageDTO;

@@ -3,12 +3,10 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 
 @Entity
@@ -16,6 +14,8 @@ import java.util.Set;
 @Getter
 @NoArgsConstructor
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+@Builder
+@AllArgsConstructor
 public class Coaching {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +27,7 @@ public class Coaching {
     private Subject subject;
 
     @Setter
-    @Column(name="level")
+    @Column(name = "level")
     private String level;
 
     @Setter
@@ -35,14 +35,16 @@ public class Coaching {
     private Double rate;
 
     @Setter
-    @Column(name="active")
+    @Column(name = "active")
     private boolean active;
 
     @OneToMany(mappedBy = "coaching")
-    Set<Appointment> appointments = new HashSet<>();
+    @Setter
+    @Builder.Default
+    Set<Appointment> appointments = new TreeSet<>();
 
-    @ManyToOne (fetch = FetchType.LAZY)
-    @JoinColumn(name="fk_user_id")
+    @ManyToOne
+    @JoinColumn(name = "fk_user_id")
     @Setter
     private User user;
 }

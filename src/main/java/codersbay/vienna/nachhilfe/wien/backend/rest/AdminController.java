@@ -1,27 +1,32 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
+import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.UserDTO;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper.UserMapper;
 import codersbay.vienna.nachhilfe.wien.backend.model.Admin;
-import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.Student;
 import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.AdminUpdateRequest;
-import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.StudentUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.model.updaterequest.UserUpdateRequest;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotAuthorizedException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.searchobjects.UserSearch;
 import codersbay.vienna.nachhilfe.wien.backend.service.AdminService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.antlr.v4.runtime.misc.LogManager;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/admin")
 @RequiredArgsConstructor
 public class AdminController {
     private final AdminService adminService;
+    private final UserMapper userMapper;
+    private final JwtService jwtService;
 
     @GetMapping
     public ResponseEntity<List<Admin>> findAllAdmins() {
@@ -30,10 +35,19 @@ public class AdminController {
     }
 
     @PutMapping("/updateAdmin/{adminId}")
-    public ResponseEntity<Admin> updateAdmin(
+    public ResponseEntity<AdminUpdateRequest> updateAdmin(
             @PathVariable Long adminId,
-            @RequestBody AdminUpdateRequest request
+            @Valid @RequestBody AdminUpdateRequest request,
+            HttpServletRequest httpServletRequest
     ) {
+
+
+        String token = jwtService.getTokenFromHeader(httpServletRequest.getHeader("Authorization"));
+        Long userId = jwtService.extractUserId(token);
+        if (!userId.equals(adminId)) {
+            throw new UserNotAuthorizedException("User not authorized!");
+        }
+
         Admin updatedAdmin =
                 adminService.updateAdmin(adminId,
                         request.getFirstName(),
@@ -43,8 +57,53 @@ public class AdminController {
                         request.getEmail(),
                         request.isActive());
 
-        return new ResponseEntity<>(updatedAdmin, HttpStatus.OK);
+        AdminUpdateRequest asDto = new AdminUpdateRequest();
+        asDto.setFirstName(updatedAdmin.getFirstName());
+        asDto.setLastName(updatedAdmin.getLastName());
+        asDto.setDescription(updatedAdmin.getProfile().getDescription());
+        asDto.setActive(updatedAdmin.getProfile().isActive());
+        asDto.setEmail(updatedAdmin.getProfile().getEmail());
+
+        return new ResponseEntity<>(asDto, HttpStatus.OK);
     }
+
+    @PostMapping("/find-user")
+    public ResponseEntity<UserDTO> findUser(@RequestBody UserSearch userSearch) {
+        User user = adminService.findUser(userSearch);
+        UserDTO userDTO = userMapper.toDTO(user);
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/edit-user/{userId}")
+    public ResponseEntity<UserDTO> editUser (@RequestBody UserUpdateRequest updateRequest,
+                                             @PathVariable Long userId) {
+        UserDTO userDTO = userMapper.toDTO(adminService.editUser(updateRequest, userId));
+        return new ResponseEntity<>(userDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/active-inactive/{userId}")
+    public ResponseEntity<Boolean> changeActiveStatus (@PathVariable Long userId,
+                                                      @RequestParam Boolean activeStatus) {
+
+        Boolean activeStatusAfterEdit = adminService.editActiveStatus(activeStatus, userId);
+        return new ResponseEntity<>(activeStatusAfterEdit, HttpStatus.OK);
+    }
+
+    @PutMapping("/delete-image/{userId}")
+    public ResponseEntity<Boolean> deleteUserImage (@PathVariable Long userId) {
+        Boolean imageDeleted = adminService.deleteImage(userId);
+        return new ResponseEntity<>(imageDeleted, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-feedback/{feedbackId}")
+    public ResponseEntity<Boolean> deleteFeedback(@PathVariable Long feedbackId) {
+        Boolean feedbackDeleted = adminService.deleteFeedback(feedbackId);
+        return new ResponseEntity<>(feedbackDeleted, HttpStatus.NO_CONTENT);
+    }
+
+
+
+
 
     @DeleteMapping("/deleteAdmin/{adminId}")
     public ResponseEntity<String> deleteAdmin(@PathVariable Long adminId) {
@@ -77,6 +136,20 @@ public class AdminController {
         } else {
             throw new UserNotFoundException("Student not found with ID " + studentId);
         }
+    }
+
+    @PutMapping("/delete-user/{userId}")
+    public ResponseEntity<Boolean> deleteUser(@PathVariable Long userId, HttpServletRequest request) {
+        boolean deleted = adminService.softDeleteUser(userId);
+        String token = jwtService.getTokenFromHeader(request.getHeader("Authorization"));
+        Long adminId = jwtService.extractUserId(token);
+        if (userId.equals(adminId)) {
+            throw new IllegalArgumentException ("Admin cannot delete himself!");
+        }
+        if (deleted) {
+            return new ResponseEntity<>(deleted, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(deleted, HttpStatus.NOT_FOUND);
     }
 }
 

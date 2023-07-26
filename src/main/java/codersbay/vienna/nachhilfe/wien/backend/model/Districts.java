@@ -36,6 +36,11 @@ public enum Districts {
         this.name = name;
     }
 
+    /*@JsonValue
+    public String toValue() {
+        return postCode + ", " + name;
+    }*/
+
 
 }
 

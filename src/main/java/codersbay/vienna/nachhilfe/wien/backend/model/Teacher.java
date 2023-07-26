@@ -2,8 +2,10 @@ package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +13,7 @@ import java.util.Set;
 @Entity
 @DiscriminatorValue(value = "teacher")
 @Getter
+@SuperBuilder
 public class Teacher extends User {
 
     public Teacher() {
@@ -20,8 +23,9 @@ public class Teacher extends User {
     @Getter
     @Setter
     @OneToMany(mappedBy = "teacher")
-    @JsonManagedReference
+    @JsonManagedReference(value="teacher-feedbacks-reference")
     private Set<Feedback> feedbacks = new HashSet<>();
+
 
     @Getter
     @Setter
@@ -29,6 +33,7 @@ public class Teacher extends User {
     @CollectionTable(name = "districts",
             joinColumns = @JoinColumn(name = "teacher_id"))
     @Enumerated(EnumType.STRING)
+    @Builder.Default
     private Set<Districts> districts = new HashSet<>();
 
 

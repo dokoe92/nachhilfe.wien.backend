@@ -2,10 +2,16 @@ package codersbay.vienna.nachhilfe.wien.backend.mapper.usermapper;
 
 import codersbay.vienna.nachhilfe.wien.backend.dto.userdto.ProfileDTO;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
+import codersbay.vienna.nachhilfe.wien.backend.model.Teacher;
+import codersbay.vienna.nachhilfe.wien.backend.respository.TeacherRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ProfileMapper {
+
+    private final TeacherRepository teacherRepository;
 
     public Profile toEntity(ProfileDTO profileDTO) {
         if (profileDTO == null) {
@@ -16,8 +22,8 @@ public class ProfileMapper {
         profile.setPassword(profileDTO.getPassword());
         profile.setEmail(profileDTO.getEmail());
         profile.setDescription(profileDTO.getDescription());
+        profile.setImageBase64(profileDTO.getImageBase64());
         profile.setActive(profileDTO.getActive());
-        profile.setAverageRatingScore(profileDTO.getAverageRatingScore());
 
         return profile;
     }
@@ -31,7 +37,10 @@ public class ProfileMapper {
         profileDTO.setEmail(profile.getEmail());
         profileDTO.setDescription(profile.getDescription());
         profileDTO.setActive(profile.isActive());
-        profileDTO.setAverageRatingScore(profile.getAverageRatingScore());
+        profileDTO.setImageBase64(profile.getImageBase64());
+        if (profile.getUser() instanceof Teacher) {
+            profileDTO.setAverageRatingScore(teacherRepository.findAverageRating(profile.getUser().getId()));
+        }
 
         return profileDTO;
     }

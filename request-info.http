@@ -1,0 +1,3 @@
+### Get User Info
+POST http://localhost:8080/auth/info
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEsInN1YiI6ImpvaG4wMUBleGFtcGxlLmNvbSIsImlhdCI6MTY4Nzk3NDYzNiwiZXhwIjoxNjg3OTc2MDc2fQ.I20cmqB7rUdWDV7OKbZJYks8JdVjeUkKmgZbQlgBlP0

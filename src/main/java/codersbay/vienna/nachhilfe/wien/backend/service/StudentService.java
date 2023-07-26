@@ -1,16 +1,17 @@
 package codersbay.vienna.nachhilfe.wien.backend.service;
 
-import codersbay.vienna.nachhilfe.wien.backend.model.*;
+import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
+import codersbay.vienna.nachhilfe.wien.backend.model.Student;
+import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.StudentRepository;
-import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
+import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
-@Component
+@Service
 @RequiredArgsConstructor
 public class StudentService {
 
@@ -21,22 +22,35 @@ public class StudentService {
                 .orElseThrow(()-> new ResourceNotFoundException("Student not found!"));
     }
 
-    public Student updateStudent(Long studentId, String firstName, String lastName, String description, String password, String email, boolean active) {
+    public Student updateStudent(Long studentId, String firstName, String lastName, String description, String password, boolean active) {
         Optional<Student> studentOptional = studentRepository.findById(studentId);
         if (studentOptional.isPresent()) {
             Student existingStudent = studentOptional.get();
 
             User user = existingStudent.getProfile().getUser();
-            user.setFirstName(firstName);
-            user.setLastName(lastName);
+
+            if (firstName != null) {
+                user.setFirstName(firstName);
+            }
+
+            if (lastName != null) {
+                user.setLastName(lastName);
+            }
 
             Profile profile = existingStudent.getProfile();
 
             //Update the properties of the existing teacher with the updated values
-            profile.setActive(active);
-            profile.setDescription(description);
-            profile.setPassword(password);
-            profile.setEmail(email);
+            if (active) {
+                profile.setActive(true);
+            }
+
+            if (description != null) {
+                profile.setDescription(description);
+            }
+
+            if (password != null) {
+                profile.setPassword(password);
+            }
 
             studentRepository.save(existingStudent);
 

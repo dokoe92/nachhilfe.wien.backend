@@ -1,27 +1,27 @@
 package codersbay.vienna.nachhilfe.wien.backend.rest;
 
 import codersbay.vienna.nachhilfe.wien.backend.config.security.JwtService;
+import codersbay.vienna.nachhilfe.wien.backend.dto.admindto.AdminDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthRequest;
+import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.dto.studentdto.StudentCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.dto.teacherdto.TeacherCreationDTO;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.StudentMapper;
+import codersbay.vienna.nachhilfe.wien.backend.mapper.adminmapper.AdminMapper;
 import codersbay.vienna.nachhilfe.wien.backend.mapper.teachermapper.TeacherMapper;
-import codersbay.vienna.nachhilfe.wien.backend.dto.auth.AuthResponse;
 import codersbay.vienna.nachhilfe.wien.backend.model.Profile;
-import codersbay.vienna.nachhilfe.wien.backend.model.User;
 import codersbay.vienna.nachhilfe.wien.backend.respository.ProfileRepository;
 import codersbay.vienna.nachhilfe.wien.backend.respository.UserRepository;
 import codersbay.vienna.nachhilfe.wien.backend.rest.exceptions.ResourceNotFoundException;
 import codersbay.vienna.nachhilfe.wien.backend.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.file.AccessDeniedException;
 
 @RestController
 @RequestMapping("/auth")
@@ -35,6 +35,7 @@ public class AuthController {
     private final JwtService jwtService;
     private final UserRepository userRepository;
     private final ProfileRepository profileRepository;
+    private final AdminMapper adminMapper;
 
     /**
      * Creates a new student with a profile.
@@ -47,7 +48,7 @@ public class AuthController {
     @Operation(
             description = "Create a student and link a profile"
     )
-    public ResponseEntity<AuthResponse> createStudent(@RequestBody StudentCreationDTO studentDTO) {
+    public ResponseEntity<AuthResponse> createStudent(@Valid @RequestBody StudentCreationDTO studentDTO) {
         AuthResponse auth = authService.createStudentWithProfile(studentMapper.toEntity(studentDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }
@@ -62,8 +63,17 @@ public class AuthController {
     @Operation(
             description = "Create a teacher and link a profile"
     )
-    public ResponseEntity<AuthResponse> createTeacher(@RequestBody TeacherCreationDTO teacherDTO) {
+    public ResponseEntity<AuthResponse> createTeacher(@Valid @RequestBody TeacherCreationDTO teacherDTO) {
         AuthResponse auth = authService.createTeacherWithProfile(teacherMapper.toEntity(teacherDTO));
+        return new ResponseEntity<>(auth, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/create-admin")
+    @Operation(
+            description = "Create an admin and link a profile"
+    )
+    public ResponseEntity<AuthResponse> createAdmin(@Valid @RequestBody AdminDTO adminDTO) {
+        AuthResponse auth = authService.createAdminWithProfile(adminMapper.toEntity(adminDTO));
         return new ResponseEntity<>(auth, HttpStatus.CREATED);
     }
 
@@ -71,12 +81,13 @@ public class AuthController {
     @Operation(
             description = "Login via email and password"
     )
-    public ResponseEntity<AuthResponse> authenticate(@RequestBody AuthRequest authRequest) {
+    public ResponseEntity<AuthResponse> authenticate(@Valid @RequestBody AuthRequest authRequest) {
         AuthResponse authResponse = authService.authenticate(authRequest);
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
 
     @PostMapping("/info")
+
     @Operation(
             description = "Send a Bearer Token and get all personal user information"
     )

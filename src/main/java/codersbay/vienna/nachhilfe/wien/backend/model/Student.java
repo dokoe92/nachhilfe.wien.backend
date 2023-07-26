@@ -1,29 +1,38 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @DiscriminatorValue(value = "student")
 @Getter
+@SuperBuilder
 public class Student extends User {
 
     public Student() {
         super(UserType.STUDENT);
     }
 
-    @Getter
     @Setter
     @OneToMany(mappedBy = "student")
-    @JsonBackReference
+    @JsonManagedReference(value="student-feedbacks-reference")
+    @Builder.Default
     private Set<Feedback> feedbacks = new HashSet<>();
+
+    @Setter
+    @OneToMany(mappedBy = "student")
+    @Builder.Default
+    private Set<Appointment> appointments = new TreeSet<>();
 
     public void addFeedback(Feedback feedback) {
         if (feedback == null) {
@@ -31,6 +40,7 @@ public class Student extends User {
         }
         this.getFeedbacks().add(feedback);
     }
+
 
 
 }

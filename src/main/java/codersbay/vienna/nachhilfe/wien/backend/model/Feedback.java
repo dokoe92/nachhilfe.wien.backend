@@ -1,7 +1,6 @@
 package codersbay.vienna.nachhilfe.wien.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,13 +20,13 @@ public class Feedback {
     @ManyToOne
     @JoinColumn(name="fk_teacher_id")
     @Setter
-    @JsonBackReference
+    @JsonBackReference(value="teacher-feedbacks-reference")
     private Teacher teacher;
 
     @ManyToOne
     @JoinColumn(name="fk_student_id")
     @Setter
-    @JsonBackReference
+    @JsonBackReference(value="student-feedbacks-reference")
     private Student student;
 
     @Setter
