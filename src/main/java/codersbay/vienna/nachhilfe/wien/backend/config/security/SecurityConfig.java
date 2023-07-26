@@ -32,12 +32,14 @@ public class SecurityConfig{
                 .csrf(csrf -> csrf.disable())
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
+                        /*
                         .requestMatchers("/swagger-ui/**").permitAll()
                         .requestMatchers("/v3/api-docs").permitAll()
                         .requestMatchers("/v3/api-docs/swagger-config").permitAll()
                         .requestMatchers(toH2Console()).permitAll()
                         .requestMatchers("h2-console/**").permitAll()
 
+                         */
 
                         .requestMatchers("/auth").permitAll()
                         .requestMatchers("/auth/get-auth").permitAll()

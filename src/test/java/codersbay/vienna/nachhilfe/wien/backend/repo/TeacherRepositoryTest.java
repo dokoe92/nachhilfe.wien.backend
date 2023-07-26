@@ -44,7 +44,7 @@ public class TeacherRepositoryTest {
         t.setProfile(p);
         t.setDistricts(Set.of(Districts.DISTRICT_1010, Districts.DISTRICT_1030, Districts.DISTRICT_1040));
         c.setUser(t);
-        c.setSubject(Subject.DEUTSCH);
+        c.setSubject(Subject.Deutsch);
         c.setRate(12.00);
         p.setActive(true);
 
@@ -57,7 +57,7 @@ public class TeacherRepositoryTest {
         assertNotNull(persistedTeacher);
 
         List<Districts> districts = List.of(Districts.DISTRICT_1040, Districts.DISTRICT_1050);
-        Subject subject = Subject.DEUTSCH;
+        Subject subject = Subject.Deutsch;
         Long min = 5L;
         Long max = 12L;
 
@@ -83,7 +83,7 @@ public class TeacherRepositoryTest {
         assertFalse(teachers.isEmpty());
 
         // search by district and subject - fail
-        tso.setSubject(Subject.ENGLISCH);
+        tso.setSubject(Subject.Englisch);
         teachers = teacherRepository.filterTeachers(tso);
         assertTrue(teachers.isEmpty());
 
@@ -120,7 +120,7 @@ public class TeacherRepositoryTest {
         t.setProfile(p);
         t.setDistricts(Set.of(Districts.DISTRICT_1010, Districts.DISTRICT_1030, Districts.DISTRICT_1040));
         c.setUser(t);
-        c.setSubject(Subject.DEUTSCH);
+        c.setSubject(Subject.Deutsch);
         c.setRate(12.00);
         coachingRepository.save(c);
         t.setCoachings(Set.of(c));
@@ -136,7 +136,7 @@ public class TeacherRepositoryTest {
         t2.setProfile(p2);
         t2.setDistricts(Set.of(Districts.DISTRICT_1030, Districts.DISTRICT_1040));
         c2.setUser(t2);
-        c2.setSubject(Subject.DEUTSCH);
+        c2.setSubject(Subject.Deutsch);
         c2.setRate(12.00);
         coachingRepository.save(c2);
         t2.setCoachings(Set.of(c2));
@@ -152,7 +152,7 @@ public class TeacherRepositoryTest {
         assertTrue(teachers.get(0).getProfile().isActive()); // The returned teacher should be active
 
         // search by subject
-        tso.setSubject(Subject.DEUTSCH);
+        tso.setSubject(Subject.Deutsch);
         teachers = teacherRepository.filterTeachers(tso);
         assertFalse(teachers.isEmpty());
         assertEquals(1, teachers.size()); // There should still be only one teacher, because the inactive teacher should not be returned even if the subject matches
