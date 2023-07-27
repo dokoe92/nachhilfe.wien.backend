@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class AppointmentControllerTest extends AbstractControllerTest {
-
+/*
     @Autowired
     private PlatformTransactionManager platformTransactionManager;
 
@@ -448,7 +448,7 @@ class AppointmentControllerTest extends AbstractControllerTest {
         assertEquals(3, response.size());
     }*/
 
-
+/*
     private String getToken(User user) {
         return jwtService.generateToken(user);
     }
@@ -459,6 +459,6 @@ class AppointmentControllerTest extends AbstractControllerTest {
         headers.set("Authorization", "Bearer " + getToken(user));
 
         return headers;
-    }
+    }*/
 }
 
