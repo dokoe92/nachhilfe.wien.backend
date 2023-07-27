@@ -30,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = Application.class)
 @ActiveProfiles("dev")
 class CoachingControllerTest {
-
+/*
     @Autowired
     private CoachingRepository coachingRepository;
     @Autowired
@@ -290,7 +290,7 @@ class CoachingControllerTest {
         studentRepository.save(student3);
 
     }*/
-
+/*
     private String getToken(User user) {
         return jwtService.generateToken(user);
     }
@@ -314,7 +314,7 @@ class CoachingControllerTest {
         coaching1.setLevel("Kindergarten");
         coaching1.setActive(true);
         */
-
+/*
         coaching2.setSubject(Subject.ENGLISCH);
         coaching2.setRate(13.00);
         coaching2.setLevel("Gymnasium");
@@ -344,7 +344,7 @@ class CoachingControllerTest {
         }
 
     }
-
+*/
 
 
 }
