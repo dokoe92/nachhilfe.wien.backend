@@ -28,7 +28,8 @@ public class Coaching {
 
     @Setter
     @Column(name = "level")
-    private String level;
+    @Enumerated(EnumType.STRING)
+    private Level level;
 
     @Setter
     @Column(name = "rate")

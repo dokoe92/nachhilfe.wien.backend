@@ -26,7 +26,7 @@ public class Profile {
     private String email;
 
     @Setter
-    @Column(name = "picture", columnDefinition = "TEXT")
+    @Column(name = "picture", columnDefinition = "MEDIUMTEXT")
     private String imageBase64;
 
     @Setter
