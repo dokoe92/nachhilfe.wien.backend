@@ -59,7 +59,7 @@ INSERT into profile(password, email, picture, description, active, average_ratin
     values ('$2a$10$VlOOwBkaXcGcK2mkvOsD9O5WXBmABmioPInhi73QUpz.3UMUWwwaO', 'admin01@example.com', null, 'Control everything!', true, null, false);
 
 INSERT INTO application_user(user_type, first_name, last_name, birthdate, fk_profile_id, role)
-    values ('admin', 'Der', 'Administrator', null, '21', 'ROLE_ADMIN');
+    values ('admin', 'Administrator', 'Administrator', null, '21', 'ROLE_ADMIN');
 
 -- Insert Districts to teachers
 INSERT INTO districts(teacher_id, districts) VALUES
@@ -140,19 +140,19 @@ INSERT into coaching(subject, level, rate, active, fk_user_id)
 values ('Mathematik', 'Unterstufe', 20.00, true, 1);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('Französisch', 'Berufsbildende_Mittlere_Schule', 25.00, true, 1);
+values ('Französisch', 'Universität', 25.00, true, 1);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('Rechnungswesen', 'Berufsbildende_Höhere_Schule', 30.00, true, 1);
+values ('Rechnungswesen', 'Universität', 30.00, true, 1);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('Rechnungswesen', 'Berufsbildende_Höhere_Schule', 10.00, true, 2);
+values ('Rechnungswesen', 'Universität', 10.00, true, 2);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('Rechnungswesen', 'Berufsreifeprüfung', 15.00, true, 2);
+values ('Rechnungswesen', 'Oberstufe', 15.00, true, 2);
 
 INSERT into coaching(subject, level, rate, active, fk_user_id)
-values ('Rechnungswesen', 'Allgemeine_Höhere_Schule', 30.00, true, 3);
+values ('Rechnungswesen', 'Unterstufe', 30.00, true, 3);
 
 
 

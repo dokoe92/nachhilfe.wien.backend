@@ -31,13 +31,10 @@ public class AppointmentService {
     private final AppointmentRepository appointmentRepository;
     private final StudentRepository studentRepository;
 
-
     @Transactional
     public AppointmentDTO sendAppointment(AppointmentDTO appointmentDTO, Long conversationId, Long coachingId, Long studentId) {
         Conversation conversation = conversationRepository.findByIdWithUsers(conversationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Conversation not found!"));
-
-
 
         Coaching coaching = coachingRepository.findById(coachingId)
                 .orElseThrow(() -> new ResourceNotFoundException("Coaching not found!"));
@@ -45,15 +42,11 @@ public class AppointmentService {
         User user = userRepository.findById(studentId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found!"));
 
-        /*
-        if (appointmentRepository.existsByStudentIdAndCoachingId(studentId, coachingId)) {
-            throw new DuplicatedException("User already has an appointment for this coaching!");
-        }*/
-
         if (user.getConversations() == null) {
             throw new ResourceNotFoundException("User dont have a conversation");
         }
 
+        // Check if user has conversation where it should be sent to
         boolean found = false;
         for (Conversation conv : user.getConversations()) {
             if (conv.getId().equals(conversationId)) {
@@ -65,6 +58,8 @@ public class AppointmentService {
             throw  new UserNotAuthorizedException("User cant send to this conversation");
         }
 
+
+        // Check if the teacher in the conversation has owns the coaching
         Set<User> conversationUsers = conversation.getUsers();
 
         boolean teacherHasCoaching = false;
@@ -72,7 +67,7 @@ public class AppointmentService {
             for (User checkUser : conversationUsers) {
                 if (checkUser instanceof Teacher) {
                     if (checkUser.getCoachings() == null) {
-                        throw new UserNotAuthorizedException("This teacher doesnt own the appointment");
+                        throw new UserNotAuthorizedException("This teacher doesnt own the coaching");
                     } else {
                         for (Coaching checkCoaching : checkUser.getCoachings()) {
                             if (checkCoaching.getId().equals(coachingId)) {
@@ -88,6 +83,7 @@ public class AppointmentService {
             throw new UserNotFoundException("The teacher of the mentioned conversation doesnt own this coaching!");
         }
 
+        // Appointment must be in the future
         ZonedDateTime currentDateTime = ZonedDateTime.now(ZoneId.of("Europe/Vienna"));
         if (appointmentDTO.getStart().withZoneSameInstant(ZoneId.of("Europe/Vienna")).isBefore(currentDateTime)) {
             throw new IllegalArgumentException("Appointment start before current time");
@@ -133,6 +129,7 @@ public class AppointmentService {
         appointmentDTOCreated.setConfirmed(false);
         return appointmentDTOCreated;
     }
+
 
     @Transactional(readOnly = true)
     public Set<AppointmentDTO> getAllAppointments(Long userId) {
