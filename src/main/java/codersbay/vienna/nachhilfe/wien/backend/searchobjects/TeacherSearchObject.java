@@ -22,7 +22,7 @@ public class TeacherSearchObject {
 
     public boolean isLevelSet() {return this.level != null;}
 
-    public boolean isRatingSet() {return this.rating != null;}
+    public boolean isRatingSet() {return this.rating > 0;}
 
     public boolean isMinRateSet() {
         return this.minRate != null;
