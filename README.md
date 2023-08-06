@@ -55,7 +55,7 @@ https://github.com/ClemensPilz/nachhilfe.wien.frontend
 ## Documentation
 
 For the Endpoint documentation you can look up the API paths in our Swagger documentation.   
-Just run the application insert the following link in your browser:  
+Just run the application and insert the following link in your browser:  
 
 http://localhost:8080/swagger-ui
 
