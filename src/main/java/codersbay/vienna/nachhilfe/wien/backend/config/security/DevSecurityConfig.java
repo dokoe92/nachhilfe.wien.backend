@@ -21,8 +21,8 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
-@Profile("!dev")
-public class SecurityConfig{
+@Profile("dev")
+public class DevSecurityConfig{
 
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
@@ -34,6 +34,13 @@ public class SecurityConfig{
                 .csrf(csrf -> csrf.disable())
                 .cors(withDefaults())
                 .authorizeHttpRequests(auth -> auth
+
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs").permitAll()
+                        .requestMatchers("/v3/api-docs/swagger-config").permitAll()
+                        .requestMatchers(toH2Console()).permitAll()
+                        .requestMatchers("h2-console/**").permitAll()
+
 
 
                         .requestMatchers("/auth").permitAll()
@@ -87,7 +94,7 @@ public class SecurityConfig{
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173", "http://127.0.0.1:5173", "http://localhost:5174", "https://honest-blow-production.up.railway.app", "https://nachhilfe-wien.netlify.app"
- ));
+        ));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
