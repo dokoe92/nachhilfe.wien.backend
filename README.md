@@ -37,9 +37,12 @@ Install dependencies and run the app in dev mode so the h2-database will be used
 ```bash
   mvn spring-boot:run -Dspring-boot.run.profiles=dev
 
-  if it is not working try:
-  & 'mvn' 'spring-boot:run' '-Dspring-boot.run.profiles=dev'
+```
 
+  If it is not working try:
+```bash
+    & 'mvn' 'spring-boot:run' '-Dspring-boot.run.profiles=dev'
+    
 ```
 
 ## Install Frontend
@@ -57,10 +60,3 @@ Just run the application insert the following link in your browser:
 http://localhost:8080/swagger-ui
 
 If the links is not working please check the port where you are running the application.
-
-
-
-
-
-
-
